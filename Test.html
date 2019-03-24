@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Test</title>
+    <style>
+        .body { width:780px; margin:1px auto; }
+    </style>
+    <script src="./de1.7/de-ext.js?v"></script>
+    <script src="./de1.7/de-types.js?v"></script>
+    <script src="./de1.7/de.js?v"></script>
+    <script>
+		function btnTest_click(evt) {
+			////:
+            $e('msg').innerHTML = 'btnTest_click';
+		}
+
+        document.ready(function () {
+            $e('btnTest').bind('click', btnTest_click);
+        });
+    </script>
+
+</head>
+<body>
+    <div class="body">
+        <h2>Test de1.7</h2>
+        <div>
+            <button id='btnTest'>btnTest</button>
+			<p id='msg'></p>
+        </div>
+    </div>
+</body>
+</html>
