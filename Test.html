@@ -7,13 +7,11 @@
     <style>
         .body { width:780px; margin:1px auto; }
     </style>
-    <script src="./de1.7/de-ext.js?v"></script>
-    <script src="./de1.7/de-types.js?v"></script>
     <script src="./de1.7/de.js?v"></script>
     <script>
-		function btnTest_click(evt) {
-			////:
-            $e('msg').innerHTML = 'btnTest_click';
+        function btnTest_click(evt) {
+            $e('sel').val(12);
+            $e('msg').innerHTML = 'msg=' + $e('sel').value;
 		}
 
         document.ready(function () {
@@ -26,6 +24,11 @@
     <div class="body">
         <h2>Test de1.7</h2>
         <div>
+            <select id="sel">
+                <option value="10">AA</option>
+                <option value="11">BB</option>
+                <option value="12">CC</option>
+            </select>
             <button id='btnTest'>btnTest</button>
 			<p id='msg'></p>
         </div>

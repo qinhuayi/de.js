@@ -1,3 +1,9 @@
+/// de.js ver1.7 (2019-03-27)
+///   1. Puhlish.
+/// de.js ver1.6b (2018-07-11)
+///   1. Fix two bugs in Date.fromString().
+///   2. Add String.format(...) function.
+///   3. Add de.parent(specifies) funtion.
 /// de.js ver1.6 (2016-11-19)
 /// ver 1.6 {2016-11-19}
 ///   1. Add $t(specifies) and $tags(specifies), equal to $e(document.documentElement).tags(specifies).
@@ -33,6 +39,18 @@ String.prototype.trim = function () {
     var me = this,
         me = me.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
     return me;
+};
+String.prototype.format = function () {
+    var me = this,
+        formatMe = me.indexOf('{0}') >= 0;
+    if (arguments.length > 0) {
+        var format = formatMe ? me : arguments[0];
+        for (var i = 0; i < arguments.length - (formatMe ? 0 : 1); i++) {
+            format = format.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i + (formatMe ? 0 : 1)]);
+        }
+        return format;
+    }
+    return null;
 };
 Array.prototype.each = function (fn) {
     var me = this;
@@ -426,23 +444,22 @@ Date.prototype.diff = function (part, date) {
             };
             return elements;
         },
-        _tags = function (e, specifies) {
-            var elements = [],
-                createReplacement = function () {
-                    var randomChars = function (prefix) {
-                        return prefix + Math.floor(Math.random() * 100000);
-                    };
-                    return {
-                        insideComma: randomChars('@insideComma'),
-                        outsideComma: randomChars('@outsideComma'),
-                        slash: randomChars('@slash'),
-                        backSlash: randomChars('@backSlash'),
-                        leftSquareBracket: randomChars('@leftSquareBracket'),
-                        rightSquareBracket: randomChars('@rightSquareBracket'),
-                        singleQuotes: randomChars('@singleQuotes'),
-                        doubleQuotes: randomChars('@doubleQuotes')
-                    }
-                },
+        _examor = function (specifies) {
+            var createReplacement = function () {
+                var randomChars = function (prefix) {
+                    return prefix + Math.floor(Math.random() * 100000);
+                };
+                return {
+                    insideComma: randomChars('@insideComma'),
+                    outsideComma: randomChars('@outsideComma'),
+                    slash: randomChars('@slash'),
+                    backSlash: randomChars('@backSlash'),
+                    leftSquareBracket: randomChars('@leftSquareBracket'),
+                    rightSquareBracket: randomChars('@rightSquareBracket'),
+                    singleQuotes: randomChars('@singleQuotes'),
+                    doubleQuotes: randomChars('@doubleQuotes')
+                }
+            },
                 rep = createReplacement(),
                 replaceSafeExpression = function (expr) {
                     var matchs = expr.match(/('[^']+')|("[^"]+")/g);
@@ -468,29 +485,6 @@ Date.prototype.diff = function (part, date) {
                     return saveExpr.replace(reg(rep.insideComma), ',').replace(reg(rep.outsideComma), ',').replace(rep.slash, '\\').replace(rep.backSlash, '/').replace(reg(rep.leftSquareBracket), '[').replace(reg(rep.rightSquareBracket), ']').replace(reg(rep.singleQuotes), "'").replace(reg(rep.doubleQuotes), '"');
                 },
                 safeSpecifies = replaceSafeExpression(specifies).split(','),
-                getChildElements = function (e, tagName) {
-                    var arr = [];
-                    for (var i = 0; i < e.childNodes.length; i++) {
-                        !!e.childNodes[i].tagName && e.childNodes[i].tagName.toUpperCase() == tagName.toUpperCase() && arr.push(e.childNodes[i]);
-                    }
-                    return arr;
-                },
-                getLevelElements = function (e, lspec) {
-                    var results = [];
-                    if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?$/ig.test(lspec.trim())) {
-                        var deep = RegExp.$1.charAt(0) == '\\',
-                            tagName = deep ? RegExp.$1.substring(1) : RegExp.$1,
-                            className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
-                            express = RegExp.$3,
-                            arr = deep ? e.getElementsByTagName(tagName.toUpperCase()) : getChildElements(e, tagName);
-                        for (var i = 0; i < arr.length; i++) {
-                            if ((!className || examClass(arr[i], className)) && (!express || examAttrs(arr[i], express))) {
-                                results.push(_de(arr[i]));
-                            }
-                        }
-                    }
-                    return results;
-                },
                 examClass = function (e, name) {
                     return (' ' + e.className + ' ').indexOf(' ' + name + ' ') >= 0;
                 },
@@ -538,6 +532,35 @@ Date.prototype.diff = function (part, date) {
                         pass = pass && examAttr(e, expr.trim());
                     });
                     return pass;
+                };
+            return { examClass: examClass, examAttrs: examAttrs, safeSpecifies: safeSpecifies };
+        },
+        _tags = function (e, specifies) {
+            var elements = [],
+                examor = new _examor(specifies),
+                safeSpecifies = examor.safeSpecifies,
+                getChildElements = function (e, tagName) {
+                    var arr = [];
+                    for (var i = 0; i < e.childNodes.length; i++) {
+                        !!e.childNodes[i].tagName && e.childNodes[i].tagName.toUpperCase() == tagName.toUpperCase() && arr.push(e.childNodes[i]);
+                    }
+                    return arr;
+                },
+                getLevelElements = function (e, lspec) {
+                    var results = [];
+                    if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?$/ig.test(lspec.trim())) {
+                        var deep = RegExp.$1.charAt(0) == '\\',
+                            tagName = deep ? RegExp.$1.substring(1) : RegExp.$1,
+                            className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
+                            express = RegExp.$3,
+                            arr = deep ? e.getElementsByTagName(tagName.toUpperCase()) : getChildElements(e, tagName);
+                        for (var i = 0; i < arr.length; i++) {
+                            if ((!className || examor.examClass(arr[i], className)) && (!express || examor.examAttrs(arr[i], express))) {
+                                results.push(_de(arr[i]));
+                            }
+                        }
+                    }
+                    return results;
                 };
             safeSpecifies.each(function (index, specs) {
                 var parentNodes = [e],
@@ -634,16 +657,16 @@ Date.prototype.diff = function (part, date) {
             };
             e.show = function () {
                 return showHide(e, true);
-            },
-                e.hide = function () {
-                    return showHide(e, false);
-                },
-                e.removeClass = function (name) {
-                    if (typeof (name) == "string") {
-                        e.className = (" " + e.className + " ").replace(" " + name.trim() + " ", " ").trim();
-                    }
-                    return e;
-                };
+            };
+            e.hide = function () {
+                return showHide(e, false);
+            };
+            e.removeClass = function (name) {
+                if (typeof (name) == "string") {
+                    e.className = (" " + e.className + " ").replace(" " + name.trim() + " ", " ").trim();
+                }
+                return e;
+            };
             e.addClass = function (name) {
                 if (typeof (name) == "string") {
                     e.removeClass(e, name);
@@ -675,9 +698,41 @@ Date.prototype.diff = function (part, date) {
                 }
                 return e;
             };
+            e.parent = function (specifies) {
+                var node = e,
+                    examor = new _examor(specifies),
+                    examOne = function (e, spec) {
+                        if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?$/ig.test(spec.trim())) {
+                            var deep = RegExp.$1.charAt(0) == '\\',
+                                tagName = deep ? RegExp.$1.substring(1) : RegExp.$1,
+                                className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
+                                express = RegExp.$3;
+                            if ((!tagName || e.tagName === tagName.toUpperCase()) && (!className || examor.examClass(e, className)) && (!express || examor.examAttrs(e, express))) {
+                                return true;
+                            }
+                        }
+                        return null;
+                    },
+                    exam = function (e, specs) {
+                        for (var i = 0; i < specs.length; i++) {
+                            if (examOne(e, specs[i])) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    };
+                while (!!node && !!node.tagName && !exam(node, examor.safeSpecifies)) {
+                    node = node.parentNode || node.parentElement;
+                }
+                return !!node && node.tagName === tagName ? _de(node) : null;
+            };
             e.tags = function (specifies) {
                 return _tags(e, specifies);
             };
+            //扩展de方法 1.6b
+            if (typeof $$.extends === 'object' & typeof $$.extends[e.tagName] === 'function') {
+                $$.extends[e.tagName](e);
+            }
             e._de = true;
             return e;
         },
@@ -924,6 +979,7 @@ Date.prototype.diff = function (part, date) {
         htmlEncode: _htmlEncode,
         htmlDecode: _htmlDecode,
         url2Object: _url2Object,
+        extends: {}, //扩展de方法 1.6b
         ajax: _ajax
     };
     document.path = _url2Object(document.location.href);
