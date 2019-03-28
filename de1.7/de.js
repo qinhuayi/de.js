@@ -1,9 +1,10 @@
-/// de.js ver1.7 (2019-03-27)
+/// de.js ver1.7 (2019-03-2X)
 ///   1. Puhlish.
-/// de.js ver1.6b (2018-07-11)
+/// de.js ver1.6b (2018-07-31)
 ///   1. Fix two bugs in Date.fromString().
 ///   2. Add String.format(...) function.
 ///   3. Add de.parent(specifies) funtion.
+///   4. Add Array.forEach() and Array.remove() functions.
 /// de.js ver1.6 (2016-11-19)
 /// ver 1.6 {2016-11-19}
 ///   1. Add $t(specifies) and $tags(specifies), equal to $e(document.documentElement).tags(specifies).
@@ -317,6 +318,9 @@ Date.prototype.diff = function (part, date) {
 
 (function (window, document, undefined) {
     var readyList = [],
+        trim = function (str) {
+            return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
+        },
         attr = function (e, name, value) {
             if (typeof (name) == "string") {
                 if (value !== undefined) {
@@ -464,17 +468,19 @@ Date.prototype.diff = function (part, date) {
                 replaceSafeExpression = function (expr) {
                     var matchs = expr.match(/('[^']+')|("[^"]+")/g);
                     if (matchs) {
-                        matchs.each(function (i, m) {
-                            var str = m.substr(1, m.length - 2).replace(/\,/g, rep.insideComma).replace(/\\/g, rep.slash).replace(/\//g, rep.backSlash).replace(/\[/g, rep.leftSquareBracket).replace(/\]/g, rep.rightSquareBracket).replace(/'/g, rep.singleQuotes).replace(/"/g, rep.doubleQuotes);
+                        for (var i = 0; i < matchs.length; i++) {
+                            var m = matchs[i],
+                                str = m.substr(1, m.length - 2).replace(/\,/g, rep.insideComma).replace(/\\/g, rep.slash).replace(/\//g, rep.backSlash).replace(/\[/g, rep.leftSquareBracket).replace(/\]/g, rep.rightSquareBracket).replace(/'/g, rep.singleQuotes).replace(/"/g, rep.doubleQuotes);
                             expr = expr.replace(m, str);
-                        });
+                        }
                     }
                     matchs = expr.match(/\[([^\]]+)\]/g);
                     if (matchs) {
-                        matchs.each(function (i, m) {
-                            var str = m.replace(/\,/g, rep.outsideComma);
+                        for (var i = 0; i < matchs.length; i++) {
+                            var m = matchs[i],
+                                str = m.replace(/\,/g, rep.outsideComma);
                             expr = expr.replace(m, str);
-                        });
+                        }
                     }
                     return expr;
                 },
@@ -528,9 +534,9 @@ Date.prototype.diff = function (part, date) {
                     exprss = exprss.substr(1, exprss.length - 2);
                     var pass = true,
                         exprs = exprss.indexOf(rep.outsideComma) >= 0 ? exprss.split(rep.outsideComma) : exprss.split(',');
-                    exprs.each(function (i, expr) {
-                        pass = pass && examAttr(e, expr.trim());
-                    });
+                    for (var i = 0; i < exprs.length; i++) {
+                        pass = pass && examAttr(e, trim(exprs[i]));
+                    }
                     return pass;
                 };
             return { examClass: examClass, examAttrs: examAttrs, safeSpecifies: safeSpecifies };
@@ -548,7 +554,7 @@ Date.prototype.diff = function (part, date) {
                 },
                 getLevelElements = function (e, lspec) {
                     var results = [];
-                    if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?$/ig.test(lspec.trim())) {
+                    if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?$/ig.test(trim(lspec))) {
                         var deep = RegExp.$1.charAt(0) == '\\',
                             tagName = deep ? RegExp.$1.substring(1) : RegExp.$1,
                             className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
@@ -562,10 +568,10 @@ Date.prototype.diff = function (part, date) {
                     }
                     return results;
                 };
-            safeSpecifies.each(function (index, specs) {
+            for (var index = 0; index < safeSpecifies.length; index++) {
                 var parentNodes = [e],
                     nodes = [],
-                    lspecs = specs.replace(/\\/g, '/').replace(/\/\//g, '/\\').split(/\//g);
+                    lspecs = safeSpecifies[index].replace(/\\/g, '/').replace(/\/\//g, '/\\').split(/\//g);
                 for (var level = 0; level < lspecs.length; level++) {
                     for (var i = 0; i < parentNodes.length; i++) {
                         nodes = nodes.concat(getLevelElements(parentNodes[i], (level == 0 ? '\\' : '') + lspecs[level]));
@@ -574,10 +580,10 @@ Date.prototype.diff = function (part, date) {
                         (parentNodes = nodes) && (nodes = []);
                     }
                 }
-                nodes.each(function (i, e) {
-                    !elements.exists(e) && elements.push(e);
-                });
-            });
+                for (var i = 0; i < nodes.length; i++) {
+                    !elements.exists(nodes[i]) && elements.push(nodes[i]);
+                }
+            }
             return _deArray(elements);
         },
         _de = function (e, doc) {
@@ -663,14 +669,14 @@ Date.prototype.diff = function (part, date) {
             };
             e.removeClass = function (name) {
                 if (typeof (name) == "string") {
-                    e.className = (" " + e.className + " ").replace(" " + name.trim() + " ", " ").trim();
+                    e.className = trim((" " + e.className + " ").replace(" " + trim(name) + " ", " "));
                 }
                 return e;
             };
             e.addClass = function (name) {
                 if (typeof (name) == "string") {
                     e.removeClass(e, name);
-                    e.className = e.className + " " + name.trim();
+                    e.className = e.className + " " + trim(name);
                 }
                 return e;
             };
@@ -702,7 +708,7 @@ Date.prototype.diff = function (part, date) {
                 var node = e,
                     examor = new _examor(specifies),
                     examOne = function (e, spec) {
-                        if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?$/ig.test(spec.trim())) {
+                        if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?$/ig.test(trim(spec))) {
                             var deep = RegExp.$1.charAt(0) == '\\',
                                 tagName = deep ? RegExp.$1.substring(1) : RegExp.$1,
                                 className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
@@ -722,16 +728,16 @@ Date.prototype.diff = function (part, date) {
                         return false;
                     };
                 while (!!node && !!node.tagName && !exam(node, examor.safeSpecifies)) {
-                    node = node.parentNode || node.parentElement;
+                    node = node.tagName === 'HTML' ? null : (node.parentNode || node.parentElement);
                 }
-                return !!node && node.tagName === tagName ? _de(node) : null;
+                return !!node ? _de(node) : null;
             };
             e.tags = function (specifies) {
                 return _tags(e, specifies);
             };
             //扩展de方法 1.6b
-            if (typeof $$.extends === 'object' & typeof $$.extends[e.tagName] === 'function') {
-                $$.extends[e.tagName](e);
+            if (typeof $$.extentions === 'object' && typeof $$.extentions[e.tagName] === 'function') {
+                $$.extentions[e.tagName](e);
             }
             e._de = true;
             return e;
@@ -752,10 +758,10 @@ Date.prototype.diff = function (part, date) {
                 replace: function (tag, rep) {
                     var matchs = tag.match(/('[^']+')|("[^"]+")/g);
                     if (matchs) {
-                        matchs.each(function (i, m) {
-                            var str = m.substr(1, m.length - 2).replace(/ /g, rep.blank).replace(/'/g, rep.singleQuotes).replace(/"/g, rep.doubleQuotes);
+                        for (var i = 0; i < matchs.length; i++) {
+                            var m = matchs[i], str = m.substr(1, m.length - 2).replace(/ /g, rep.blank).replace(/'/g, rep.singleQuotes).replace(/"/g, rep.doubleQuotes);
                             tag = tag.replace(m, str);
-                        });
+                        }
                     }
                     return tag.replace(/[ ]+/g, ' ');
                 },
@@ -870,6 +876,21 @@ Date.prototype.diff = function (part, date) {
             };
             return data;
         },
+        _merge = function (a, b, c, d, e) {
+            var merge = function (ori, ext) {
+                if (ori !== undefined && ext !== undefined) {
+                    for (var name in ext) {
+                        ori[name] = ext[name];
+                    }
+                }
+                return ori;
+            };
+            var e0 = merge({}, e);
+            var d0 = merge({}, d);
+            var c0 = merge({}, c);
+            var b0 = merge({}, b);
+            return merge(a, merge(b0, merge(c0, merge(d0, e0))));
+        },
         _ajax = function (conf) {
             var noop = function () { },
                 default_configure = {
@@ -890,11 +911,11 @@ Date.prototype.diff = function (part, date) {
                     for (var name in default_configure) {
                         conf[name] = conf[name] === undefined ? default_configure[name] : conf[name];
                     };
-                    conf.headers.each(function (i, h) {
-                        if (h.name.toLowerCase() == "content-type") {
+                    for (var i = 0; i < conf.headers.length; i++) {
+                        if (conf.headers[i].name.toLowerCase() == "content-type") {
                             return conf;
                         }
-                    });
+                    }
                     conf.headers.push(default_configure.headers[0]);
                     return conf;
                 },
@@ -915,9 +936,9 @@ Date.prototype.diff = function (part, date) {
                 xhr = getXHR();
             conf = fillConfigure(conf, default_configure);
             xhr.open(conf.method, conf.url, conf.async);
-            conf.headers.each(function (i, e) {
-                xhr.setRequestHeader(e.name, e.value);
-            });
+            for (var i = 0; i < conf.headers.length; i++) {
+                xhr.setRequestHeader(conf.headers[i].name, conf.headers[i].value);
+            }
             try {
                 xhr.timeout = conf.timeout;
                 xhr.ontimeout = conf.ontimeout;
@@ -946,9 +967,9 @@ Date.prototype.diff = function (part, date) {
         }
     };
     window.onload = function () {
-        readyList.each(function (i, f) {
-            f.call(document);
-        });
+        for (var i = 0; i < readyList.length; i++) {
+            readyList[i].call(document);
+        }
     };
     window.$e = function (eid) {
         var doc = arguments[1] === undefined ? document : (typeof arguments[1] === "object" && arguments[1].nodeName == "#document" ? arguments[1] : null);
@@ -979,8 +1000,8 @@ Date.prototype.diff = function (part, date) {
         htmlEncode: _htmlEncode,
         htmlDecode: _htmlDecode,
         url2Object: _url2Object,
-        extends: {}, //扩展de方法 1.6b
+        merge: _merge,
+        extentions: {}, //预留扩展de方法 1.6b
         ajax: _ajax
     };
-    document.path = _url2Object(document.location.href);
 })(window, document);

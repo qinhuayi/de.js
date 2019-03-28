@@ -10,8 +10,9 @@
     <script src="./de1.7/de.js?v"></script>
     <script>
         function btnTest_click(evt) {
-            $e('sel').val(12);
-            $e('msg').innerHTML = 'msg=' + $e('sel').value;
+            var p = $e('sel').parent('div.body');
+            p.attr('name', 'd3');
+            $e('msg').innerHTML = 'msg=' + $t('div.body')[0].attr('name');
 		}
 
         document.ready(function () {
@@ -21,7 +22,7 @@
 
 </head>
 <body>
-    <div class="body">
+    <div class="body" name="d2">
         <h2>Test de1.7</h2>
         <div>
             <select id="sel">

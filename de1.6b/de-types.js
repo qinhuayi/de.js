@@ -1,51 +1,69 @@
 /// 由de1.6b 拆分出来的独立文件
+/// var 1.6b (2018-07-14)
+/// 1 增加 Array.forEach
+/// 2 增加 Array.remove
 String.prototype.trim = function () {
-    var me = this,
-        me = me.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
-    return me;
-};
+    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
+}
 String.prototype.format = function () {
-    var me = this,
-        formatMe = me.indexOf('{0}') >= 0;
+    var formatMe = this.indexOf('{0}') >= 0;
     if (arguments.length > 0) {
-        var format = formatMe ? me : arguments[0];
+        var format = formatMe ? this : arguments[0];
         for (var i = 0; i < arguments.length - (formatMe ? 0 : 1); i++) {
             format = format.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i + (formatMe ? 0 : 1)]);
         }
         return format;
     }
     return null;
-};
+}
 Array.prototype.each = function (fn) {
-    var me = this;
     if (typeof (fn) == "function") {
-        for (var i = 0; i < me.length; i++) {
-            fn.call(me[i], i, me[i]);
+        for (var i = 0; i < this.length; i++) {
+            fn.call(this[i], i, this[i]);
         }
     }
-};
+}
+Array.prototype.forEach = function (fn) {
+    if (typeof (fn) == "function") {
+        for (var i = 0; i < this.length; i++) {
+            fn(this[i], i);
+        }
+    }
+}
 Array.prototype.exists = function (e) {
-    var me = this;
-    for (var i = 0; i < me.length; i++) {
-        if (e === me[i]) {
+    for (var i = 0; i < this.length; i++) {
+        if (e === this[i]) {
             return true;
         }
     }
     return false;
-};
+}
 Array.prototype.indexOf = function (e) {
-    var me = this;
-    for (var i = 0; i < me.length; i++) {
-        if (e === me[i]) {
+    for (var i = 0; i < this.length; i++) {
+        if (e === this[i]) {
             return i;
         }
     }
     return -1;
-};
+}
+Array.prototype.remove = function (i) {
+    if (i === 0) {
+        return this.shift() & 1;
+    }
+    else if (i === this.length - 1) {
+        return this.pop() & 1;
+    }
+    else if (typeof i == 'number') {
+        var arr0 = this.slice(0, i),
+            arr1 = this.slice(i + 1);
+        return (this = arr0.concat(arr1)) & 1;
+    }
+    return false;
+}
 Date.prototype.toObject = function () {
     var me = this,
         month = "January February March April May June July August September October November December".split(' '),
-        week = "Monday Tuesday Wednesday Thursday Friday Saturday Sunday".split(' ');
+        week = "Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(' ');
     return {
         Y: me.getFullYear(),
         M: me.getMonth(),
@@ -59,7 +77,7 @@ Date.prototype.toObject = function () {
         week: week[me.getDay()],
         value: me.valueOf()
     };
-};
+}
 Date.prototype.toString = function (format) {
     var me = this,
         num2str = function (num, len) {
@@ -90,7 +108,7 @@ Date.prototype.toString = function (format) {
     str = str.replace(/ss|SS/g, ss).replace(/\b(s|S)\b/g, d.s);
     str = str.replace(/fff|FFF/g, fff).replace(/ff|FF/g, fff.substr(0, 2)).replace(/\b(f|F)\b/g, fff.substr(0, 1));
     return str;
-};
+}
 Date.prototype.fromString = function (str, format) {
     var me = this,
         RegExpBuilder = {
@@ -102,7 +120,7 @@ Date.prototype.fromString = function (str, format) {
                         month: "(?:January|February|March|April|May|June|July|August|September|October|November|December)",
                         mon: "\\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\b",
                         mo: "\\b(?:Ja|Fe|Ma|Ap|Ma|Ju|Ju|Au|Se|Oc|No|De)\\b",
-                        MM: "(?:0[1-9]|1[0-2])\\b",
+                        MM: "(?:0[1-9]|1[0-2])",
                         M: "\\b(?:[1-9]|1[0-2])\\b",
                         week: "(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)",
                         wee: "(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)",
@@ -228,7 +246,7 @@ Date.prototype.fromString = function (str, format) {
     };
     me.setTime(0);
     return NaN;
-};
+}
 Date.prototype.add = function (part, n) {
     var me = this,
         newDate = function (p, n) {
@@ -254,7 +272,7 @@ Date.prototype.add = function (part, n) {
     var p = typeof (part) == "string" ? part.charAt(0) : '',
         date = newDate(p, n);
     return date;
-};
+}
 Date.prototype.diff = function (part, date) {
     var me = this,
         date = typeof date == 'string' ? (new Date()).fromString(date) : date,
@@ -277,4 +295,4 @@ Date.prototype.diff = function (part, date) {
             return date.getFullYear() - me.getFullYear();
     }
     return null;
-};
+}
