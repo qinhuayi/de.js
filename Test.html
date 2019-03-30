@@ -10,9 +10,11 @@
     <script src="./de1.7/de.js?v"></script>
     <script>
         function btnTest_click(evt) {
-            var p = $e('sel').parent('div.body');
-            p.attr('name', 'd3');
-            $e('msg').innerHTML = 'msg=' + $t('div.body')[0].attr('name');
+            //var p = $e('sel').parent('div.body');
+            var date = new Date().fromString('20190309 230906 789', 'YYYYMMDD hhminss fff');
+            //p.attr('name', 'd3');
+            //$e('msg').innerHTML = 'msg=' + $t('div.body').attr('name');
+            $e('msg').innerHTML = date.toString('yyyy-MM-dd hh:min:ss fff');
 		}
 
         document.ready(function () {

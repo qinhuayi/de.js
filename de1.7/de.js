@@ -139,7 +139,7 @@ Date.prototype.fromString = function (str, format) {
                         month: "(?:January|February|March|April|May|June|July|August|September|October|November|December)",
                         mon: "\\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\b",
                         mo: "\\b(?:Ja|Fe|Ma|Ap|Ma|Ju|Ju|Au|Se|Oc|No|De)\\b",
-                        MM: "(?:0[1-9]|1[0-2])\\b",
+                        MM: "(?:0[1-9]|1[0-2])",
                         M: "\\b(?:[1-9]|1[0-2])\\b",
                         week: "(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)",
                         wee: "(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)",
@@ -148,8 +148,8 @@ Date.prototype.fromString = function (str, format) {
                         DD: "(?:[0-2][0-9]|3[0-1])",
                         D: "\\b(?:[1-9]|[1-2][0-9]|3[0-1])\\b",
                         AM: "(?:am|AM|pm|PM)",
-                        hh: "[0-2][0-9]",
-                        h: "\\b(?:[0-9]|1[0-9]|2[0-9])\\b",
+                        hh: "(?:[0-1][0-9]|2[0-3])",
+                        h: "\\b(?:[0-9]|1[0-9]|2[0-3])\\b",
                         mm: "[0-5][0-9]",
                         m: "\\b(?:[0-9]|[1-5][0-9])\\b",
                         ss: "[0-5][0-9]",
@@ -264,7 +264,7 @@ Date.prototype.fromString = function (str, format) {
         }
     };
     me.setTime(0);
-    return NaN;
+    return null;
 };
 Date.prototype.add = function (part, n) {
     var me = this,
