@@ -86,6 +86,20 @@ Array.prototype.indexOf = function (e) {
     }
     return -1;
 }
+Array.prototype.remove = function (i) {
+    if (i === 0) {
+        return this.shift() & 1;
+    }
+    else if (i === this.length - 1) {
+        return this.pop() & 1;
+    }
+    else if (typeof i == 'number') {
+        var arr0 = this.slice(0, i),
+            arr1 = this.slice(i + 1);
+        return (this = arr0.concat(arr1)) & 1;
+    }
+    return false;
+};
 Date.prototype.toObject = function () {
     var me = this,
         month = "January February March April May June July August September October November December".split(' '),
