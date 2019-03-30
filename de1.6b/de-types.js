@@ -1,4 +1,6 @@
 /// 由de1.6b 拆分出来的独立文件
+/// var 1.6b (2019-03-30)
+/// 1 修复 Array.remove 中的错误，移除多余的代码.Array.splice可实现移除功能
 /// var 1.6b (2018-07-14)
 /// 1 增加 Array.forEach
 /// 2 增加 Array.remove
