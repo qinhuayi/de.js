@@ -40,7 +40,7 @@ String.prototype.trim = function () {
     var me = this,
         me = me.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
     return me;
-};
+}
 String.prototype.format = function () {
     var me = this,
         formatMe = me.indexOf('{0}') >= 0;
@@ -52,7 +52,7 @@ String.prototype.format = function () {
         return format;
     }
     return null;
-};
+}
 Array.prototype.each = function (fn) {
     var me = this;
     if (typeof (fn) == "function") {
@@ -60,7 +60,14 @@ Array.prototype.each = function (fn) {
             fn.call(me[i], i, me[i]);
         }
     }
-};
+}
+Array.prototype.forEach = function (fn) {
+    if (typeof (fn) == "function") {
+        for (var i = 0; i < this.length; i++) {
+            fn(this[i], i);
+        }
+    }
+}
 Array.prototype.exists = function (e) {
     var me = this;
     for (var i = 0; i < me.length; i++) {
@@ -69,7 +76,7 @@ Array.prototype.exists = function (e) {
         }
     }
     return false;
-};
+}
 Array.prototype.indexOf = function (e) {
     var me = this;
     for (var i = 0; i < me.length; i++) {
@@ -78,6 +85,20 @@ Array.prototype.indexOf = function (e) {
         }
     }
     return -1;
+}
+Array.prototype.remove = function (i) {
+    if (i === 0) {
+        return this.shift() & 1;
+    }
+    else if (i === this.length - 1) {
+        return this.pop() & 1;
+    }
+    else if (typeof i == 'number') {
+        var arr0 = this.slice(0, i),
+            arr1 = this.slice(i + 1);
+        return (this = arr0.concat(arr1)) & 1;
+    }
+    return false;
 };
 Date.prototype.toObject = function () {
     var me = this,
@@ -96,7 +117,7 @@ Date.prototype.toObject = function () {
         week: week[me.getDay()],
         value: me.valueOf()
     };
-};
+}
 Date.prototype.toString = function (format) {
     var me = this,
         num2str = function (num, len) {
@@ -127,7 +148,7 @@ Date.prototype.toString = function (format) {
     str = str.replace(/ss|SS/g, ss).replace(/\b(s|S)\b/g, d.s);
     str = str.replace(/fff|FFF/g, fff).replace(/ff|FF/g, fff.substr(0, 2)).replace(/\b(f|F)\b/g, fff.substr(0, 1));
     return str;
-};
+}
 Date.prototype.fromString = function (str, format) {
     var me = this,
         RegExpBuilder = {
@@ -203,7 +224,7 @@ Date.prototype.fromString = function (str, format) {
             },
             readNumber: function (format, str, part) {
                 var s = reader.readString(format, str, part);
-                return s ? parseInt(s) : null;
+                return s ? parseInt(s, 10) : null;
             },
             readYear: function (format, str) {
                 var y = reader.readNumber(format, str, 'y');
@@ -265,7 +286,7 @@ Date.prototype.fromString = function (str, format) {
     };
     me.setTime(0);
     return null;
-};
+}
 Date.prototype.add = function (part, n) {
     var me = this,
         newDate = function (p, n) {
@@ -291,7 +312,7 @@ Date.prototype.add = function (part, n) {
     var p = typeof (part) == "string" ? part.charAt(0) : '',
         date = newDate(p, n);
     return date;
-};
+}
 Date.prototype.diff = function (part, date) {
     var me = this,
         date = typeof date == 'string' ? (new Date()).fromString(date) : date,
@@ -314,7 +335,7 @@ Date.prototype.diff = function (part, date) {
             return date.getFullYear() - me.getFullYear();
     }
     return null;
-};
+}
 
 (function (window, document, undefined) {
     var readyList = [],
@@ -651,8 +672,8 @@ Date.prototype.diff = function (part, date) {
                         y = rect.top + (self.pageYOffset || (node && node.scrollTop) || body.scrollTop);
                 } else {
                     while (node && (!node.tagName || node.tagName.toUpperCase() !== 'BODY')) {
-                        x += node.offsetLeft === undefined ? 0 : parseInt(node.offsetLeft);
-                        y += node.offsetTop === undefined ? 0 : parseInt(node.offsetTop);
+                        x += node.offsetLeft === undefined ? 0 : parseInt(node.offsetLeft, 10);
+                        y += node.offsetTop === undefined ? 0 : parseInt(node.offsetTop, 10);
                         node = node.offsetParent;
                     }
                 }

@@ -11,10 +11,15 @@
     <script>
         function btnTest_click(evt) {
             //var p = $e('sel').parent('div.body');
-            var date = new Date().fromString('20190309 230906 789', 'YYYYMMDD hhminss fff');
+            //var date = new Date().fromString('20190309 230906 789', 'YYYYMMDD hhminss fff');
             //p.attr('name', 'd3');
             //$e('msg').innerHTML = 'msg=' + $t('div.body').attr('name');
-            $e('msg').innerHTML = date.toString('yyyy-MM-dd hh:min:ss fff');
+            var arr = [1, 2, 3, 4, 5];
+            arr.remove(1);
+            arr.forEach(function (a, i) {
+                a += 1;
+            });
+            $e('msg').innerHTML = arr;
 		}
 
         document.ready(function () {
