@@ -495,7 +495,7 @@ Date.prototype.diff = function (part, date) {
                     var reg = function (str) {
                         return new RegExp(str, 'g');
                     };
-                    return saveExpr.replace(reg(rep.insideComma), ',').replace(reg(rep.outsideComma), ',').replace(rep.slash, '\\').replace(rep.backSlash, '/').replace(reg(rep.leftSquareBracket), '[').replace(reg(rep.rightSquareBracket), ']').replace(reg(rep.singleQuotes), "'").replace(reg(rep.doubleQuotes), '"');
+                    return saveExpr.replace(reg(rep.insideComma), ',').replace(reg(rep.outsideComma), ',').replace(reg(rep.slash), '\\').replace(reg(rep.backSlash), '/').replace(reg(rep.leftSquareBracket), '[').replace(reg(rep.rightSquareBracket), ']').replace(reg(rep.singleQuotes), "'").replace(reg(rep.doubleQuotes), '"');
                 },
                 safeSpecifies = replaceSafeExpression(specifies).split(','),
                 examClass = function (e, name) {
@@ -504,16 +504,17 @@ Date.prototype.diff = function (part, date) {
                 examAttr = function (e, expr) {
                     var vexpr = '',
                         val = null,
-                        extract = function (symbol) {
-                            if (expr.indexOf(symbol) > 0) {
-                                var arr = expr.split(symbol);
+                        extract = function (symb) {
+                            if (expr.indexOf(symb) > 0) {
+                                var arr = expr.split(symb);
                                 val = attr(e, arr[0]);
-                                if (/(^'[^']+'$)|(^"[^"]+"$)/g.test(arr[1])) {
-                                    vexpr = arr[1].substr(1, arr[1].length - 2);
-                                    vexpr = restore(vexpr);
-                                } else {
-                                    vexpr = arr[1];
-                                }
+                                //if (/(^'[^']+'$)|(^"[^"]+"$)/g.test(arr[1])) {
+                                //    vexpr = arr[1].substr(1, arr[1].length - 2);
+                                //    vexpr = restore(vexpr);
+                                //} else {
+                                //    vexpr = arr[1];
+                                //}
+                                vexpr = restore(arr[1]);
                                 return true;
                             }
                             return false;
@@ -546,6 +547,9 @@ Date.prototype.diff = function (part, date) {
                     }
                     return pass;
                 };
+            safeSpecifies.each(function (i, expr) {
+                safeSpecifies[i] = trim(expr);
+            });
             return { examClass: examClass, examAttrs: examAttrs, safeSpecifies: safeSpecifies };
         },
         _tags = function (e, specifies) {
@@ -973,6 +977,7 @@ Date.prototype.diff = function (part, date) {
             readyList.push(fn);
         }
     };
+    document.path = _url2Object(document.location.href);
     window.onload = function () {
         for (var i = 0; i < readyList.length; i++) {
             readyList[i].call(document);
@@ -1008,7 +1013,7 @@ Date.prototype.diff = function (part, date) {
         htmlDecode: _htmlDecode,
         url2Object: _url2Object,
         merge: _merge,
-        extentions: {}, //Ô¤ÁôÀ©Õ¹de·½·¨ 1.6b
+        extentions: {}, //reserve for 1.6b
         ajax: _ajax
     };
 })(window, document);

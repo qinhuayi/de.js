@@ -9,21 +9,34 @@
     </style>
     <script src="./de1.7/de.js?v"></script>
     <script>
+        String.prototype.format = function () {
+    var me = this,
+        formatMe = me.indexOf('{0}') >= 0;
+    if (arguments.length > 0) {
+        var format = formatMe ? me : arguments[0];
+        for (var i = 0; i < arguments.length - (formatMe ? 0 : 1); i++) {
+            format = format.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i + (formatMe ? 0 : 1)]);
+        }
+        return format;
+    }
+    return null;
+}
+
         function btnTest_click(evt) {
             //var p = $e('sel').parent('div.body');
             //var date = new Date().fromString('20190309 230906 789', 'YYYYMMDD hhminss fff');
             //p.attr('name', 'd3');
             //$e('msg').innerHTML = 'msg=' + $t('div.body').attr('name');
-            var arr = [1, 2, 3, 4, 5];
+            //var arr = [1, 2, 3, 4, 5];
             //arr.forEach(function (a, i) {
             //    a += 1;
             //});
-            $e('msg').innerHTML = arr;
+            document.getElementById('msg').innerHTML = String.format('a={0}', 'ab');
 		}
 
-        document.ready(function () {
-            $e('btnTest').bind('click', btnTest_click);
-        });
+        //document.ready(function () {
+        //    $e('btnTest').bind('click', btnTest_click);
+        //});
     </script>
 
 </head>
@@ -36,7 +49,7 @@
                 <option value="11">BB</option>
                 <option value="12">CC</option>
             </select>
-            <button id='btnTest'>btnTest</button>
+            <button id='btnTest' onclick="btnTest_click(event)">btnTest</button>
 			<p id='msg'></p>
         </div>
     </div>
