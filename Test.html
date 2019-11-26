@@ -1,57 +1,201 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="pragma" content="no-cache" />
     <title>Test</title>
     <style>
-        .body { width:780px; margin:1px auto; }
+        body { font-size: 12px; }
+        body, h1 { background-color: #eee; }
+        .doc, h1, #testList { width: 920px; margin: 1px auto; }
+        .doc, #testList { background-color: #fff; padding: 0.5em; margin:0.6em auto; }
+        #divOut { height: 2em; width:100%; }
+        #iframe1 { height: 10em; min-width:600px;width:70%; }
+        table { border-width: 1px; border-collapse: collapse; border-style: solid; border-color: #999; margin: 0.5em; }
+        tr, td { padding: 0.2em; border-width: 1px; border-style: solid; border-color: #999; }
+        li { list-style-position: inside; list-style-type: decimal; line-height:1.5em;}
+        span { margin: 1px; padding:0.1em; }
+        b { color: #ff6a00; }
+        span, a, b { margin:0.1em; }
+        sup { color:red; font-size:9px;display:inline-block; }
+        .blue { color: blue; }
+        .red {color:red; }
+        .green {color:green;}
+        li span.blue { width:22em; display:inline-block; text-align:left; }
     </style>
+    <link rel="stylesheet" href="./styles/fake.css" />
     <script src="./de1.7/de.js?v"></script>
+    <!--<script src="Test.html.js?v1"></script>-->
     <script>
-        String.prototype.format = function () {
-    var me = this,
-        formatMe = me.indexOf('{0}') >= 0;
-    if (arguments.length > 0) {
-        var format = formatMe ? me : arguments[0];
-        for (var i = 0; i < arguments.length - (formatMe ? 0 : 1); i++) {
-            format = format.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i + (formatMe ? 0 : 1)]);
+        function getFunctonName(span) {
+            var name = span.innerHTML,
+                index = name.indexOf('(');
+            return index > 0 ? name.substring(0, index) : name;
         }
-        return format;
-    }
-    return null;
-}
+
+        var Testor = {
+            "$e": function (idoc, divOut) {
+                var res0 = typeof $e('iframe1') == 'object' && $e('iframe1') && $e('iframe1').tagName == 'IFRAME';
+                var res1 = $e(document.body) && $e(document.body).tagName == 'BODY';
+                var p = $e('p1', idoc);
+                var res2 = typeof p == 'object' && p && p.tagName == 'P';
+
+                var res3 = typeof $e('*group1') == 'object' && $e('*group1') && $e('*group1').length == 3;
+                var res4 = typeof $e('*group2', idoc) == 'object' && $e('*group2', idoc) && $e('*group2', idoc).length == 4;
+
+                var sp0 = $e("<span class='red'>");
+                var res5 = typeof sp0 == 'object' && sp0 && sp0.tagName == 'SPAN';
+                res5 && divOut.appendChild(sp0);
+                res5 && (sp0.innerHTML = '$e-sp0');
+                var sp1 = $e("<span class='red'>", idoc);
+                var divOut2 = idoc && idoc.getElementById('divOut');
+                var res6 = divOut2 && typeof sp1 == 'object' && sp1 && sp1.tagName == 'SPAN';
+                divOut2 && divOut2.appendChild(sp1);
+                res6 && (sp1.innerHTML = '$e-sp1');
+
+                return [res0, res1, res2, res3, res4, res5, res6];
+            },
+            "$t": function (idoc, divOut) {
+                var res0 = typeof $t('form') == 'object' && $t('form') && $t('form').length == 1 && typeof $tags('form') == 'object' && $$tags('form') && $$tags('form').length == 1;
+                var res1 = res0 && $t('h1,h2') && $t('h1,h2').length == 3;
+                var res2 = res0 && $t('div.doc') && $t('div.doc').length == 1 && $t('div.doc')[0].className == 'doc';
+                var res3 = res0 && $t('a[id]') && $t('a[id]').length == 1 && $t('a[id]')[0].getAttribute('id') == 'a1';
+                var res4 = res0 && $t('a[id=a1]') && $t('a[id=a1]').length == 1 && $t('a[id=a1]')[0].getAttribute('id') == 'a1' && $t('a[id==a1]') && $t('a[id==a1]').length == 1 && $t('a[id==a1]')[0].getAttribute('id') == 'a1';
+                var res5 = res0 && $t('a[class*=ink]') && $t('a[class*=ink]').length == 3;
+                var res6 = res0 && $t('a[id~=1]') && $t('a[id~=1]').length == 1;
+                var res7 = res0 && $t('a[id$=0]') && $t('a[id$=0]').length == 1 && $t('a[href$=more]') && $t('a[href$=more]').length == 1;
+                var res8 = res0 && $t('a[id^=a]') && $t('a[id^=a]').length == 2;
+                var res9 = res0 && $t('a[id!=a1]') && $t('a[id!=a]').length == 1;
+                //var res10 = res0 && $t('a[href="//"]') && $t('a[id=a1]').length == 1;
+                //var res11 = res0 && $t('div.doc//b') && $t('div.doc//b').length == 1;
+                //var res12 = res0 && $t('div.doc//a[href]') && $t('div.doc//a[href]').length == 1;
+
+                ////:
+                return [false];
+            }
+        }
 
         function btnTest_click(evt) {
-            //var p = $e('sel').parent('div.body');
-            //var date = new Date().fromString('20190309 230906 789', 'YYYYMMDD hhminss fff');
-            //p.attr('name', 'd3');
-            //$e('msg').innerHTML = 'msg=' + $t('div.body').attr('name');
-            //var arr = [1, 2, 3, 4, 5];
-            //arr.forEach(function (a, i) {
-            //    a += 1;
-            //});
-            document.getElementById('msg').innerHTML = String.format('a={0}', 'ab');
-		}
+            var msg = evt.srcElement.nextSibling,
+                divOut = document.getElementById('divOut'),
+                iframe = document.getElementById('iframe1'),
+                frm1 = frames['frame1'] || iframe.contentWindow,
+                idoc = frm1 ? frm1.document : null,
+                name = getFunctonName(evt.srcElement.previousSibling),
+                arr = typeof Testor[name] == 'function' ? Testor[name](idoc, divOut) : [];
+            for (var i = 0; i < arr.length; i++) {
+                msg.innerHTML += arr[i] ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
+            }
+        }
 
-        //document.ready(function () {
-        //    $e('btnTest').bind('click', btnTest_click);
-        //});
+        function bind(e, name, method) {
+            if (e.attachEvent) {
+                e.attachEvent('on' + name, method);
+            } else if (e.addEventListener) {
+                e.addEventListener(name, method, false);
+            } else if (e && e !== undefined) {
+                e[name] = method;
+            }
+        }
+
+        function btnTestAll_click(evt) {
+            ////:
+        }
+
+        document.ready(function () {
+            var btns = document.getElementsByTagName('BUTTON');
+            for (var i = 0; i < btns.length; i++) {
+                bind(btns[i], 'click', btnTest_click);
+            }
+            bind(document.getElementById('btnTestAll'), 'click', btnTestAll_click);
+            document.getElementById('h2').innerHTML += ' ok!';
+        });
     </script>
-
 </head>
 <body>
-    <div class="body" name="d2">
-        <h2>Test de1.7</h2>
-        <div>
-            <select id="sel">
-                <option value="10">AA</option>
-                <option value="11">BB</option>
-                <option value="12">CC</option>
-            </select>
-            <button id='btnTest' onclick="btnTest_click(event)">btnTest</button>
-			<p id='msg'></p>
-        </div>
+    <h1 id="h1">Test de1.7</h1>
+    <div class="doc">
+        <h2>HTML脚本区</h2>
+        <p>诗一首：<b>一</b>去<b>二</b><b>三</b>里，<b>四</b><b>五</b>户人家，<b>六</b><b>七</b>颗桃树，<b>八</b><b>九</b><b>十</b>枝花。<a id="a0" class="link1" href="./X/Y/a.html?id=1&mode=detail">详细..</a><a id="a1" class="link1" href="./X/Y/a.html?id=1&mode=more">更多..</a></p>
+        <form action="#" name="form1">
+            <table>
+                <caption>表格</caption>
+                <tbody>
+                    <tr>
+                        <td>职业</td>
+                        <td>
+                            <select id="sel">
+                                <option value="A">A职业</option>
+                                <option value="B">B职业</option>
+                                <option value="C">C职业</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>颜色</td>
+                        <td>
+                            <input id="rb0" name="group1" type="radio" value="red" checked /><label for="rb0">red</label>
+                            <input id="rb1" name="group1" type="radio" value="green" /><label for="rb1">green</label>
+                            <input id="rb2" name="group1" type="radio" value="blue" /><label for="rb2">blue</label></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <iframe id="iframe1" name="frame1" src="./iframe.html?v1"></iframe>
+        <div id="divOut"></div>
+    </div>
+    <div id="testList">
+        <h2 id="h2">测试工作区</h2>
+        <h3>基本函数</h3>
+        <ul>
+            <li><span class="blue">$e(e, doc)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$t(specifies) $tags(specifies)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$$.ajax(conf)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$$.format(format, arg0, arg1, ..., argn)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$$.htmlEncode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$$.htmlDecode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$$.url2Object(url)</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <h3>文档元素扩展方法与属性</h3>
+        <ul>
+            <li><span class="blue">document.path</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">document.ready(fn)</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <h3>de文档元素(数组)方法与属性</h3>
+        <ul>
+            <li><span class="blue">addClass(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">append(node)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">attr(name, value)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">bind(name, fn)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">css(name, value)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">hide()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">html(str)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">insert(node, n)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">parent(specifies)</span><sup>1.7+</sup><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">pos()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">removeAttr(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">removeClass(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">show()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">tags(specifies)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">text(str)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">unbind(name, fn)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">val(value)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">value</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <h3>类型扩展方法</h3>
+        <ul>
+            <li><span class="blue">Array.forEach(fn)</span><sup>1.7+</sup><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Array.each(fn)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Array.exists(e)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Array.indexof(e)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.add(part, n)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.diff(part, date)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.fromString(str, format)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.toObject()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.toString(format)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">String.format(...)</span><sup>1.7+</sup><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">String.trim()</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <input id='btnTestAll' type="button" onclick="btnTestAll_click(event)" value="btnTestAll" />
     </div>
 </body>
 </html>

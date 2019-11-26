@@ -1,4 +1,4 @@
-/// de.js ver1.7 (2019-03-2X)
+ï»¿/// de.js ver1.7 (2019-03-2X)
 ///   1. Puhlish.
 /// de.js ver1.6b (2018-07-31)
 ///   1. Fix two bugs in Date.fromString().
@@ -37,15 +37,12 @@
 ///   2.Upgrade $$.ajax to fix IE6 bug;
 /// author: hoy qin; email: qhuayi@gmail.com, qinhuayi@kezhida.com.cn
 String.prototype.trim = function () {
-    var me = this,
-        me = me.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
-    return me;
+    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
 }
 String.prototype.format = function () {
-    var me = this,
-        formatMe = me.indexOf('{0}') >= 0;
+    var formatMe = this.indexOf('{0}') >= 0;
     if (arguments.length > 0) {
-        var format = formatMe ? me : arguments[0];
+        var format = formatMe ? this : arguments[0];
         for (var i = 0; i < arguments.length - (formatMe ? 0 : 1); i++) {
             format = format.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i + (formatMe ? 0 : 1)]);
         }
@@ -54,10 +51,9 @@ String.prototype.format = function () {
     return null;
 }
 Array.prototype.each = function (fn) {
-    var me = this;
     if (typeof (fn) == "function") {
-        for (var i = 0; i < me.length; i++) {
-            fn.call(me[i], i, me[i]);
+        for (var i = 0; i < this.length; i++) {
+            fn.call(this[i], i, this[i]);
         }
     }
 }
@@ -69,27 +65,28 @@ Array.prototype.forEach = function (fn) {
     }
 }
 Array.prototype.exists = function (e) {
-    var me = this;
-    for (var i = 0; i < me.length; i++) {
-        if (e === me[i]) {
+    for (var i = 0; i < this.length; i++) {
+        if (e === this[i]) {
             return true;
         }
     }
     return false;
 }
 Array.prototype.indexOf = function (e) {
-    var me = this;
-    for (var i = 0; i < me.length; i++) {
-        if (e === me[i]) {
+    for (var i = 0; i < this.length; i++) {
+        if (e === this[i]) {
             return i;
         }
     }
     return -1;
 }
+Array.prototype.remove = function (i) {
+    return this.splice(i, 1) | 1;
+}
 Date.prototype.toObject = function () {
     var me = this,
         month = "January February March April May June July August September October November December".split(' '),
-        week = "Monday Tuesday Wednesday Thursday Friday Saturday Sunday".split(' ');
+        week = "Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(' ');
     return {
         Y: me.getFullYear(),
         M: me.getMonth(),
@@ -271,7 +268,7 @@ Date.prototype.fromString = function (str, format) {
         }
     };
     me.setTime(0);
-    return null;
+    return NaN;
 }
 Date.prototype.add = function (part, n) {
     var me = this,
@@ -321,7 +318,7 @@ Date.prototype.diff = function (part, date) {
             return date.getFullYear() - me.getFullYear();
     }
     return null;
-}
+};
 
 (function (window, document, undefined) {
     var readyList = [],
@@ -746,7 +743,7 @@ Date.prototype.diff = function (part, date) {
             e.tags = function (specifies) {
                 return _tags(e, specifies);
             };
-            //À©Õ¹de·½·¨ 1.6b
+            //extentions since 1.6b
             if (typeof $$.extentions === 'object' && typeof $$.extentions[e.tagName] === 'function') {
                 $$.extentions[e.tagName](e);
             }
@@ -1013,7 +1010,7 @@ Date.prototype.diff = function (part, date) {
         htmlDecode: _htmlDecode,
         url2Object: _url2Object,
         merge: _merge,
-        extentions: {}, //reserve for 1.6b
+        extentions: {}, //reserve for 1.6b+
         ajax: _ajax
     };
 })(window, document);
