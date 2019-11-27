@@ -502,16 +502,10 @@ Date.prototype.diff = function (part, date) {
                     var vexpr = '',
                         val = null,
                         extract = function (symb) {
-                            if (expr.indexOf(symb) > 0) {
-                                var arr = expr.split(symb);
-                                val = attr(e, arr[0]);
-                                //if (/(^'[^']+'$)|(^"[^"]+"$)/g.test(arr[1])) {
-                                //    vexpr = arr[1].substr(1, arr[1].length - 2);
-                                //    vexpr = restore(vexpr);
-                                //} else {
-                                //    vexpr = arr[1];
-                                //}
-                                vexpr = restore(arr[1]);
+                            var index = expr.indexOf(symb);
+                            if (index > 0) {
+                                val = attr(e, expr.substr(0, index));
+                                vexpr = restore(expr.substr(index + symb.length));
                                 return true;
                             }
                             return false;
