@@ -16,11 +16,11 @@ var Testor = {
 
         var sp0 = $e("<span class='red'>");
         var res5 = typeof sp0 == 'object' && sp0.tagName == 'SPAN';
-        res5 && sp0.innerHTML = '$e-sp0';
+        res5 && (sp0.innerHTML = '$e-sp0');
         divOut.appendChild(sp0);
         var sp1 = $e("<span class='red'>", idoc);
         var res6 = typeof sp1 == 'object' && sp1.tagName == 'SPAN';
-        res6 && sp1.innerHTML = '$e-sp1';
+        res6 && (sp1.innerHTML = '$e-sp1');
         idoc.getElementById('divOut').appendChild(sp1);
 
         return [res0, res1, res2, res3, res4, res5, res6];

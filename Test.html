@@ -35,43 +35,64 @@
 
         var Testor = {
             "$e": function (idoc, divOut) {
-                var res0 = typeof $e('iframe1') == 'object' && $e('iframe1') && $e('iframe1').tagName == 'IFRAME';
-                var res1 = $e(document.body) && $e(document.body).tagName == 'BODY';
+                var rs0 = typeof $e('iframe1') == 'object' && $e('iframe1') && $e('iframe1').tagName == 'IFRAME';
+                var rs1 = $e(document.body) && $e(document.body).tagName == 'BODY';
                 var p = $e('p1', idoc);
-                var res2 = typeof p == 'object' && p && p.tagName == 'P';
+                var rs2 = typeof p == 'object' && p && p.tagName == 'P';
 
-                var res3 = typeof $e('*group1') == 'object' && $e('*group1') && $e('*group1').length == 3;
-                var res4 = typeof $e('*group2', idoc) == 'object' && $e('*group2', idoc) && $e('*group2', idoc).length == 4;
+                var rs3 = typeof $e('*group1') == 'object' && $e('*group1') && $e('*group1').length == 3;
+                var rs4 = typeof $e('*group2', idoc) == 'object' && $e('*group2', idoc) && $e('*group2', idoc).length == 4;
 
                 var sp0 = $e("<span class='red'>");
-                var res5 = typeof sp0 == 'object' && sp0 && sp0.tagName == 'SPAN';
-                res5 && divOut.appendChild(sp0);
-                res5 && (sp0.innerHTML = '$e-sp0');
+                var rs5 = typeof sp0 == 'object' && sp0 && sp0.tagName == 'SPAN';
+                rs5 && divOut.appendChild(sp0);
+                rs5 && (sp0.innerHTML = '$e-sp0');
                 var sp1 = $e("<span class='red'>", idoc);
                 var divOut2 = idoc && idoc.getElementById('divOut');
-                var res6 = divOut2 && typeof sp1 == 'object' && sp1 && sp1.tagName == 'SPAN';
+                var rs6 = divOut2 && typeof sp1 == 'object' && sp1 && sp1.tagName == 'SPAN';
                 divOut2 && divOut2.appendChild(sp1);
-                res6 && (sp1.innerHTML = '$e-sp1');
+                rs6 && (sp1.innerHTML = '$e-sp1');
 
-                return [res0, res1, res2, res3, res4, res5, res6];
+                return [rs0, rs1, rs2, rs3, rs4, rs5, rs6];
             },
             "$t": function (idoc, divOut) {
-                var res0 = typeof $t('form') == 'object' && $t('form') && $t('form').length == 1 && typeof $tags('form') == 'object' && $$tags('form') && $$tags('form').length == 1;
-                var res1 = res0 && $t('h1,h2') && $t('h1,h2').length == 3;
-                var res2 = res0 && $t('div.doc') && $t('div.doc').length == 1 && $t('div.doc')[0].className == 'doc';
-                var res3 = res0 && $t('a[id]') && $t('a[id]').length == 1 && $t('a[id]')[0].getAttribute('id') == 'a1';
-                var res4 = res0 && $t('a[id=a1]') && $t('a[id=a1]').length == 1 && $t('a[id=a1]')[0].getAttribute('id') == 'a1' && $t('a[id==a1]') && $t('a[id==a1]').length == 1 && $t('a[id==a1]')[0].getAttribute('id') == 'a1';
-                var res5 = res0 && $t('a[class*=ink]') && $t('a[class*=ink]').length == 3;
-                var res6 = res0 && $t('a[id~=1]') && $t('a[id~=1]').length == 1;
-                var res7 = res0 && $t('a[id$=0]') && $t('a[id$=0]').length == 1 && $t('a[href$=more]') && $t('a[href$=more]').length == 1;
-                var res8 = res0 && $t('a[id^=a]') && $t('a[id^=a]').length == 2;
-                var res9 = res0 && $t('a[id!=a1]') && $t('a[id!=a]').length == 1;
-                //var res10 = res0 && $t('a[href="//"]') && $t('a[id=a1]').length == 1;
-                //var res11 = res0 && $t('div.doc//b') && $t('div.doc//b').length == 1;
-                //var res12 = res0 && $t('div.doc//a[href]') && $t('div.doc//a[href]').length == 1;
+                var arr = null;
+                var rs0 = typeof $t('form') == 'object' && (arr = $t('form')) && arr.length == 1;
+                rs0 = rs0 && typeof $tags('form') == 'object' && (arr = $tags('form')) && arr.length == 1;
+                var rs1 = rs0 && (arr = $t('h1,h2')) && arr.length == 3;
+                var rs2 = rs0 && (arr = $t('div.doc')) && arr.length == 1 && arr[0].className == 'doc';
+                var rs3 = rs0 && (arr = $t('a[id]')) && arr.length == 3 && arr[0].id == 'a1';
+                var rs4 = rs0 && (arr = $t('a[id=a1]')) && arr.length == 1 && arr[0].id == 'a1';
+                rs4 = rs4 && (arr = $t('a[id==a1]')) && arr.length == 1 && arr[0].id == 'a1';
+                var rs5 = rs0 && (arr = $t('a[class*=ink]')) && arr.length == 3 && arr[0].className.indexOf('ink') >= 0;
+                var rs6 = rs0 && (arr = $t('a[id~=0]')) && arr.length == 2 && arr[0].id == 'a1';
+                var rs7 = rs0 && (arr = $t('a[id$=0]')) && arr.length == 1 && arr[0].id == 'a0';
+                var rs8 = rs0 && (arr = $t('a[id^=a]')) && arr.length == 3 && arr[2].id == 'a2';
+                var rs9 = rs0 && (arr = $t('a[id!=a1]')) && arr.length == 2 && arr[0].id == 'a2';
 
-                ////:
-                return [false];
+                var str0 = "\\~!@#$%^&*()_+`-=[中文]\{}|;':,./< >?",
+                    str1 = '\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?';
+                var rs10 = rs0 && (arr = $t('img[_data]')) && arr.length == 2 && arr[0].getAttribute('id') == 'img0';
+                var rs11 = rs0 && (arr = $t('img[_data="' + str0 + '"]')) && arr.length == 1 && arr[0].getAttribute('id') == 'img0';
+                rs11 = rs11 && (arr = $t("img[_data='" + str1 + "']")) && arr.length == 1 && arr[0].getAttribute('id') == 'img1';
+                var rs12 = rs0 && (arr = $t('img[_data*="]')) && arr.length == 1 && arr[0].getAttribute('id') == 'img1';
+                rs12 = rs12 && (arr = $t("img[_data*=']")) && arr.length == 1 && arr[0].getAttribute('id') == 'img0';
+                var str2 = "'[\,]'",
+                    str3 = '"[\,]"';
+                var rs13 = rs0 && (arr = $t('img[src~="' + str2 + '"]')) && arr.length == 1 && arr[0].id == 'img1';
+                rs13 = rs13 && (arr = $t("img[src~='" + str3 + "']")) && arr.length == 1 && arr[0].id == 'img0';
+                var rs14 = rs0 && (arr = $t("a[href$='detail']")) && arr.length == 1 && arr[0].id == 'a0';
+                var rs15 = rs0 && (arr = $t('a[href^="./X/页/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
+                var rs16 = rs0 && (arr = $t('img[_data!=' + str2 + ']')) && arr.length == 1 && arr[0].id == 'img0';
+
+                var rs17 = rs0 && (arr = $t('a.link1[id*=a, href*="/页/a.html?id=1&mode=more"]')) && arr.length == 1 && arr[0].getAttribute('id') == 'a1';
+                var rs18 = rs0 && (arr = $t('div.doc\p\a[href*="/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
+                rs18 = rs0 && (arr = $t('div.doc/p/a[href*="/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
+                var rs19 = rs0 && (arr = $t('div.doc//a[href*="/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
+                rs19 = rs0 && (arr = $t('div.doc\\a[href*="/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
+                var rs20 = rs0 && (arr = $t('p.poem/a[id^=a, href*="./X/页/"], div.doc//img[id^="img", src*="/images/"]')) && arr.length == 4 && arr[1].id == 'a1' && arr[3].id == 'img1';
+                rs20 = rs20 && (arr = $t('p.poem/a[id^="a", href*="./X/页/"], body//img[id^="img", src*="' + str2 + '"]')) && arr.length == 3 && arr[1].id == 'a1' && arr[2].id == 'img0';
+                return [rs0, rs1, rs2, rs3, rs4, rs5, rs6, rs7, rs8, rs9, rs10, rs11, rs12, rs13, rs14, rs15, rs16, rs17, rs18, rs19, rs20];
             }
         }
 
@@ -116,7 +137,14 @@
     <h1 id="h1">Test de1.7</h1>
     <div class="doc">
         <h2>HTML脚本区</h2>
-        <p>诗一首：<b>一</b>去<b>二</b><b>三</b>里，<b>四</b><b>五</b>户人家，<b>六</b><b>七</b>颗桃树，<b>八</b><b>九</b><b>十</b>枝花。<a id="a0" class="link1" href="./X/Y/a.html?id=1&mode=detail">详细..</a><a id="a1" class="link1" href="./X/Y/a.html?id=1&mode=more">更多..</a></p>
+        <p class="poem">诗一首：<b>一</b>去<b>二</b><b>三</b>里，<b>四</b><b>五</b>户人家，<b>六</b><b>七</b>颗桃树，<b>八</b><b>九</b><b>十</b>枝花。
+            <a id="a0" class="link1" href="./X/页/a.html?id=1&mode=detail">详细..</a><a id="a1" class="link1" href="./X/页/a.html?id=1&mode=more">更多..</a><br />
+        </p>
+        <p>
+            图两张:<img id="img0" alt="fake image 0" _data="\\~!@#$%^&*()_+`-=[中文]\{}|;':,./< >?" src="./images/小图/img0.asp?arr=['a','[\,]','c']" />
+            <img id="img1" alt="fake image 1" _data='\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?' src='./images/小图/img1.asp?arr=["e","[\,]","g"]' />
+            <a id="a2" class="link1" href="./X/页/b.html?id=1&mode=more">更多..</a>
+        </p>
         <form action="#" name="form1">
             <table>
                 <caption>表格</caption>
@@ -144,7 +172,7 @@
         <div id="divOut"></div>
     </div>
     <div id="testList">
-        <h2 id="h2">测试工作区</h2>
+        <h2 id="h2">测试功能区</h2>
         <h3>基本函数</h3>
         <ul>
             <li><span class="blue">$e(e, doc)</span><button type="button">Test</button><span class=msg></span></li>
