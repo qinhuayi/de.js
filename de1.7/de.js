@@ -1,4 +1,6 @@
-﻿/// de.js ver1.7 (2019-03-27)
+﻿/// de.js ver1.7.1 (2019-11-28++)
+///   1. ...
+/// de.js ver1.7 (2019-03-27)
 ///   1. Puhlish.
 /// de.js ver1.6b (2018-07-31)
 ///   1. Fix two bugs in Date.fromString().

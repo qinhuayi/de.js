@@ -17,122 +17,18 @@
         span { margin: 1px; padding:0.1em; }
         b { color: #ff6a00; }
         span, a, b { margin:0.1em; }
+        a { margin: 0.1em 0.5em; }
         sup { color:red; font-size:9px;display:inline-block; }
         .blue { color: blue; }
         .red {color:red; }
         .green {color:green;}
+        .bg_gray { background-color:gray;}
+        .bg_black { color:#fff; background-color:black;}
         li span.blue { width:22em; display:inline-block; text-align:left; }
     </style>
     <link rel="stylesheet" href="./styles/fake.css" />
     <script src="./de1.7/de.js?v1"></script>
-    <!--<script src="Test.html.js?v1"></script>-->
-    <script>
-        function getFunctonName(span) {
-            var name = span.innerHTML,
-                index = name.indexOf('(');
-            return index > 0 ? name.substring(0, index) : name;
-        }
-
-        var Testor = {
-            "$e": function (idoc, divOut) {
-                var rs0 = typeof $e('iframe1') == 'object' && $e('iframe1') && $e('iframe1').tagName == 'IFRAME';
-                var rs1 = $e(document.body) && $e(document.body).tagName == 'BODY';
-                var p = $e('p1', idoc);
-                var rs2 = typeof p == 'object' && p && p.tagName == 'P';
-
-                var rs3 = typeof $e('*group1') == 'object' && $e('*group1') && $e('*group1').length == 3;
-                var rs4 = typeof $e('*group2', idoc) == 'object' && $e('*group2', idoc) && $e('*group2', idoc).length == 4;
-
-                var sp0 = $e("<span class='red'>");
-                var rs5 = typeof sp0 == 'object' && sp0 && sp0.tagName == 'SPAN';
-                rs5 && divOut.appendChild(sp0);
-                rs5 && (sp0.innerHTML = '$e-sp0');
-                var sp1 = $e("<span class='red'>", idoc);
-                var divOut2 = idoc && idoc.getElementById('divOut');
-                var rs6 = divOut2 && typeof sp1 == 'object' && sp1 && sp1.tagName == 'SPAN';
-                divOut2 && divOut2.appendChild(sp1);
-                rs6 && (sp1.innerHTML = '$e-sp1');
-
-                return [rs0, rs1, rs2, rs3, rs4, rs5, rs6];
-            },
-            "$t": function (idoc, divOut) {
-                var arr = null;
-                var rs0 = typeof $t('form') == 'object' && (arr = $t('form')) && arr.length == 1;
-                rs0 = rs0 && typeof $tags('form') == 'object' && (arr = $tags('form')) && arr.length == 1;
-                var rs1 = rs0 && (arr = $t('h1,h2')) && arr.length == 3;
-                var rs2 = rs0 && (arr = $t('div.doc')) && arr.length == 1 && arr[0].className == 'doc';
-                var rs3 = rs0 && (arr = $t('a[id]')) && arr.length == 3 && arr[0].id == 'a0';
-                var rs4 = rs0 && (arr = $t('a[id=a1]')) && arr.length == 1 && arr[0].id == 'a1';
-                rs4 = rs4 && (arr = $t('a[id==a1]')) && arr.length == 1 && arr[0].id == 'a1';
-                var rs5 = rs0 && (arr = $t('a[class*=ink]')) && arr.length == 3 && arr[0].className.indexOf('ink') >= 0;
-                var rs6 = rs0 && (arr = $t('a[id~=0]')) && arr.length == 2 && arr[0].id == 'a1';
-                var rs7 = rs0 && (arr = $t('a[id$=0]')) && arr.length == 1 && arr[0].id == 'a0';
-                var rs8 = rs0 && (arr = $t('a[id^=a]')) && arr.length == 3 && arr[2].id == 'a2';
-                var rs9 = rs0 && (arr = $t('a[id!=a1]')) && arr.length == 2 && arr[1].id == 'a2';
-
-                var sdata0 = document.getElementById('img0').getAttribute('_data'), //"\\~!@#$%^&*()_+`-=[中文]\{}|;':,./< >?",
-                    sdata1 = document.getElementById('img1').getAttribute('_data'); //'\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?';
-                var rs10 = rs0 && (arr = $t('img[_data]')) && arr.length == 2 && arr[0].id == 'img0';
-                var rs11 = rs0 && (arr = $t('img[_data="' + sdata0 + '"]')) && arr.length == 1 && arr[0].id == 'img0';
-                rs11 = rs11 && (arr = $t("img[_data='" + sdata1 + "']")) && arr.length == 1 && arr[0].id == 'img1';
-                var rs12 = rs0 && (arr = $t('img[_data*="]')) && arr.length == 1 && arr[0].id == 'img1';
-                rs12 = rs12 && (arr = $t("img[_data*=']")) && arr.length == 1 && arr[0].id == 'img0';
-                var src0 = "'[\\,]'",
-                    src1 = '"[\\,]"';
-                var rs13 = rs0 && (arr = $t('img[src~="' + src0 + '"]')) && arr.length == 1 && arr[0].id == 'img1';
-                rs13 = rs13 && (arr = $t("img[src~='" + src1 + "']")) && arr.length == 1 && arr[0].id == 'img0';
-                var rs14 = rs0 && (arr = $t("a[href$='detail']")) && arr.length == 1 && arr[0].id == 'a0';
-                var rs15 = rs0 && (arr = $t('a[href^="./X/页/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
-                var rs16 = rs0 && (arr = $t('img[_data!="' + sdata0 + '"]')) && arr.length == 1 && arr[0].id == 'img1';
-
-                var rs17 = rs0 && (arr = $t('a.link1[id*=a, href*="/页/a.html?id=1&mode=more"]')) && arr.length == 1 && arr[0].id == 'a1';
-                var rs18 = rs0 && (arr = $t('div.doc\\p\\a[href*="/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
-                rs18 = rs0 && (arr = $t('div.doc/p/a[href*="/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
-                var rs19 = rs0 && (arr = $t('div.doc//a[href*="/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
-                rs19 = rs0 && (arr = $t('div.doc\\\\a[href*="/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
-                var rs20 = rs0 && (arr = $t('p.poem/a[id^=a, href*="./X/页/"], div.doc//img[id^="img", src*="/images/"]')) && arr.length == 4 && arr[1].id == 'a1' && arr[3].id == 'img1';
-                rs20 = rs20 && (arr = $t('p.poem/a[id^="a", href*="./X/页/"], body//img[id^="img", src*="' + src0 + '"]')) && arr.length == 3 && arr[1].id == 'a1' && arr[2].id == 'img0';
-                return [rs0, rs1, rs2, rs3, rs4, rs5, rs6, rs7, rs8, rs9, rs10, rs11, rs12, rs13, rs14, rs15, rs16, rs17, rs18, rs19, rs20];
-            }
-        }
-
-        function btnTest_click(evt) {
-            var msg = evt.srcElement.nextSibling,
-                divOut = document.getElementById('divOut'),
-                iframe = document.getElementById('iframe1'),
-                frm1 = frames['frame1'] || iframe.contentWindow,
-                idoc = frm1 ? frm1.document : null,
-                name = getFunctonName(evt.srcElement.previousSibling),
-                arr = typeof Testor[name] == 'function' ? Testor[name](idoc, divOut) : [];
-            msg.innerHTML = '';
-            for (var i = 0; i < arr.length; i++) {
-                msg.innerHTML += arr[i] ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
-            }
-        }
-
-        function bind(e, name, method) {
-            if (e.attachEvent) {
-                e.attachEvent('on' + name, method);
-            } else if (e.addEventListener) {
-                e.addEventListener(name, method, false);
-            } else if (e && e !== undefined) {
-                e[name] = method;
-            }
-        }
-
-        function btnTestAll_click(evt) {
-            ////:
-        }
-
-        document.ready(function () {
-            var btns = document.getElementsByTagName('BUTTON');
-            for (var i = 0; i < btns.length; i++) {
-                bind(btns[i], 'click', btnTest_click);
-            }
-            bind(document.getElementById('btnTestAll'), 'click', btnTestAll_click);
-            document.getElementById('h2').innerHTML += '<span class="red"> ok!</span>';
-        });
-    </script>
+    <script src="Test.html.js?v1"></script>    
 </head>
 <body>
     <h1 id="h1">Test de1.7</h1>
@@ -151,21 +47,27 @@
                 <caption>表格</caption>
                 <tbody>
                     <tr>
-                        <td>职业</td>
+                        <td>类别</td>
                         <td>
                             <select id="sel">
-                                <option value="A">A职业</option>
-                                <option value="B">B职业</option>
-                                <option value="C">C职业</option>
+                                <option value="A">A类</option>
+                                <option value="B">B类</option>
+                                <option value="C">C类</option>
                             </select></td>
                     </tr>
                     <tr>
-                        <td>颜色</td>
+                        <td>Color</td>
                         <td>
                             <input id="rb0" name="group1" type="radio" value="red" checked /><label for="rb0">red</label>
                             <input id="rb1" name="group1" type="radio" value="green" /><label for="rb1">green</label>
                             <input id="rb2" name="group1" type="radio" value="blue" /><label for="rb2">blue</label></td>
                     </tr>
+                    <tr>
+                        <td>Note</td>
+                        <td><input id="txt0" type="text" _data="Text Data" value="abc123 efg456" /></td>
+                    <tr>
+                        <td></td>
+                        <td><input id="btnClear" type="button" _data="Btn0 Data" value="Clear" /></td>
                 </tbody>
             </table>
         </form>
