@@ -1,4 +1,6 @@
-/// de.js ver1.7 (2019-03-2X)
+ï»¿/// de.js ver1.7.1 (2019-11-28++)
+///   1. ...
+/// de.js ver1.7 (2019-03-30)
 ///   1. Puhlish.
 /// de.js ver1.6b (2018-07-31)
 ///   1. Fix two bugs in Date.fromString().
@@ -37,15 +39,12 @@
 ///   2.Upgrade $$.ajax to fix IE6 bug;
 /// author: hoy qin; email: qhuayi@gmail.com, qinhuayi@kezhida.com.cn
 String.prototype.trim = function () {
-    var me = this,
-        me = me.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
-    return me;
+    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
 }
 String.prototype.format = function () {
-    var me = this,
-        formatMe = me.indexOf('{0}') >= 0;
+    var formatMe = this.indexOf('{0}') >= 0;
     if (arguments.length > 0) {
-        var format = formatMe ? me : arguments[0];
+        var format = formatMe ? this : arguments[0];
         for (var i = 0; i < arguments.length - (formatMe ? 0 : 1); i++) {
             format = format.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i + (formatMe ? 0 : 1)]);
         }
@@ -54,10 +53,9 @@ String.prototype.format = function () {
     return null;
 }
 Array.prototype.each = function (fn) {
-    var me = this;
     if (typeof (fn) == "function") {
-        for (var i = 0; i < me.length; i++) {
-            fn.call(me[i], i, me[i]);
+        for (var i = 0; i < this.length; i++) {
+            fn.call(this[i], i, this[i]);
         }
     }
 }
@@ -69,27 +67,28 @@ Array.prototype.forEach = function (fn) {
     }
 }
 Array.prototype.exists = function (e) {
-    var me = this;
-    for (var i = 0; i < me.length; i++) {
-        if (e === me[i]) {
+    for (var i = 0; i < this.length; i++) {
+        if (e === this[i]) {
             return true;
         }
     }
     return false;
 }
 Array.prototype.indexOf = function (e) {
-    var me = this;
-    for (var i = 0; i < me.length; i++) {
-        if (e === me[i]) {
+    for (var i = 0; i < this.length; i++) {
+        if (e === this[i]) {
             return i;
         }
     }
     return -1;
 }
+Array.prototype.remove = function (i) {
+    return this.splice(i, 1) | 1;
+}
 Date.prototype.toObject = function () {
     var me = this,
         month = "January February March April May June July August September October November December".split(' '),
-        week = "Monday Tuesday Wednesday Thursday Friday Saturday Sunday".split(' ');
+        week = "Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(' ');
     return {
         Y: me.getFullYear(),
         M: me.getMonth(),
@@ -271,7 +270,7 @@ Date.prototype.fromString = function (str, format) {
         }
     };
     me.setTime(0);
-    return null;
+    return NaN;
 }
 Date.prototype.add = function (part, n) {
     var me = this,
@@ -321,7 +320,7 @@ Date.prototype.diff = function (part, date) {
             return date.getFullYear() - me.getFullYear();
     }
     return null;
-}
+};
 
 (function (window, document, undefined) {
     var readyList = [],
@@ -495,7 +494,7 @@ Date.prototype.diff = function (part, date) {
                     var reg = function (str) {
                         return new RegExp(str, 'g');
                     };
-                    return saveExpr.replace(reg(rep.insideComma), ',').replace(reg(rep.outsideComma), ',').replace(rep.slash, '\\').replace(rep.backSlash, '/').replace(reg(rep.leftSquareBracket), '[').replace(reg(rep.rightSquareBracket), ']').replace(reg(rep.singleQuotes), "'").replace(reg(rep.doubleQuotes), '"');
+                    return saveExpr.replace(reg(rep.insideComma), ',').replace(reg(rep.outsideComma), ',').replace(reg(rep.slash), '\\').replace(reg(rep.backSlash), '/').replace(reg(rep.leftSquareBracket), '[').replace(reg(rep.rightSquareBracket), ']').replace(reg(rep.singleQuotes), "'").replace(reg(rep.doubleQuotes), '"');
                 },
                 safeSpecifies = replaceSafeExpression(specifies).split(','),
                 examClass = function (e, name) {
@@ -504,16 +503,11 @@ Date.prototype.diff = function (part, date) {
                 examAttr = function (e, expr) {
                     var vexpr = '',
                         val = null,
-                        extract = function (symbol) {
-                            if (expr.indexOf(symbol) > 0) {
-                                var arr = expr.split(symbol);
-                                val = attr(e, arr[0]);
-                                if (/(^'[^']+'$)|(^"[^"]+"$)/g.test(arr[1])) {
-                                    vexpr = arr[1].substr(1, arr[1].length - 2);
-                                    vexpr = restore(vexpr);
-                                } else {
-                                    vexpr = arr[1];
-                                }
+                        extract = function (symb) {
+                            var index = expr.indexOf(symb);
+                            if (index > 0) {
+                                val = attr(e, expr.substr(0, index));
+                                vexpr = restore(expr.substr(index + symb.length));
                                 return true;
                             }
                             return false;
@@ -546,6 +540,9 @@ Date.prototype.diff = function (part, date) {
                     }
                     return pass;
                 };
+            safeSpecifies.each(function (i, expr) {
+                safeSpecifies[i] = trim(expr);
+            });
             return { examClass: examClass, examAttrs: examAttrs, safeSpecifies: safeSpecifies };
         },
         _tags = function (e, specifies) {
@@ -742,7 +739,7 @@ Date.prototype.diff = function (part, date) {
             e.tags = function (specifies) {
                 return _tags(e, specifies);
             };
-            //À©Õ¹de·½·¨ 1.6b
+            //extentions since 1.6b
             if (typeof $$.extentions === 'object' && typeof $$.extentions[e.tagName] === 'function') {
                 $$.extentions[e.tagName](e);
             }
@@ -973,6 +970,7 @@ Date.prototype.diff = function (part, date) {
             readyList.push(fn);
         }
     };
+    document.path = _url2Object(document.location.href);
     window.onload = function () {
         for (var i = 0; i < readyList.length; i++) {
             readyList[i].call(document);
@@ -1008,7 +1006,7 @@ Date.prototype.diff = function (part, date) {
         htmlDecode: _htmlDecode,
         url2Object: _url2Object,
         merge: _merge,
-        extentions: {}, //Ô¤ÁôÀ©Õ¹de·½·¨ 1.6b
+        extentions: {}, //reserve for 1.6b+
         ajax: _ajax
     };
 })(window, document);
