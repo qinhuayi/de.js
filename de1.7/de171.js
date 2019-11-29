@@ -1,43 +1,6 @@
-﻿/// de.js ver1.7.1 (2019-11-28++)
+﻿/// de.js ver1.7.1 (2019-11-28 ++)
 ///   1. ...
-/// de.js ver1.7 (2019-03-30)
-///   1. Puhlish.
-/// de.js ver1.6b (2018-07-31)
-///   1. Fix two bugs in Date.fromString().
-///   2. Add String.format(...) function.
-///   3. Add de.parent(specifies) funtion.
-///   4. Add Array.forEach() and Array.remove() functions.
-/// de.js ver1.6 (2016-11-19)
-/// ver 1.6 {2016-11-19}
-///   1. Add $t(specifies) and $tags(specifies), equal to $e(document.documentElement).tags(specifies).
-/// ver 1.5 {2016-05-04}
-///   1. Upgrade $$.htmlEncode() and $$.htmlDecode(), add parameter 'mode'.
-///   2. Rename 'document.thisUrl' to 'document.path'.
-///   3. Remove $$.UrlParser.
-///   4. Add $$.url2Object.
-///   5. Fix bug on $$.ajax(conf), rename conf.success to conf.onsuccess.
-///   6. Rename 'Date.toJSON' to 'Date.toObject'.
-///   7. Upgrade 'de.tags(selector)' to 'de.tags(specifies)'.
-/// ver 1.4 {2015-11-18}
-///   1. Fix bug on $e('*rb').value and $e('*cb').value 
-/// ver 1.3 {2015-10-31}
-///   1. Rename 'dom' to 'de'.
-///   2. Upgrade Date.fromString() and Date.toString(), change format chars 'nnn' to 'fff'.
-/// ver 1.2.10 / 1.3 {2015-10-06}
-///   1. Rename 'dom' to 'de'.
-/// ver 1.2.10 {2015-07-30}
-///   1. Fix bug on _de.pos().
-/// ver1.2.9 (2015-06-13)
-///   1. Add _deArray().removeAttr() function.
-/// ver1.2.8 (2015-06-02)
-///   1. Add $$.htmlEncode() and $$.htmlDecode() function.
-///   2. Add 'xmlhttp.status' property in ajax function parameters and result.
-/// ver1.2.7 (2015-04-03) 
-///   1.fix bug on $e(eid, frame) and $e(eid, frame.document) when frame release.
-/// ver1.2.6 (2015-01-12) 
-///   1.Upgrade Date.fromString() to fix IE6, IE7 bug;
-///   2.Upgrade $$.ajax to fix IE6 bug;
-/// author: hoy qin; email: qhuayi@gmail.com, qinhuayi@kezhida.com.cn
+/// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
 String.prototype.trim = function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
 }
@@ -566,7 +529,7 @@ Date.prototype.diff = function (part, date) {
                             arr = deep ? e.getElementsByTagName(tagName.toUpperCase()) : getChildElements(e, tagName);
                         for (var i = 0; i < arr.length; i++) {
                             if ((!className || examor.examClass(arr[i], className)) && (!express || examor.examAttrs(arr[i], express))) {
-                                results.push(_de(arr[i]));
+                                results.push(_de(arr[i], document));
                             }
                         }
                     }
@@ -636,7 +599,7 @@ Date.prototype.diff = function (part, date) {
                 if (typeof (name) == "string" && value !== undefined) {
                     e.style[name] = value;
                 } else if (typeof (name) == "string") {
-                    return e.currentStyle[name];
+                    return e.style[name];
                 }
                 return e;
             };
@@ -734,7 +697,7 @@ Date.prototype.diff = function (part, date) {
                 while (!!node && !!node.tagName && !exam(node, examor.safeSpecifies)) {
                     node = node.tagName === 'HTML' ? null : (node.parentNode || node.parentElement);
                 }
-                return !!node ? _de(node) : null;
+                return !!node ? _de(node, e.ownerDocument) : null;
             };
             e.tags = function (specifies) {
                 return _tags(e, specifies);
@@ -790,7 +753,7 @@ Date.prototype.diff = function (part, date) {
                     value = index > 0 ? (value != '' ? replacor.restore(value, replacement) : value) : true;
                     /^[a-zA-Z_-]+$/i.test(name) && attr(element, name, value);
                 }
-                return _de(element);
+                return _de(element, doc);
             }
         },
         _format = function () {

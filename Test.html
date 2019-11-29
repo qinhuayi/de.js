@@ -28,12 +28,12 @@
     </style>
     <link rel="stylesheet" href="./styles/fake.css" />
     <script src="./de1.7/de171.js?v1"></script>
-    <script src="Test.html.js?v1"></script>    
+    <script src="Test.html.js?v2"></script>    
 </head>
 <body>
     <h1 id="h1">Test de1.7</h1>
     <div class="doc">
-        <h2>HTML脚本区</h2>
+        <h2 id="h2">HTML脚本区</h2>
         <p class="poem">诗一首：<b>一</b>去<b>二</b><b>三</b>里，<b>四</b><b>五</b>户人家，<b>六</b><b>七</b>颗桃树，<b>八</b><b>九</b><b>十</b>枝花。
             <a id="a0" class="link1" href="./X/页/a.html?id=1&mode=detail">详细..</a><a id="a1" class="link1" href="./X/页/a.html?id=1&mode=more">更多..</a><br />
         </p>
@@ -46,7 +46,7 @@
             <table>
                 <caption>表格</caption>
                 <tbody>
-                    <tr>
+                    <tr id="tr0">
                         <td>类别</td>
                         <td>
                             <select id="sel">
@@ -55,19 +55,21 @@
                                 <option value="C">C类</option>
                             </select></td>
                     </tr>
-                    <tr>
+                    <tr id="tr1">
                         <td>Color</td>
                         <td>
                             <input id="rb0" name="group1" type="radio" value="red" checked /><label for="rb0">red</label>
                             <input id="rb1" name="group1" type="radio" value="green" /><label for="rb1">green</label>
                             <input id="rb2" name="group1" type="radio" value="blue" /><label for="rb2">blue</label></td>
                     </tr>
-                    <tr>
+                    <tr id="tr2">
                         <td>Note</td>
                         <td><input id="txt0" type="text" _data="Text Data" value="abc123 efg456" /></td>
                     <tr>
                         <td></td>
-                        <td><input id="btnClear" type="button" _data="Btn0 Data" value="Clear" /></td>
+                        <td><input id="btnClear" type="button" _data="Btn0 Data" value="Clear" />
+                            <input id="btnReset" type="button" value="Reset" />
+                        </td>
                 </tbody>
             </table>
         </form>
