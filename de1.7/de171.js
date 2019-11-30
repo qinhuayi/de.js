@@ -1,5 +1,6 @@
 ﻿/// de.js ver1.7.1 (2019-11-28 ++)
-///   1. ...
+///   1. Fix some bugs;
+///   2. Upgrade $t(specifies) to $t(specifies, doc), equal to $e(doc.documentElement).tags(specifies).
 /// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
 String.prototype.trim = function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
@@ -374,7 +375,7 @@ Date.prototype.diff = function (part, date) {
                 return each(elements, 'html', html);
             };
             elements.text = function (str) {
-                return each(elements, 'text', text);
+                return each(elements, 'text', str);
             };
             elements.css = function (name, value) {
                 return each(elements, 'css', name, value);
@@ -965,8 +966,8 @@ Date.prototype.diff = function (part, date) {
             }
         }
     };
-    window.$tags = function (specifies) {
-        return $e(document.documentElement).tags(specifies);
+    window.$tags = function (specifies, doc) {
+        return typeof doc === undefined || !doc ? $e(document.documentElement).tags(specifies) : $e(doc.documentElement).tags(specifies);
     };
     window.$t = window.$tags;
     window.$$ = {
