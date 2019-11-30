@@ -286,6 +286,7 @@ Date.prototype.diff = function (part, date) {
 };
 
 (function (window, document, undefined) {
+    "use strict"
     var readyList = [],
         trim = function (str) {
             return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
@@ -378,6 +379,9 @@ Date.prototype.diff = function (part, date) {
             elements.css = function (name, value) {
                 return each(elements, 'css', name, value);
             };
+            elements.pos = function () {
+                throw { message: 'Not support!' };
+            };
             elements.show = function () {
                 return each(elements, 'show');
             };
@@ -396,8 +400,11 @@ Date.prototype.diff = function (part, date) {
             elements.insert = function (node, n) {
                 return each(elements, 'insert', node, n);
             };
-            elements.tags = function (selector) {
-                throw 'Not support!';
+            elements.parent = function (specifies) {
+                throw { message: 'Not support!' };
+            };
+            elements.tags = function (specifies) {
+                throw { message: 'Not support!' };
             };
             var getValue = function (arr) {
                 var values = '';

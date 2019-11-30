@@ -1,11 +1,4 @@
-﻿function getFunctonName(btn) {
-    var span = btn.previousSibling.tagName == 'SPAN' ? btn.previousSibling : btn.previousSibling.previousSibling,
-        name = span.innerHTML,
-        index = name.indexOf('(');
-    return index > 0 ? name.substring(0, index) : name;
-}
-
-var Testor = {
+﻿var Testor = {
     "$e": function (idoc, divOut) {
         var rs0 = typeof $e('iframe1') == 'object' && $e('iframe1') && $e('iframe1').tagName == 'IFRAME';
         var rs1 = $e(document.body) && $e(document.body).tagName == 'BODY';
@@ -66,9 +59,7 @@ var Testor = {
         rs20 = rs20 && (arr = $t('p.poem/a[id^="a", href*="./X/页/"], body//img[id^="img", src*="' + src0 + '"]')) && arr.length == 3 && arr[1].id == 'a1' && arr[2].id == 'img0';
         return [rs0, rs1, rs2, rs3, rs4, rs5, rs6, rs7, rs8, rs9, rs10, rs11, rs12, rs13, rs14, rs15, rs16, rs17, rs18, rs19, rs20];
     },
-    "$$.ajax": function () {
-        return [];
-    },
+    "$$.ajax": { },
     "$$.format": function () {
         var rs0 = $$.format("{0}去{1}{2}里", '一', '二', '三') == '一去二三里';
         var rs1 = $$.format("{0}去{1}{2}里=={0}去{1}{2}里", '一', '二', '三') == '一去二三里==一去二三里';
@@ -231,9 +222,9 @@ var Testor = {
         return [rs0, rs1, rs2];
     },
     "html": function (idoc) {
-        var rs0 = $e('h2').html('HTML Scripts Zone').id == 'h2' && $e('h2').innerHTML == 'HTML Scripts Zone';
+        var rs0 = $e('h1').html('HTML Scripts Zone').id == 'h1' && $e('h1').innerHTML == 'HTML Scripts Zone';
         var rs1 = $e('p1', idoc).html('de is awesome!').id == 'p1' && $e('p1', idoc).innerHTML == 'de is awesome!';
-        var rs2 = $e('h2').html() == 'HTML Scripts Zone';
+        var rs2 = $e('h1').html() == 'HTML Scripts Zone';
         var rs3 = $e('p1', idoc).html() == 'de is awesome!';
         var rs4 = $t('div[id=divOut]').html('HTML').length == 1;
         rs4 = $t('div[id=divOut]')[0].html() == 'HTML';
@@ -258,68 +249,59 @@ var Testor = {
         var rs0 = $e('txt0').parent('tr').id = 'tr2';
         var rs1 = $e('txt0').parent('tr[id=tr2]') !== undefined && $e('txt0').parent('tr[id=tr1]') == undefined;
         var rs2 = $t('script')[0].parent('head').tagName == 'HEAD';
+        var rs3 = $e('btnSubmit', idoc).parent('p[id=p2]') !== undefined && $e('btnSubmit', idoc).parent('p[id=p2]').id == 'p2';
+        return [rs0, rs1, rs2, rs3];
+    },
+    "pos": function (idoc, divOut) {
+        var pos0 = $e(divOut).pos();
+        var pos1 = $e('divOut', idoc).pos();
+        var rs0 = pos0.x >= 1 && pos0.x <= 900 && pos0.y >= 100 && pos0.y <= 800;
+        var rs1 = pos1.x >= 1 && pos1.x <= 900 && pos1.y >= 200 && pos1.y <= 1000;
+        //throw { message: $$.format("divOut.pos() = {{0}, {1}}, iframe.divOut.pos() = {{2}, {3}}", pos0.x, pos0.y, pos1.x, pos1.y) };
+        return [rs0, rs1];
+    },
+    "removeAttr": function (idoc, divOut) {
+        var rs0 = $e('btnClear').removeAttr('_data').id == 'btnClear' && $e('btnClear').getAttribute('_data') == null;
+        var rs1 = $t('img[id=img1]').removeAttr('alt').length == 1;
+        var val = $e('img1').getAttribute('alt');
+        rs1 = rs1 && !val;
+        var rs2 = $e('p1', idoc).removeAttr('_data').id == 'p1' && $e('p1', idoc).getAttribute('_data') == null;
         return [rs0, rs1, rs2];
     },
-    "pos": function () {
-        return [];
+    "removeClass": function (idoc, divOut) {
+        var rs0 = $e('a0').removeClass('link1').id == 'a0' && $e('a0').className.indexOf('link1') < 0;
+        var rs1 = $t('a[id=a1]').removeClass('link1').length == 1 && $t('a[id=a1]')[0].className.indexOf('link1') < 0;
+        var rs2 = $e('p1', idoc).removeClass('dark1').id == 'p1' && $e('p1', idoc).className.indexOf('dark1') < 0;
+        return [rs0, rs1, rs2];
     },
-    "removeAttr": function () {
-        return [];
+    "show": function (idoc, divOut) {
+        var rs0 = $e('sp0').show().id == 'sp0' && $e('sp0').style.display != 'none';
+        var rs1 = $t('span.hidden').show().length == 2 && $t('span.hidden')[1].style.display != 'none';
+        var rs2 = $e('sp2', idoc).show().id == 'sp2' && $e('sp2', idoc).style.display != 'none';
+        return [rs0, rs1, rs2];
     },
-    "removeClass": function () {
-        return [];
-    },
-    "show": function () {
-        return [];
-    },
-    "tags": function () {
-        return [];
-    },
-    "text": function () {
-        return [];
-    },
-    "unbind": function () {
-        return [];
-    },
-    "val": function () {
-        return [];
-    },
-    "value": function () {
-        return [];
-    },
-    "Array.forEach": function () {
-        return [];
-    },
-    "Array.each": function () {
-        return [];
-    },
-    "Array.exists": function () {
-        return [];
-    },
-    "Array.indexof": function () {
-        return [];
-    },
-    "Date.add": function () {
-        return [];
-    },
-    "Date.diff": function () {
-        return [];
-    },
-    "Date.fromString": function () {
-        return [];
-    },
-    "Date.toObject": function () {
-        return [];
-    },
-    "Date.toString": function () {
-        return [];
-    },
-    "String.format": function () {
-        return [];
-    },
-    "String.trim": function () {
-        return [];
-    }
+    "tags": { },
+    "text": { },
+    "unbind": { },
+    "val": { },
+    "value": { },
+    "Array.forEach": { },
+    "Array.each": { },
+    "Array.exists": { },
+    "Array.indexof": { },
+    "Date.add": { },
+    "Date.diff": { },
+    "Date.fromString": { },
+    "Date.toObject": { },
+    "Date.toString": { },
+    "String.format": { },
+    "String.trim": { }
+}
+
+function getTestorFunctionName(btn) {
+    var span = btn.previousSibling.tagName == 'SPAN' ? btn.previousSibling : btn.previousSibling.previousSibling,
+        index = span.innerHTML.indexOf('('); 
+    return index > 0 ? span.innerHTML.substring(0, index) : span.innerHTML;
 }
 
 function btnTest_click(evt) {
@@ -328,7 +310,7 @@ function btnTest_click(evt) {
         iframe = document.getElementById('iframe1'),
         frm1 = frames['frame1'] || iframe.contentWindow,
         idoc = frm1 ? frm1.document : null,
-        name = getFunctonName(evt.srcElement);
+        name = getTestorFunctionName(evt.srcElement);
     try {
         var arr = typeof Testor[name] == 'function' ? Testor[name](idoc, divOut, span) : [];
         arr && OnTestSucceed(arr, span);
@@ -361,7 +343,8 @@ function btnTestAll_click(evt) {
 document.ready(function () {
     var btns = document.getElementsByTagName('BUTTON');
     for (var i = 0; i < btns.length; i++) {
-        bind(btns[i], 'click', btnTest_click);
+        var name = getTestorFunctionName(btns[i]);
+        typeof Testor[name] == 'function' ? bind(btns[i], 'click', btnTest_click) : (btns[i].disabled = true);
     }
     bind(document.getElementById('btnTestAll'), 'click', btnTestAll_click);
     document.getElementById('h2').innerHTML += '<span class="red"> ok!</span>';
