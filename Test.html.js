@@ -536,8 +536,61 @@
         };
         return this.Test([t0, t1, t2, t3]);
     },
-    "unbind": { },
-    "val": { },
+    "unbind": function (idoc, divOut) {
+        var btn0 = document.getElementById('btnClear'),
+            btn1 = idoc.getElementById('btnSubmit'),
+            rs0 = false,
+            rs1 = false,
+            onclick0 = function (evt) {
+                rs0 = false;
+            },
+            onclick1 = function (evt) {
+                rs1 = false;
+            };
+        $e(btn1).bind('click', onclick1);
+        var t0 = function () {
+            rs0 = $e(btn0).bind('click', onclick0).id == 'btnClear';
+            rs0 = rs0 && $e(btn0).unbind('click', onclick0).id == 'btnClear';
+            typeof btn0.fireEvent == 'function' ? btn0.fireEvent('click') : typeof btn0.click == 'function' ? btn0.click() : null;
+            return rs0;
+        };
+        var t1 = function () {
+            rs1 = $e(btn1).bind('click', onclick1).id == 'btnSubmit';
+            rs1 = rs1 && $e(btn1).unbind('click', onclick1).id == 'btnSubmit';
+            typeof btn1.fireEvent == 'function' ? btn1.fireEvent('click') : typeof btn1.click == 'function' ? btn1.click() : null;
+            return rs1;
+        };
+        return this.Test([t0, t1]);
+    },
+    "val": function (idoc, divOut) {
+        var t0 = function () {
+            var rs = $e('txt0').val('test val().').id == 'txt0';
+            return rs && $e('txt0').val() == 'test val().';
+        };
+        var t1 = function () {
+            $e('sel').selectedIndex = 0;
+            var rs = $e('sel').val() == 'A';
+            rs = rs && $e('sel').val('B').id == 'sel';
+            return rs && $e('sel').val() == 'B';
+        };
+        var t2 = function () {
+            var rs = $e('sp0').val() == null || $e('sp0').val() == undefined;
+            return rs && $e('divOut').val('test val()-t2()').id == 'divOut';
+        };
+        var t3 = function () {
+            $e('rb0').checked = true;
+            var rs = $e('*group1').val() == 'red';
+            $e('*group1').val('green');
+            return rs && $e('*group1').val() == 'green';
+        };
+        var t4 = function () {
+            $e('rb0', idoc).checked = true;
+            var rs = $e('*group2', idoc).val() == 'east';
+            $e('*group2', idoc).val('west');
+            return rs && $e('*group2', idoc).val() == 'west';
+        };
+        return this.Test([t0, t1, t2, t3, t4]);
+    },
     "value": { },
     "Array.forEach": { },
     "Array.each": { },

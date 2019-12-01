@@ -369,7 +369,8 @@ Date.prototype.diff = function (part, date) {
                 return each(elements, 'removeAttr', name);
             };
             elements.val = function (value) {
-                return each(elements, 'val', value);
+                //return each(elements, 'val', value);
+                return value === undefined ? getValue(elements) : each(elements, 'val', value);
             };
             elements.html = function (html) {
                 return each(elements, 'html', html);
