@@ -255,7 +255,7 @@
             return $e('p1', idoc).addClass('blue') && $e('p1', idoc).className.indexOf('blue') >= 0;
         };
         var t4 = function () {
-            return $t('label').addClass('blue').length == 3 && $t('label')[0].className.indexOf('blue') >= 0;
+            return $t('tr[id=tr2]//label').addClass('blue').length == 3 && $t('tr[id=tr2]//label')[0].className.indexOf('blue') >= 0;
         };
         return this.Test([t0, t1, t2, t3, t4]);
     },
@@ -435,10 +435,10 @@
     },
     "parent": function (idoc) {
         var t0 = function () {
-            return $e('txt0').parent('tr').id = 'tr2';
+            return $e('txt0').parent('tr').id = 'tr3';
         };
         var t1 = function () {
-            return $e('txt0').parent('tr[id=tr2]') !== undefined && $e('txt0').parent('tr[id=tr1]') == undefined;
+            return $e('txt0').parent('tr[id=tr3]') !== undefined && $e('txt0').parent('tr[id=tr2]') == undefined;
         };
         var t2 = function () {
             return $t('script')[0].parent('head').tagName == 'HEAD';
@@ -502,7 +502,7 @@
         var src0 = "'[\\,]'",
             src1 = '"[\\,]"';
         var t0 = function () {
-            return (arr = $e('form1').tags('tr')) && arr.length == 4;
+            return (arr = $e('form1').tags('tr')) && arr.length == 5;
         };
         var t1 = function () {
             return (arr = $e('form1').tags('tr[id=tr1]')) && arr.length == 1 && arr[0].id == 'tr1';
@@ -578,26 +578,188 @@
             return rs && $e('divOut').val('test val()-t2()').id == 'divOut';
         };
         var t3 = function () {
-            $e('rb0').checked = true;
-            var rs = $e('*group1').val() == 'red';
-            $e('*group1').val('green');
-            return rs && $e('*group1').val() == 'green';
+            $e('*group2').each(function (i, e) {
+                e.checked = false;
+            });
+            $e('cb1').checked = true;
+            $e('cb2').checked = true;
+            return $e('*group2').val() == '100-500,500-1000';
         };
         var t4 = function () {
+            $e('rb0').checked = true;
+            var rs = $e('*group1').val() == 'red';
+            $e('*group1')[0].val('yellow');
+            $t('label').each(function (i, e) {
+                e.innerHTML = document.getElementById(e.getAttribute('for')).value;
+            });
+            return rs && $e('*group1').val() == 'yellow';
+        };
+        var t5 = function () {
             $e('rb0', idoc).checked = true;
             var rs = $e('*group2', idoc).val() == 'east';
-            $e('*group2', idoc).val('west');
-            return rs && $e('*group2', idoc).val() == 'west';
+            $t('input[name=group2,id=rb0]', idoc).val('EAST');
+            $t('label', idoc).each(function (i, e) {
+                e.innerHTML = idoc.getElementById(e.getAttribute('for')).value;
+            });
+            return rs && $e('*group2', idoc).val() == 'EAST';
         };
-        return this.Test([t0, t1, t2, t3, t4]);
+        return this.Test([t0, t1, t2, t3, t4, t5]);
     },
-    "value": { },
-    "Array.forEach": { },
-    "Array.each": { },
-    "Array.exists": { },
-    "Array.indexof": { },
-    "Date.add": { },
-    "Date.diff": { },
+    "value": function (idoc, divOut) {
+        var t0 = function () {
+            $e('rb1').checked = true;
+            var rs = $e('*group1').value == 'green';
+            $e('rb2').checked = true;
+            return rs && $e('*group1').value == 'blue';
+        };
+        var t1 = function () {
+            $e('*group2').each(function (i, e) {
+                e.checked = false;
+            });
+            $e('cb1').checked = true;
+            $e('cb2').checked = true;
+            return $e('*group2').value == '100-500,500-1000' && $t('input[id^=cb]').value == '100-500,500-1000';
+        };
+        var t2 = function () {
+            $e('rb1', idoc).checked = true;
+            return $e('*group2', idoc).value == 'south';
+        };
+        return this.Test([t0, t1, t2]);
+    },
+    "Array.forEach": function () {
+        var rs = true;
+        var t0 = function () {
+            var arr = [], indexs = [];
+            [1, 3, 7].forEach(function (e, i) {
+                arr.push(e);
+                indexs.push(i);
+                rs = rs && e != this;
+            });
+            return arr[0] == 1 && arr[1] == 3 && arr[2] == 7 && indexs[0] == 0 && indexs[1] == 1 && indexs[2] == 2;
+        };
+        return this.Test([t0]).concat([rs]);
+    },
+    "Array.each": function () {
+        var rs = true;
+        var t0 = function () {
+            var arr = [], indexs = [], rs = [];
+            [1, 3, 7].each(function (i, e) {
+                arr.push(e);
+                indexs.push(i);
+                rs = rs && e == this;
+            });
+            return arr[0] == 1 && arr[1] == 3 && arr[2] == 7 && indexs[0] == 0 && indexs[1] == 1 && indexs[2] == 2;
+        };
+        return this.Test([t0]).concat([rs]);
+    },
+    "Array.exists": function () {
+        var t0 = function () {
+            var arr0 = [1, 3, 7],
+                arr1 = ['a', 'c', 'e'];
+            return arr0.exists(1) && arr0.exists(3) && arr0.exists(7) && !arr0.exists(2)
+                && arr1.exists('a') && arr1.exists('c') && arr1.exists('e') && !arr1.exists('b');
+        };
+        return this.Test([t0]);
+    },
+    "Array.indexOf": function () {
+        var t0 = function () {
+            var arr = [1, 3, 7, 'a', 'c', 'e'];
+            return arr.indexOf(1) == 0 && arr.indexOf(7) == 2 && arr.indexOf('c') == 4 && arr.indexOf('e') == 5;
+        };
+        return this.Test([t0]);
+    },
+    "Date.add": function () {
+        var t0 = function () {
+            var date = new Date('2019-12-01'),
+                date0 = date.add('d', 1),
+                date1 = date.add('D', -2);
+            return date.getDate() == 1 && date0.getDate() == 2 && date1.getDate() == 29 && date1.getMonth() == 10;
+        };
+        var t1 = function () {
+            var date = new Date('2019-12-01'),
+                date0 = date.add('M', 1),
+                date1 = date.add('M', -2);
+            return date.getMonth() == 11 && date0.getMonth() == 0 && date0.getFullYear() == 2020 && date1.getMonth() == 9;
+        };
+        var t2 = function () {
+            var date = new Date('2019-12-01'),
+                date0 = date.add('y', 1),
+                date1 = date.add('Y', -2);
+            return date.getFullYear() == 2019 && date0.getFullYear() == 2020 && date1.getFullYear() == 2017;
+        };
+        var t3 = function () {
+            var date = new Date('2019-12-01'),
+                date0 = date.add('w', 1),
+                date1 = date.add('W', -2);
+            return date.getDate() == 1 && date0.getDate() == 8 && date0.getMonth() == 11 && date1.getDate() == 17 && date1.getMonth() == 10;
+        };
+        var t4 = function () {
+            var date = new Date(2019, 11, 31, 23, 59, 59, 150),
+                date0 = date.add('f', 100),
+                date1 = date.add('f', -200);
+            return date.getMilliseconds() == 150 && date0.getMilliseconds() == 250 && date1.getMilliseconds() == 950 && date1.getSeconds() == 58;
+        };
+        var t5 = function () {
+            var date = new Date(2019, 11, 31, 23, 59, 59, 150),
+                date0 = date.add('s', 2),
+                date1 = date.add('s', -3);
+            return date.getSeconds() == 59 && date0.getSeconds() == 1 && date0.getMinutes() == 0 && date1.getSeconds() == 56;
+        };
+        var t6 = function () {
+            var date = new Date(2019, 11, 31, 23, 59, 59, 150),
+                date0 = date.add('m', 2),
+                date1 = date.add('m', -4);
+            var m = date.getMinutes(),
+                m0 = date0.getMinutes(),
+                h0 = date0.getHours(),
+                m1 = date1.getMinutes();
+            return date.getMinutes() == 59 && date0.getMinutes() == 1 && date0.getHours() == 0 && date1.getMinutes() == 55;
+        };
+        var t7 = function () {
+            var date = new Date(2019, 11, 31, 23, 59, 59, 150),
+                date0 = date.add('h', 3),
+                date1 = date.add('H', -4);
+            return date.getHours() == 23 && date0.getHours() == 2 && date0.getDate() == 1 && date0.getFullYear() == 2020 && date1.getHours() == 19;
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7]);
+    },
+    "Date.diff": function () {
+        var t0 = function () {
+            var date0 = new Date(2019, 11, 30, 23, 59, 59, 150),
+                date1 = new Date(2019, 11, 31, 0, 0, 0);
+            return date0.diff('f', date1) == 850;
+        };
+        var t1 = function () {
+            var date0 = new Date(2019, 11, 30, 23, 59, 59, 150),
+                date1 = new Date(2019, 11, 31, 0, 0, 0),
+                date2 = new Date(2020, 0, 1, 0, 0, 0);
+            return date0.diff('s', date1) == 0 && date1.diff('s', date2) == 24 * 60 * 60;
+        };
+        var t2 = function () {
+            var date1 = new Date('2019-12-31'),
+                date2 = new Date('2020-01-01');
+            return date1.diff('m', date2) == 24 * 60;
+        };
+        var t3 = function () {
+            var date1 = new Date('2019-12-31'),
+                date2 = new Date('2020-01-01');
+            return date1.diff('h', date2) == 24 && date1.diff('H', date2) == 24;
+        };
+        var t4 = function () {
+            var date0 = new Date(2019, 11, 30, 12, 30, 0),
+                date1 = new Date(2019, 11, 31, 0, 0, 0),
+                date2 = new Date(2020, 0, 1, 0, 0, 0),
+                date3 = new Date(2020, 11, 31, 0, 0, 0);
+            return date0.diff('d', date1) == 0 && date1.diff('d', date2) == 1 && date1.diff('D', date3) == 366;
+        };
+        var t5 = function () {
+            var date1 = new Date('2019-12-31'),
+                date2 = new Date('2020-01-01'),
+                date3 = new Date('2020-12-31');
+            return date1.diff('M', date2) == 1 && date1.diff('M', date3) == 12;
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5]);
+    },
     "Date.fromString": { },
     "Date.toObject": { },
     "Date.toString": { },

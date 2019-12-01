@@ -58,20 +58,31 @@
                             </select></td>
                     </tr>
                     <tr id="tr1">
+                        <td>Price</td>
+                        <td>
+                            <input id="cb0" name="group2" type="checkbox" value="0-100" /><label for="cb0">0-100</label>
+                            <input id="cb1" name="group2" type="checkbox" value="100-500" /><label for="cb1">100-500</label>
+                            <input id="cb2" name="group2" type="checkbox" value="500-1000" /><label for="cb2">500-1000</label>
+                            <input id="cb3" name="group2" type="checkbox" value="1000-5000" /><label for="cb3">1000-5000</label>
+                        </td>
+                    </tr>
+                    <tr id="tr2">
                         <td>Color</td>
                         <td>
                             <input id="rb0" name="group1" type="radio" value="red" checked /><label for="rb0">red</label>
                             <input id="rb1" name="group1" type="radio" value="green" /><label for="rb1">green</label>
                             <input id="rb2" name="group1" type="radio" value="blue" /><label for="rb2">blue</label></td>
                     </tr>
-                    <tr id="tr2">
+                    <tr id="tr3">
                         <td>Note</td>
                         <td><input id="txt0" type="text" _data="Text Data" value="abc123 efg456" /></td>
+                    </tr>
                     <tr>
                         <td></td>
                         <td><input id="btnClear" type="button" _data="Btn0 Data" value="Clear" />
                             <input id="btnReset" type="button" value="Reset" />
                         </td>
+                    </tr>
                 </tbody>
             </table>
         </form>
@@ -121,7 +132,7 @@
             <li><span class="blue">Array.forEach(fn)</span><sup>1.7+</sup><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Array.each(fn)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Array.exists(e)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">Array.indexof(e)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Array.indexOf(e)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.add(part, n)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.diff(part, date)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.fromString(str, format)</span><button type="button">Test</button><span class=msg></span></li>
