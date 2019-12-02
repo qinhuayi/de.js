@@ -290,7 +290,7 @@
         document.expando = true;
         idoc.expando = true;
         var t0 = function () {
-            return $e('img0').attr('alt') == 'fake image 0';
+            return $e('img0').attr('alt') == 'image 0';
         };
         var t1 = function () {
             return $e('txt0').attr('_data') == 'Text Data';
@@ -760,9 +760,63 @@
         };
         return this.Test([t0, t1, t2, t3, t4, t5]);
     },
-    "Date.fromString": { },
-    "Date.toObject": { },
-    "Date.toString": { },
+    "Date.fromString": function () {
+        var Y, M, D, h, m, s, f;
+        var extract = function (date) {
+            Y = M = D = h = m = s = f = 0;
+            if (!isNaN(date)) {
+                Y = date.getFullYear();
+                M = date.getMonth();
+                D = date.getDate();
+                h = date.getHours();
+                m = date.getMinutes();
+                s = date.getSeconds();
+                f = date.getMilliseconds();
+            }
+            return !isNaN(date);
+        };
+        var t0 = function () {
+            var date = new Date().fromString("2019.9.20", "YYYY.M.D");
+            return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 0 && m == 0 && s == 0 && f == 0;
+        };
+        var t1 = function () {
+            var date = new Date().fromString("2019-09-20 02:34:09.150", "YYYY-MM-DD hh:mm:ss.fff");
+            return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 150;
+        };
+        var t2 = function () {
+            var date = new Date().fromString("9/20/2019 2:34:9.150", "M/D/YYYY h:m:s.fff");
+            return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 150;
+        };
+        var t3 = function () {
+            var date = new Date().fromString("Sep 20 2019 02:34:09.150", "Mon DD YYYY hh:mm:ss.fff");
+            return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 150;
+        };
+        var t4 = function () {
+            var date = new Date().fromString("Fr Se 20 19 2:34:9.150", "We Mo D YY h:m:s.fff");
+            return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 150;
+        };
+        var t5 = function () {
+            var date = new Date().fromString("2019年9月20日 2时34分9秒", "YYYY年M月D日 h时m分s秒");
+            return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 0;
+        };
+        var t6 = function () {
+            var date = new Date().fromString("9/20/2019 PM 2:34", "M/D/YYYY AM h:min");
+            return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 14 && m == 34 && s == 0 && f == 0;
+        };
+        var t7 = function () {
+            var date = new Date().fromString("9/20/2019PM2:34", "M/D/YYYYAMh:m");
+            return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 14 && m == 34 && s == 0 && f == 0;
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7]);
+    },
+    "Date.toObject": function () {
+        var date = new Date(2019, 11, 1, 12, 30, 45, 150),
+            dt = date.toObject();
+        return [dt.Y == 2019, dt.M == 11, dt.D == 1, dt.W == 0, dt.h == 12, dt.m == 30, dt.s == 45, dt.f == 150];
+    },
+    "Date.toString": function () {
+        ////:
+    },
     "String.format": { },
     "String.trim": {},
     Test: function (testors) {

@@ -4,7 +4,7 @@
 /// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
 String.prototype.trim = function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
-}
+};
 String.prototype.format = function () {
     var formatMe = this.indexOf('{0}') >= 0;
     if (arguments.length > 0) {
@@ -15,21 +15,21 @@ String.prototype.format = function () {
         return format;
     }
     return null;
-}
+};
 Array.prototype.each = function (fn) {
     if (typeof (fn) == "function") {
         for (var i = 0; i < this.length; i++) {
             fn.call(this[i], i, this[i]);
         }
     }
-}
+};
 Array.prototype.forEach = function (fn) {
     if (typeof (fn) == "function") {
         for (var i = 0; i < this.length; i++) {
             fn(this[i], i);
         }
     }
-}
+};
 Array.prototype.exists = function (e) {
     for (var i = 0; i < this.length; i++) {
         if (e === this[i]) {
@@ -37,7 +37,7 @@ Array.prototype.exists = function (e) {
         }
     }
     return false;
-}
+};
 Array.prototype.indexOf = function (e) {
     for (var i = 0; i < this.length; i++) {
         if (e === this[i]) {
@@ -45,10 +45,10 @@ Array.prototype.indexOf = function (e) {
         }
     }
     return -1;
-}
+};
 Array.prototype.remove = function (i) {
     return this.splice(i, 1) | 1;
-}
+};
 Date.prototype.toObject = function () {
     var me = this,
         month = "January February March April May June July August September October November December".split(' '),
@@ -66,7 +66,7 @@ Date.prototype.toObject = function () {
         week: week[me.getDay()],
         value: me.valueOf()
     };
-}
+};
 Date.prototype.toString = function (format) {
     var me = this,
         num2str = function (num, len) {
@@ -97,7 +97,7 @@ Date.prototype.toString = function (format) {
     str = str.replace(/ss|SS/g, ss).replace(/\b(s|S)\b/g, d.s);
     str = str.replace(/fff|FFF/g, fff).replace(/ff|FF/g, fff.substr(0, 2)).replace(/\b(f|F)\b/g, fff.substr(0, 1));
     return str;
-}
+};
 Date.prototype.fromString = function (str, format) {
     var me = this,
         RegExpBuilder = {
@@ -235,7 +235,7 @@ Date.prototype.fromString = function (str, format) {
     };
     me.setTime(0);
     return NaN;
-}
+};
 Date.prototype.add = function (part, n) {
     var me = this,
         newDate = function (p, n) {
@@ -261,7 +261,7 @@ Date.prototype.add = function (part, n) {
     var p = typeof (part) == "string" ? part.charAt(0) : '',
         date = newDate(p, n);
     return date;
-}
+};
 Date.prototype.diff = function (part, date) {
     var me = this,
         date = typeof date == 'string' ? (new Date()).fromString(date) : date,

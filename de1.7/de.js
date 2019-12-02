@@ -321,7 +321,7 @@ Date.prototype.diff = function (part, date) {
             return date.getFullYear() - me.getFullYear();
     }
     return null;
-}
+};
 
 (function (window, document, undefined) {
     var readyList = [],
