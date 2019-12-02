@@ -54,7 +54,7 @@
             return (arr = $t('a[class*=ink]')) && arr.length == 3 && arr[0].className.indexOf('ink') >= 0;
         };
         var t6 = function () {
-            return (arr = $t('a[id~=0]')) && arr.length == 2 && arr[0].id == 'a1';
+            return (arr = $t('img[id~=0]')) && arr.length == 1 && arr[0].id == 'img1';
         };
         var t7 = function () {
             return (arr = $t('a[id$=0]')) && arr.length == 1 && arr[0].id == 'a0';
@@ -63,7 +63,7 @@
             return (arr = $t('a[id^=a]')) && arr.length == 3 && arr[2].id == 'a2';
         };
         var t9 = function () {
-            return (arr = $t('a[id!=a1]')) && arr.length == 2 && arr[1].id == 'a2';
+            return (arr = $t('img[id!=img1]')) && arr.length == 1 && arr[0].id == 'img0';
         };
         var sdata0 = document.getElementById('img0').getAttribute('_data'), //"\\~!@#$%^&*()_+`-=[中文]\{}|;':,./< >?",
             sdata1 = document.getElementById('img1').getAttribute('_data'); //'\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?';
@@ -113,7 +113,30 @@
         };
         return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21]);
     },
-    "$$.ajax": { },
+    "$$.ajax": function (idoc, divOut, span) {
+        var t0 = function () {
+            var onsuccess = function (xhr) {
+                document.getElementById('txtArea').value = xhr.text;
+                var rs0 = xhr.text.indexOf('<ID>12</ID>') > 0 && xhr.text.indexOf('<Name>BCD</Name>') > 0 && xhr.text.indexOf('<Text>中文</Text>') > 0;
+                span.innerHTML += rs0 ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
+            };
+            $$.ajax({ url: 'TestData.xml', onsuccess: onsuccess });
+            return true;
+        };
+        var t1 = function () {
+            var onsuccess = function (xhr) {
+                span.innerHTML += "<span class='green'>✓</span>status=" + xhr.status;
+            };
+            var onerror = function (xhr) {
+                document.getElementById('txtArea').value += xhr.status;
+                span.innerHTML += "<span class='green'>✓</span>status=" + xhr.status;
+            };
+            $$.ajax({ url: '!@#$%^&*.html', onsuccess: onsuccess, onerror: onerror });
+            return true;
+        };
+        ////:
+        return this.Test([t0, t1]);
+    },
     "$$.format": function () {
         var t0 = function () {
             return $$.format("{0}去{1}{2}里", '一', '二', '三') == '一去二三里';
@@ -451,11 +474,11 @@
     "pos": function (idoc, divOut) {
         var t0 = function () {
             var pos0 = $e(divOut).pos();
-            return pos0.x >= 1 && pos0.x <= 900 && pos0.y >= 100 && pos0.y <= 800;
+            return pos0.x >= 1 && pos0.x <= 2000 && pos0.y >= 100 && pos0.y <= 2000;
         };
         var t1 = function () {
             var pos1 = $e('divOut', idoc).pos();
-            return pos1.x >= 1 && pos1.x <= 900 && pos1.y >= 200 && pos1.y <= 1000;
+            return pos1.x >= 1 && pos1.x <= 2000 && pos1.y >= 100 && pos1.y <= 2000;
         };
         return this.Test([t0, t1]);
     },

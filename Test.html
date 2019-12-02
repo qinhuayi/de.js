@@ -11,9 +11,10 @@
         .small { font-size: 12px; font-weight: normal; color: #999; }
         .doc, h1, #divTestor { width: 920px; margin: 1px auto; }
         .doc, #divTestor { background-color: #fff; padding: 0.5em; margin:0.6em auto; }
+        textarea { margin: 1em; }
         #divOut { height: 2em; width:100%; }
         #iframe1 { height: 10em; min-width:600px;width:70%; }
-        table { border-width: 1px; border-collapse: collapse; border-style: solid; border-color: #999; margin: 0.5em; }
+        table { border-width: 1px; border-collapse: collapse; border-style: solid; border-color: #999; margin: 0.5em; display:inline-block; }
         tr, td { padding: 0.2em; border-width: 1px; border-style: solid; border-color: #999; }
         li { list-style-position: inside; list-style-type: decimal; line-height:1.5em;}
         span { margin: 1px; padding:0.1em; }
@@ -89,7 +90,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table><textarea id="txtArea" rows="6" cols="40" wrap="soft"></textarea>
         </form>
         <iframe id="iframe1" name="frame1" src="./iframe.html?v1"></iframe>
         <div id="divOut"></div>
