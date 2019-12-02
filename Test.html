@@ -3,12 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="pragma" content="no-cache" />
-    <title>Test</title>
+    <meta name="Author" content="qinhuayi@qq.com" />
+    <title>Test de.js</title>
     <style>
         body { font-size: 12px; }
         body, h1 { background-color: #eee; }
-        .doc, h1, #testList { width: 920px; margin: 1px auto; }
-        .doc, #testList { background-color: #fff; padding: 0.5em; margin:0.6em auto; }
+        .small { font-size: 12px; font-weight: normal; color: #999; }
+        .doc, h1, #divTestor { width: 920px; margin: 1px auto; }
+        .doc, #divTestor { background-color: #fff; padding: 0.5em; margin:0.6em auto; }
         #divOut { height: 2em; width:100%; }
         #iframe1 { height: 10em; min-width:600px;width:70%; }
         table { border-width: 1px; border-collapse: collapse; border-style: solid; border-color: #999; margin: 0.5em; }
@@ -26,6 +28,7 @@
         .bg_black { color:#fff; background-color:black;}
         .hidden { display: none; }
         li span.blue { width:22em; display:inline-block; text-align:left; }
+        #btnTestAll { margin:1em 5em; padding:0.5em 1em; font-size:18px; }
     </style>
     <link rel="stylesheet" href="./styles/page.css" />
     <!--<script src="./de1.6/de.js?v"></script>-->
@@ -34,7 +37,7 @@
     <script src="Test.html.js?v6"></script>    
 </head>
 <body>
-    <h1 id="h0">Test de.js</h1>
+    <h1 id="h0">Test de.js <span class="small">(可测试v1.6, v1.7, v1.7.1)</span></h1>
     <div class="doc">
         <h2 id="h1">HTML脚本区</h2>
         <p id="p0" class="poem">诗一首：<b>一</b>去<b>二</b><b>三</b>里，<b>四</b><b>五</b>户人家，<b>六</b><b>七</b>颗桃树，<b>八</b><b>九</b><b>十</b>枝花。
@@ -91,7 +94,7 @@
         <iframe id="iframe1" name="frame1" src="./iframe.html?v1"></iframe>
         <div id="divOut"></div>
     </div>
-    <div id="testList">
+    <div id="divTestor">
         <h2 id="h2">测试功能区</h2>
         <h3>基本函数</h3>
         <ul>
@@ -143,7 +146,9 @@
             <li><span class="blue">String.format(...)</span><sup>1.7+</sup><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">String.trim()</span><button type="button">Test</button><span class=msg></span></li>
         </ul>
-        <input id='btnTestAll' type="button" value="btnTestAll" />
-    </div>
+        <p><input id='btnTestAll' type="button" value="Test All"/></p>
+        <p><a href="www.de-js.net" target="_blank">www.de-js.net</a> <a href="mailto:qinhuayi@qq.com">mailto:qinhuayi@qq.com</a> <a href="https://github.com/qinhuayi/de.js" target="_blank">https://github.com/qinhuayi/de.js</a></p> 
+        <br />
+    </div><br />
 </body>
 </html>

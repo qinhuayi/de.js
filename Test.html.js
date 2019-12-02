@@ -784,30 +784,58 @@
             return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 150;
         };
         var t2 = function () {
+            var d0 = new Date().fromString("2019-09-20 02:34:09.150", "YYYY-MM-DD hh:mm:ss.fff");
+            var d1 = new Date().fromString("2019-09-20 02:34:09.150", "YYYY-MM-DD HH:MIN:SS.FFF");
+            var d2 = new Date().fromString("2019-09-20 02:34:09.150", "yyyy-MM-dd hh:Min:ss.fff");
+            var d3 = new Date().fromString("2019-09-20 02:34:09.150", "yyyy-MM-dd hh:min:ss.fff");
+            var d4 = new Date().fromString("2019-09-20 02:34:09.150", "yyyy-MM-dd hh:mm:ss.fff");
+            var d5 = new Date().fromString("2019-09-20 02:34:09.150", "yyyy-MM-DD hh:mm:SS.fff");
+            return d0.valueOf() == d1.valueOf() && d1.valueOf() == d2.valueOf() && d2.valueOf() == d3.valueOf() && d3.valueOf() == d4.valueOf() && d4.valueOf() == d5.valueOf();
+        };
+        var t3 = function () {
             var date = new Date().fromString("9/20/2019 2:34:9.150", "M/D/YYYY h:m:s.fff");
             return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 150;
         };
-        var t3 = function () {
-            var date = new Date().fromString("Sep 20 2019 02:34:09.150", "Mon DD YYYY hh:mm:ss.fff");
-            return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 150;
-        };
         var t4 = function () {
-            var date = new Date().fromString("Fr Se 20 19 2:34:9.150", "We Mo D YY h:m:s.fff");
+            var date = new Date().fromString("Friday September 20 2019 02:34:09.150", "Week Month DD YYYY hh:mm:ss.fff");
             return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 150;
         };
         var t5 = function () {
+            var d0 = new Date().fromString("Friday September 20 2019 02:34:09.150", "Week Month dd YYYY hh:mm:ss.fff");
+            var d1 = new Date().fromString("Friday September 20 2019 02:34:09.150", "WEEK MONTH DD YYYY hh:mm:ss.fff");
+            var d2 = new Date().fromString("Friday September 20 2019 02:34:09.150", "week month dd yyyy hh:mm:ss.fff");
+            return t4() && d0.valueOf() == d1.valueOf() && d1.valueOf() == d2.valueOf();
+        };
+        var t6 = function () {
+            var date = new Date().fromString("Fri Sep 20/2019 02:34:09.150", "Wee Mon DD/YYYY hh:mm:ss.fff");
+            return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 150;
+        };
+        var t7 = function () {
+            var d0 = new Date().fromString("Fri Sep 20/2019 02:34:09.150", "Wee Mon DD/YYYY hh:mm:ss.fff");
+            var d1 = new Date().fromString("Fri Sep 20/2019 02:34:09.150", "WEE MON DD/YYYY hh:mm:ss.fff");
+            var d2 = new Date().fromString("Fri Sep 20/2019 02:34:09.150", "wee mon dd/yyyy hh:mm:ss.fff");
+            return t6() && d0.valueOf() == d1.valueOf() && d1.valueOf() == d2.valueOf();
+        };
+        var t8 = function () {
+            var d0 = new Date().fromString("Fr Se 20 19 2:34:9.150", "WE MO D YY h:m:s.fff");
+            var d1 = new Date().fromString("Fr Se 20 19 2:34:9.150", "We Mo D YY h:m:s.fff");
+            var d2 = new Date().fromString("Fr Se 20 19 2:34:9.150", "we mo d yy h:m:s.fff");
+            return d0.valueOf() == d1.valueOf() && d1.valueOf() == d2.valueOf()
+                && extract(d0) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 150;
+        };
+        var t9 = function () {
             var date = new Date().fromString("2019年9月20日 2时34分9秒", "YYYY年M月D日 h时m分s秒");
             return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 2 && m == 34 && s == 9 && f == 0;
         };
-        var t6 = function () {
+        var t10 = function () {
             var date = new Date().fromString("9/20/2019 PM 2:34", "M/D/YYYY AM h:min");
             return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 14 && m == 34 && s == 0 && f == 0;
         };
-        var t7 = function () {
+        var t11 = function () {
             var date = new Date().fromString("9/20/2019PM2:34", "M/D/YYYYAMh:m");
             return extract(date) && Y == 2019 && M == 8 && D == 20 && h == 14 && m == 34 && s == 0 && f == 0;
         };
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7]);
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11]);
     },
     "Date.toObject": function () {
         var date = new Date(2019, 11, 1, 12, 30, 45, 150),
@@ -815,10 +843,89 @@
         return [dt.Y == 2019, dt.M == 11, dt.D == 1, dt.W == 0, dt.h == 12, dt.m == 30, dt.s == 45, dt.f == 150];
     },
     "Date.toString": function () {
-        ////:
+        var date = new Date(2019, 11, 1, 9, 8, 45, 150);
+        var t0 = function () {
+            return date.toString('YYYY.M.D') == '2019.12.1';
+        };
+        var t1 = function () {
+            return date.toString('YYYY-MM-DD hh:mm:ss.fff') == '2019-12-01 09:08:45.150';
+        };
+        var t2 = function () {
+            var s0 = date.toString('YYYY-MM-DD hh:mm:ss.fff');
+            var s1 = date.toString('YYYY-MM-DD HH:MIN:SS.FFF');
+            var s2 = date.toString('yyyy-MM-dd HH:Min:SS.FFF');
+            var s3 = date.toString('yyyy-MM-dd hh:min:ss.fff');
+            var s4 = date.toString('yyyy-MM-dd hh:mm:ss.fff');
+            return t1() && s0 == s1 && s1 == s2 && s2 == s3 && s3 == s4;
+        };
+        var t3 = function () {
+            return date.toString('M/D/YY h:m:s.fff') == '12/1/19 9:8:45.150';
+        };
+        var t4 = function () {
+            var s = date.toString('WEEK MONTH DD/YYYY HH:MIN:SS.FFF'); 
+            return s == 'Sunday December 01/2019 09:08:45.150';
+        };
+        var t5 = function () {
+            var s0 = date.toString('WEEK MONTH DD/YYYY HH:MIN:SS.FFF');
+            var s1 = date.toString('Week Month DD/YYYY hh:min:ss.fff');
+            var s2 = date.toString('week month dd/yyyy hh:min:ss.fff');
+            var s3 = date.toString('week month dd/yyyy hh:mm:ss.fff');
+            var s4 = date.toString('WEEK month DD/yyyy HH:mm:SS.fff');
+            return t4() && s0 == s1 && s1 == s2 && s2 == s3 && s3 == s4;
+        };
+        var t6 = function () {
+            return date.toString('WE MO DD/YY hh:min:ss') == 'Su De 01/19 09:08:45';
+        };
+        var t7 = function () {
+            var s0 = date.toString('WE MO DD/YY hh:min:ss');
+            var s1 = date.toString('WE MO DD/YY HH:MIN:SS');
+            var s2 = date.toString('We Mo DD/YY hh:min:ss');
+            var s3 = date.toString('we mo dd/yy hh:min:ss');
+            var s4 = date.toString('we mo dd/yy hh:mm:ss');
+            return t6() && s0 == s1 && s1 == s2 && s2 == s3 && s3 == s4;
+        };
+        var t8 = function () {
+            return date.toString('WEE MON DD-YY') == 'Sun Dec 01-19';
+        };
+        var t9 = function () {
+            var s0 = date.toString('WEE MON DD-YY');
+            var s1 = date.toString('Wee Mon DD-YY');
+            var s2 = date.toString('wee mon dd-yy');
+            var s3 = date.toString('Wee mon DD-yy');
+            return t8() && s0 == s1 && s1 == s2 && s2 == s3;
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9]);
     },
-    "String.format": { },
-    "String.trim": {},
+    "String.format": function () {
+        var t0 = function () {
+            var str = 'A+B={0}, C-D={1}'.format(12, 34);
+            return str === 'A+B=12, C-D=34';
+        };
+        var t1 = function () {
+            var data0 = "\\~!@#$%^&*()_+`-=[中文]\{}|;':,./< >?",
+                data1 = '\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?';
+            var str = '_dat0=\'{0}\' and _data1 = "{1}"'.format(data0, data1);
+            return str === '_dat0=\'\\~!@#$%^&*()_+`-=[中文]\{}|;\':,./< >?\' and _data1 = "\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?"';
+        };
+        var t2 = function () {
+            var data0 = '\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?';
+            var ptn = 'if (A > {0}) { B = "{1}"; C = \'{2}\'; D = "{3}"; }';
+            var str = ptn.format(3, data0, '{2}', "{3, 4}");
+            return str === 'if (A > 3) { B = "\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?"; C = \'{2}\'; D = "{3, 4}"; }';
+        };
+        return this.Test([t0, t1, t2]);
+    },
+    "String.trim": function () {
+        var t0 = function () {
+            var s0 = '\t\r\n AB CD 中文 \r\r\n';
+            return s0.trim() == 'AB CD 中文';
+        };
+        var t1 = function () {
+            var s0 = '\t\r\n \uFEFF\xA0 AB\tCD\n中文 \uFEFF\xA0 \t\r\n';
+            return s0.trim() == 'AB\tCD\n中文';
+        };
+        return this.Test([t0, t1]);
+    },
     Test: function (testors) {
         var arr = [];
         for (var i = 0; i < testors.length; i++) {
@@ -872,11 +979,14 @@ function bind(e, name, method) {
 }
 
 function btnTestAll_click(evt) {
-    ////:
+    var btns = document.getElementById('divTestor').getElementsByTagName('BUTTON');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].click();
+    }
 }
 
 document.ready(function () {
-    var btns = document.getElementsByTagName('BUTTON');
+    var btns = document.getElementById('divTestor').getElementsByTagName('BUTTON');
     for (var i = 0; i < btns.length; i++) {
         var name = getTestorFunctionName(btns[i]);
         typeof Testor[name] == 'function' ? bind(btns[i], 'click', btnTest_click) : (btns[i].disabled = true);
