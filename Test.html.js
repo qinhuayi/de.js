@@ -134,7 +134,7 @@
             $$.ajax({ url: '!@#$%^&*.html', onsuccess: onsuccess, onerror: onerror });
             return true;
         };
-        ////:
+        //...
         return this.Test([t0, t1]);
     },
     "$$.format": function () {
