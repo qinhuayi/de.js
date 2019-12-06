@@ -473,14 +473,16 @@
     },
     "pos": function (idoc, divOut) {
         var t0 = function () {
-            var pos0 = $e(divOut).pos();
-            return pos0.x >= 1 && pos0.x <= 2000 && pos0.y >= 100 && pos0.y <= 2000;
+            var pos = $e('spSideText').pos();
+            var rs = pos.x == 16 && pos.y == 15;
+            return "<span class='green'>#0</span>x=#1, y=#2".replace('#0', rs ? '✓' : '✕').replace('#1', pos.x).replace('#2', pos.y);
         };
         var t1 = function () {
-            var pos1 = $e('divOut', idoc).pos();
-            return pos1.x >= 1 && pos1.x <= 2000 && pos1.y >= 100 && pos1.y <= 2000;
+            var pos = $e('spSideText', idoc).pos();
+            var rs = pos.x == 210 && pos.y == 20;
+            return "<span class='green'>#0</span>x=#1, y=#2".replace('#0', rs ? '✓' : '✕').replace('#1', pos.x).replace('#2', pos.y);
         };
-        return this.Test([t0, t1]);
+        return [t0(), t1()];
     },
     "removeAttr": function (idoc, divOut) {
         var t0 = function () {

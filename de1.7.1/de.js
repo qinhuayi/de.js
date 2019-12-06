@@ -612,23 +612,21 @@ Date.prototype.diff = function (part, date) {
                 }
                 return e;
             };
-            e.pos = function () {
+            e.pos = function (mode) {
                 var x = 0,
                     y = 0,
                     node = e;
-                if (node && typeof node.getBoundingClientRect === 'function') {
-                    var rect = node.getBoundingClientRect(),
-                        doc = node.ownerDocument,
-                        body = doc.body,
-                        docElement = doc.documentElement,
-                        clientTop = docElement.clientTop || body.clientTop || 0,
-                        clientLeft = docElement.clientLeft || body.clientLeft || 0,
-                        x = rect.left + (self.pageXOffset || (node && node.scrollLeft) || body.scrollLeft),
-                        y = rect.top + (self.pageYOffset || (node && node.scrollTop) || body.scrollTop);
-                } else {
+                if (mode === 'OffsetOfClient' || mode === 'OOC' || mode === 'C' || mode === 'c' || mode === 1) {
+                    if (typeof node.getBoundingClientRect() === 'function') {
+                        var rect = node.getBoundingClientRect();
+                        x = rect.left;
+                        y = rect.top;
+                    }
+                }
+                else if (mode === undefined || mode === 'OffsetOfBody' || mode === 'OOB' || mode === 'B' || mode === 'b' || mode === 0) {
                     while (node && (!node.tagName || node.tagName.toUpperCase() !== 'BODY')) {
-                        x += node.offsetLeft === undefined ? 0 : parseInt(node.offsetLeft, 10);
-                        y += node.offsetTop === undefined ? 0 : parseInt(node.offsetTop, 10);
+                        x += node.offsetLeft === undefined ? 0 : parseFloat(node.offsetLeft);
+                        y += node.offsetTop === undefined ? 0 : parseFloat(node.offsetTop);
                         node = node.offsetParent;
                     }
                 }
