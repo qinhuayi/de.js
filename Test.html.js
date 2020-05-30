@@ -394,7 +394,7 @@
             return $e('p1', idoc).css('color') == 'red';
         };
         var t4 = function () {
-            return $t('a').css('fontWeight', 'bold').length == 3 && $t('a')[0].css('fontWeight') == 'bold';
+            return $t('div.doc//a').css('fontWeight', 'bold').length == 3 && $t('a')[0].css('fontWeight') == 'bold';
         };
         return this.Test([t0, t1, t2, t3, t4]);
     },
