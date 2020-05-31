@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="Author" content="qinhuayi@qq.com" />
-    <title>Test de.js(v1.6 - v1.7.1)</title>
+    <title>Test de.js(v1.8+)</title>
     <style>
         body { font-size: 12px; }
         body, h1 { background-color: #eee; }
@@ -34,17 +34,11 @@
         #divSide span { display:inline-block; margin:5px 6px; padding:2px; border-width:0px; background-color:#fff; }
     </style>
     <link rel="stylesheet" href="./styles/page.css" />
-    <!--<script src="./de1.6/de.js?v"></script>-->
-    <!--<script src="./de1.6/de.min.js?v"></script>-->
-    <!--<script src="./de1.7/de.js?v"></script>-->
-    <!--<script src="./de1.7/de.min.js?v"></script>-->
-    <!--<script src="./de1.7.1/de.js?v"></script>-->
-    <!--<script src="./de1.7.1/de.min.js?v"></script>-->
 	<script src="./de1.8/de.js?v"></script>
-    <script src="Test.html.js?v6"></script>    
+    <script src="Test2.html.js?v6"></script>    
 </head>
 <body>
-    <h1 id="h0">Test de.js <span class="small">(可测试v1.6, v1.7, v1.7.1)</span></h1>
+    <h1 id="h0">Test de.js <span class="small">(可测试v1.8)</span></h1>
     <div class="doc">
         <h2 id="h1">HTML脚本区</h2>
         <p id="p0" class="poem">诗一首：<b>一</b>去<b>二</b><b>三</b>里，<b>四</b><b>五</b>户人家，<b>六</b><b>七</b>颗桃树，<b>八</b><b>九</b><b>十</b>枝花。
@@ -107,11 +101,6 @@
         <ul>
             <li><span class="blue">$e(e, doc)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">$t(specifies) $tags(specifies)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">$$.ajax(conf)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">$$.format(format, arg0, arg1, ..., argn)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">$$.htmlEncode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">$$.htmlDecode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">$$.url2Object(url)</span><button type="button">Test</button><span class=msg></span></li>
         </ul>
         <h3>文档元素扩展方法与属性</h3>
         <ul>
@@ -141,17 +130,11 @@
         </ul>
         <h3>类型扩展方法</h3>
         <ul>
-            <li><span class="blue">Array.forEach(fn)</span><sup>1.7+</sup><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">Array.each(fn)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">Array.exists(e)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">Array.indexOf(e)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.add(part, n)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.diff(part, date)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.fromString(str, format)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.toObject()</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.toString(format)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">String.format(...)</span><sup>1.7+</sup><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">String.trim()</span><button type="button">Test</button><span class=msg></span></li>
         </ul>
         <p><input id='btnTestAll' type="button" value="Test All"/></p>
         <p><a href="www.de-js.net" target="_blank">www.de-js.net</a> <a href="mailto:qinhuayi@qq.com">mailto:qinhuayi@qq.com</a> <a href="https://github.com/qinhuayi/de.js" target="_blank">https://github.com/qinhuayi/de.js</a></p> 
