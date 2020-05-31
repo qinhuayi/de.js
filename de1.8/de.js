@@ -1,4 +1,4 @@
-﻿/// de.js ver1.8 (2020-05-30 ++)
+﻿/// de.js ver1.8 (2020-05-30 ~)
 ///   1. Upgrade to es6;
 /// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
 'use strict';
