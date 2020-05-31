@@ -1,6 +1,7 @@
 ﻿/// de.js ver1.8 (2020-05-30 ++)
 ///   1. Upgrade to es6;
 /// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
+'use strict';
 const _url2JSON = (url) => {
     const data = {
         url: url,
@@ -31,7 +32,7 @@ const _url2JSON = (url) => {
     return data;
 };
 
-Date.prototype.toJSON = () => {
+Date.prototype.toJSON = function () {
     const month = 'January February March April May June July August September October November December'.split(' '),
         week = 'Sunday Monday Tuesday Wednesday Thursday Friday Saturday'.split(' ');
     return {
@@ -48,30 +49,30 @@ Date.prototype.toJSON = () => {
         value: this.valueOf()
     };
 };
-Date.prototype.toString = format => {
+Date.prototype.toString = function (format) {
     const d = this.toJSON(),
         YYYY = d.Y.toString().padStart(4, '0'),
-        MM = num2str(d.M + 1, 2),
+        MM = (d.M + 1).toString().padStart(2, '0'), 
         DD = d.D.toString().padStart(2, '0'),
         am = d.h < 12,
         hh = d.h.toString().padStart(2, '0'),
         mm = d.m.toString().padStart(2, '0'),
         ss = d.s.toString().padStart(2, '0'),
         fff = d.f.toString().padStart(3, '0');
-    let str = (typeof (format) === undefined || !format) ? 'yyyy-MM-DD hh:mm:ss fff' : format;
+    let str = (typeof (format) === 'undefined' || !format) ? 'yyyy-MM-DD hh:mm:ss fff' : format;
     str = str.replace(/yyyy|YYYY/g, YYYY).replace(/yy|YY/g, YYYY.substr(2));
     str = str.replace(/month|MONTH|Month/g, d.month).replace(/(mon|MON|Mon)\b/g, d.month.substr(0, 3)).replace(/(mo|MO|Mo)\b/g, d.month.substr(0, 2));
     str = str.replace(/MM/g, MM).replace(/\bM\b/g, d.M + 1);
     str = str.replace(/week|WEEK|Week/g, d.week).replace(/(wee|WEE|Wee)\b/g, d.week.substr(0, 3)).replace(/\b(we|WE|We)\b/g, d.week.substr(0, 2)).replace(/\b(w|W)\b/g, d.W);
     str = str.replace(/dd|DD/g, DD).replace(/\b(D|d)\b/g, d.D);
     str = str.replace(/am|AM|pm|PM/g, am ? 'AM' : 'PM');
-    str = str.replace(/hh|HH/g, /am|AM|pm|PM/.test(format) ? num2str((d.h >= 12 ? d.h - 12 : d.h), 2) : hh).replace(/\b(h|H)\b/g, /am|AM|pm|PM/.test(format) ? (d.h >= 12 ? d.h - 12 : d.h) : d.h);
+    str = str.replace(/hh|HH/g, /am|AM|pm|PM/.test(format) ? (d.h >= 12 ? d.h - 12 : d.h).toString().padStart(2, '0') : hh).replace(/\b(h|H)\b/g, /am|AM|pm|PM/.test(format) ? (d.h >= 12 ? d.h - 12 : d.h) : d.h);
     str = str.replace(/mm/g, mm).replace(/min|MIN|Min/g, mm).replace(/mi|MI|Mi/g, mm).replace(/\bm\b/g, d.m);
     str = str.replace(/ss|SS/g, ss).replace(/\b(s|S)\b/g, d.s);
     str = str.replace(/fff|FFF/g, fff).replace(/ff|FF/g, fff.substr(0, 2)).replace(/\b(f|F)\b/g, fff.substr(0, 1));
     return str;
 };
-Date.prototype.fromString = (str, format) => {
+Date.prototype.fromString = function (str, format) {
     const RegExpBuilder = {
         initial: () => {
             const _expr = {},
@@ -176,7 +177,7 @@ Date.prototype.fromString = (str, format) => {
         return date;
     } else if (typeof format == 'string') {
         if (validator.checkformat(format) && validator.checkInput(str, format)) {
-            const Y = reader.readYear(format, str),
+            let Y = reader.readYear(format, str),
                 M = reader.readMonth(format, str),
                 D = reader.readDay(format, str),
                 h = reader.readHour(format, str),
@@ -197,7 +198,7 @@ Date.prototype.fromString = (str, format) => {
     this.setTime(0);
     return NaN;
 };
-Date.prototype.add = (part, n) => {
+Date.prototype.add = function (part, n) {
     const newDate = (p, n) => {
         const d = this.toJSON();
         switch (p.toLowerCase()) {
@@ -222,7 +223,7 @@ Date.prototype.add = (part, n) => {
         date = newDate(p, n);
     return date;
 };
-Date.prototype.diff = (part, date) => {
+Date.prototype.diff = function(part, date) {
     date = typeof date == 'string' ? (new Date()).fromString(date) : date;
     const n = parseInt(date - this),
         p = typeof part == 'string' ? part.charAt(0) : '';
@@ -245,16 +246,16 @@ Date.prototype.diff = (part, date) => {
     return null;
 };
 
-(function (window, document, undefined) {
+(function (win, document, undef) {
     'use strict'
     const readyList = [],
         attr = (e, name, value) => {
             if (typeof (name) == 'string') {
-                if (value !== undefined) {
+                if (value !== undef) {
                     e.setAttribute(name, value);
                 } else {
                     let val = e.getAttribute(name);
-                    return val || (e[name] === undefined ? val : e[name]);
+                    return val || (e[name] === undef ? val : e[name]);
                 }
             }
             return e;
@@ -398,12 +399,12 @@ Date.prototype.diff = (part, date) => {
                 }
                 return arr;
             };
-            let elements = (arr === undefined || !arr) ? [] : arr;
+            let elements = (arr === undef || !arr) ? [] : arr;
                 elements.bind = (name, method) => each(elements, 'bind', name, method);
                 elements.unbind = (name, method) => each(elements, 'unbind', name, method);
                 elements.attr = (name, value) => each(elements, 'attr', name, value);
                 elements.removeAttr = name => each(elements, 'removeAttr', name);
-                elements.val = value => value === undefined ? getValue(elements) : each(elements, 'val', value);
+                elements.val = value => value === undef ? getValue(elements) : each(elements, 'val', value);
                 elements.html = html => each(elements, 'html', html);
                 elements.text = str => each(elements, 'text', str);
                 elements.css = (name, value) => each(elements, 'css', name, value);
@@ -421,7 +422,7 @@ Date.prototype.diff = (part, date) => {
                 let values = '';
                 for (let el of arr) {
                     let checked = attr(el, 'checked');
-                    if (el.value !== undefined && ((el.checked !== undefined && el.checked) || checked == 'true')) {
+                    if (el.value !== undef && ((el.checked !== undef && el.checked) || checked == 'true')) {
                         values += (values == '' ? '' : ',') + el.value;
                     }
                 }
@@ -486,7 +487,7 @@ Date.prototype.diff = (part, date) => {
                     e.attachEvent('on' + name, method);
                 } else if (e.addEventListener) {
                     e.addEventListener(name, method, false);
-                } else if (e && e !== undefined) {
+                } else if (e && e !== undef) {
                     e[name] = method;
                 }
                 return e;
@@ -503,19 +504,19 @@ Date.prototype.diff = (part, date) => {
             };
             e.attr = (name, value) => attr(e, name, value);
             e.removeAttr = name => e.removeAttribute(name) || e;
-            e.val = value => value === undefined ? e.value : (e.value = value) & 0 || e;
-            typeof e.html === undefined && (e.html = html => html === undefined ? e.innerHTML : (e.innerHTML = html) & 0 || e);
+            e.val = value => value === undef ? e.value : (e.value = value) & 0 || e;
+            typeof e.html === 'undefined' && (e.html = html => (html === undef ? e.innerHTML : (e.innerHTML = html) & 0 || e));
             let nodeText = typeof e.getAttribute === 'function' ? e.getAttribute('text') : null;
-            !nodeText && nodeText !== '' && typeof e.text === undefined && (e.text = str => {
+            !nodeText && nodeText !== '' && typeof e.text === 'undefined' && (e.text = str => {
                 if (typeof e.innerText === 'string') {
-                    return str === undefined ? e.innerText : (e.innerText = str) & 0 || e;
+                    return str === undef ? e.innerText : (e.innerText = str) & 0 || e;
                 } else if (typeof e.textContent === 'string') {
-                    return str === undefined ? e.textContent : (e.textContent = str) & 0 || e;
+                    return str === undef ? e.textContent : (e.textContent = str) & 0 || e;
                 }
                 return e;
             });
             e.css = (name, value) => {
-                if (typeof (name) == 'string' && value !== undefined) {
+                if (typeof (name) == 'string' && value !== undef) {
                     e.style[name] = value;
                 } else if (typeof (name) == 'string') {
                     return e.style[name];
@@ -537,8 +538,8 @@ Date.prototype.diff = (part, date) => {
                     y = rect.top + (self.pageYOffset || (node && node.scrollTop) || body.scrollTop);
                 } else {
                     while (node && (!node.tagName || node.tagName.toUpperCase() !== 'BODY')) {
-                        x += node.offsetLeft === undefined ? 0 : parseInt(node.offsetLeft, 10);
-                        y += node.offsetTop === undefined ? 0 : parseInt(node.offsetTop, 10);
+                        x += node.offsetLeft === undef ? 0 : parseInt(node.offsetLeft, 10);
+                        y += node.offsetTop === undef ? 0 : parseInt(node.offsetTop, 10);
                         node = node.offsetParent;
                     }
                 }
@@ -563,7 +564,7 @@ Date.prototype.diff = (part, date) => {
                 return e;
             };
             e.append = a => {
-                if (a !== undefined && a) {
+                if (a !== undef && a) {
                     a = typeof a === 'string' ? doc.createTextNode(a) : a;
                     if (a.nodeType == 1 || a.nodeType == 3) {
                         e.appendChild(a);
@@ -572,14 +573,14 @@ Date.prototype.diff = (part, date) => {
                 return e;
             };
             e.insert = (a, n) => {
-                if (a !== undefined && a) {
+                if (a !== undef && a) {
                     a = typeof a === 'string' ? doc.createTextNode(a) : a;
                     if (a.nodeType == 1 || a.nodeType == 3) {
-                        if (n === undefined) {
+                        if (n === undef) {
                             e.childNodes && e.childNodes.length > 0 ? e.insertBefore(a, e.childNodes[0]) : e.appendChild(a);
                         } else if (typeof n === 'number') {
                             e.childNodes && e.childNodes.length > 0 ? e.insertBefore(a, e.childNodes[n]) : e.appendChild(a);
-                        } else if (typeof n === 'object' && n.nodeType !== undefined) {
+                        } else if (typeof n === 'object' && n.nodeType !== undef) {
                             e.insertBefore(a, n);
                         }
                     }
@@ -623,7 +624,7 @@ Date.prototype.diff = (part, date) => {
             return e;
         },
         _new = (tag, ...args) => {
-            const doc = args[0] === undefined ? document : (typeof args[0] === 'object' && args[0].nodeName == '#document' ? args[0] : null);
+            const doc = args[0] === undef ? document : (typeof args[0] === 'object' && args[0].nodeName == '#document' ? args[0] : null);
             const replacor = {
                 createReplacement: () => {
                     const randomChars = prefix => prefix + Math.floor(Math.random() * 100000);
@@ -683,7 +684,7 @@ Date.prototype.diff = (part, date) => {
                 },
                 fillConfigure = (conf, default_configure) => {
                     for (let name in default_configure) {
-                        conf[name] = conf[name] === undefined ? default_configure[name] : conf[name];
+                        conf[name] = conf[name] === undef ? default_configure[name] : conf[name];
                     };
                     for (let header of conf.headers) {
                         if (header.name.toLowerCase() == 'content-type') {
@@ -698,14 +699,14 @@ Date.prototype.diff = (part, date) => {
                         const arr = ['Msxml3.XMLHTTP', 'Msxml2.XMLHTTP', 'Microsoft.XMLHTTP'];
                         for (let el of arr) {
                             try {
-                                return new window.ActiveXObject(el);
+                                return new win.ActiveXObject(el);
                             } catch (err) {
                                 continue;
                             }
                         }
                         return null;
                     };
-                    return window.XMLHttpRequest && (window.location.protocol !== 'file:' || !window.ActiveXObject) ? new window.XMLHttpRequest() : newActiveX();
+                    return win.XMLHttpRequest && (win.location.protocol !== 'file:' || !win.ActiveXObject) ? new win.XMLHttpRequest() : newActiveX();
                 },
                 xhr = getXHR();
             conf = fillConfigure(conf, default_configure);
@@ -741,13 +742,13 @@ Date.prototype.diff = (part, date) => {
         }
     };
     document.path = _url2JSON(document.location.href);
-    window.onload = () => {
+    win.onload = () => {
         for (let fn of readyList) {
             fn.call(document);
         }
     };
-    window.$e = (eid, ...args) => {
-        const doc = args[0] === undefined ? document : (typeof args[0] === 'object' && args[0].nodeName == '#document' ? args[0] : null);
+    win.$e = (eid, ...args) => {
+        const doc = args[0] === undef ? document : (typeof args[0] === 'object' && args[0].nodeName == '#document' ? args[0] : null);
         if ('object' == typeof (eid) && eid) {
             return eid.nodeType == 1 || eid.nodeType == 3 || (eid.nodeName == doc.nodeName) ? _de(eid, doc) : null;
         } else if ('string' == typeof (eid)) {
@@ -765,7 +766,7 @@ Date.prototype.diff = (part, date) => {
             }
         }
     };
-    window.$tags = (specifies, doc) => typeof doc === undefined || !doc ? $e(document.documentElement).tags(specifies) : $e(doc.documentElement).tags(specifies);
-    window.$t = window.$tags;
-    window.$$ = {};
+    win.$tags = (specifies, doc) => typeof doc === 'undefined' || !doc ? $e(document.documentElement).tags(specifies) : $e(doc.documentElement).tags(specifies);
+    win.$t = win.$tags;
+    win.$$ = {};
 })(window, document);

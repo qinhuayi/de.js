@@ -594,9 +594,9 @@
             return rs && $e('divOut').val('test val()-t2()').id == 'divOut';
         };
         var t3 = function () {
-            $e('*group2').each(function (i, e) {
-                e.checked = false;
-            });
+            for (let el of $e('*group2')) {
+                el.checked = false;
+            }
             $e('cb1').checked = true;
             $e('cb2').checked = true;
             return $e('*group2').val() == '100-500,500-1000';
@@ -605,18 +605,18 @@
             $e('rb0').checked = true;
             var rs = $e('*group1').val() == 'red';
             $e('*group1')[0].val('yellow');
-            $t('label').each(function (i, e) {
+            for (let e of $t('label')) {
                 e.innerHTML = document.getElementById(e.getAttribute('for')).value;
-            });
+            }
             return rs && $e('*group1').val() == 'yellow';
         };
         var t5 = function () {
             $e('rb0', idoc).checked = true;
             var rs = $e('*group2', idoc).val() == 'east';
             $t('input[name=group2,id=rb0]', idoc).val('EAST');
-            $t('label', idoc).each(function (i, e) {
+            for (let e of $t('label', idoc)) {
                 e.innerHTML = idoc.getElementById(e.getAttribute('for')).value;
-            });
+            }
             return rs && $e('*group2', idoc).val() == 'EAST';
         };
         return this.Test([t0, t1, t2, t3, t4, t5]);
@@ -629,9 +629,9 @@
             return rs && $e('*group1').value == 'blue';
         };
         var t1 = function () {
-            $e('*group2').each(function (i, e) {
+            for (let e of $e('*group2')) {
                 e.checked = false;
-            });
+            }
             $e('cb1').checked = true;
             $e('cb2').checked = true;
             return $e('*group2').value == '100-500,500-1000' && $t('input[id^=cb]').value == '100-500,500-1000';
@@ -811,9 +811,9 @@
         };
         return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11]);
     },
-    "Date.toObject": function () {
+    "Date.toJSON": function () {
         var date = new Date(2019, 11, 1, 12, 30, 45, 150),
-            dt = date.toObject();
+            dt = date.toJSON();
         return [dt.Y == 2019, dt.M == 11, dt.D == 1, dt.W == 0, dt.h == 12, dt.m == 30, dt.s == 45, dt.f == 150];
     },
     "Date.toString": function () {
