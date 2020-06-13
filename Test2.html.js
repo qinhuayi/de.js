@@ -79,14 +79,14 @@
         return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21]);
     }
 
-    ['$$.ajax'](idoc, divOut, span) {
+    _ajax(idoc, divOut, span) {
         const t0 = () => {
             const onsuccess = function (xhr) {
                 document.getElementById('txtArea').value = xhr.text;
                 let rs0 = xhr.text.indexOf('<ID>12</ID>') > 0 && xhr.text.indexOf('<Name>BCD</Name>') > 0 && xhr.text.indexOf('<Text>中文</Text>') > 0;
                 span.innerHTML += rs0 ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
             };
-            $$.ajax({ url: 'TestData.xml', onsuccess: onsuccess });
+            _ajax({ url: 'TestData.xml', onsuccess: onsuccess });
             return true;
         };
         const t1 = () => {
@@ -97,7 +97,7 @@
                 document.getElementById('txtArea').value += xhr.status;
                 span.innerHTML += "<span class='green'>✓</span>status=" + xhr.status;
             };
-            $$.ajax({ url: '!@#$%^&*.html', onsuccess: onsuccess, onerror: onerror });
+            _ajax({ url: '!@#$%^&*.html', onsuccess: onsuccess, onerror: onerror });
             return true;
         };
         //...
@@ -105,40 +105,39 @@
     }
 
     _htmlEncode() {
-        let html = 'if (a > b) && (c < a) return "Larger"; else \'Smaller\'; ',
-            code0 = 'if (a &gt; b) &amp;&amp; (c &lt; a) return &quot;Larger&quot; else &apos;Smaller&apos; ',
-            code1 = 'if (a &gt; b) &amp;&amp; (c &lt; a) return "Larger"; else \'Smaller\'; ',
-            code2 = 'if (a > b) &amp;&amp; (c &lt; a) return &quot;Larger&quot; else \'Smaller\'; ',
-            code3 = 'if (a &#62; b) &#38;&#38; (c &#60; a) return &#34;Larger&#34; else &#39;Smaller&#39; ';
-        const t0 = () => $$.htmlEncode(html) == code0 && $$.htmlEncode(html, 0) == code0;
-        const t1 = () => $$.htmlEncode(html, 1) == code1;
-        const t2 = () => $$.htmlEncode(html, 2) == code2;
-        const t3 = () => $$.htmlEncode(html, 3) == code3;        
-        const t4 = () => {
-            html = "if (a &gt; b) return &quot;Larger&quot;";
-            return $$.htmlEncode(html, 0) == "if (a &amp;gt; b) return &amp;quot;Larger&amp;quot;";
+        let html = 'if (a > b) && (c < a) return "Larger"; else \'Smaller\';',
+            code0 = 'if (a &gt; b) &amp;&amp; (c &lt; a) return &quot;Larger&quot;; else &apos;Smaller&apos;;',
+            code1 = 'if (a &#62; b) &#38;&#38; (c &#60; a) return &#34;Larger&#34;; else &#39;Smaller&#39;;';
+        const t0 = () => {
+            let str0 = _htmlEncode(html),
+                str1 = _htmlEncode(html, 0);
+            return str0 == code0 && str1 == code0;
         };
-        return this.Test([t0, t1, t2, t3, t4]);
+        const t1 = () => _htmlEncode(html, 1) == code1;        
+        const t2 = () => {
+            html = "if (a &gt; b) return &quot;Larger&quot;";
+            return _htmlEncode(html, 0) == "if (a &amp;gt; b) return &amp;quot;Larger&amp;quot;";
+        };
+        return this.Test([t0, t1, t2]);
     }
 
     _htmlDecode() {
-        let html = 'if (a > b) && (c < a) return "Larger"; else \'Smaller\'; ',
-            code0 = 'if (a &gt; b) &amp;&amp; (c &lt; a) return &quot;Larger&quot; else &apos;Smaller&apos; ',
-            code1 = 'if (a &gt; b) &amp;&amp; (c &lt; a) return "Larger"; else \'Smaller\'; ',
-            code2 = 'if (a > b) &amp;&amp; (c &lt; a) return &quot;Larger&quot; else \'Smaller\'; ',
-            code3 = 'if (a &#62; b) &#38;&#38; (c &#60; a) return &#34;Larger&#34; else &#39;Smaller&#39; ',
-            code4 = 'if (a &amp;gt; b) return &amp;quot;Larger&amp;quot;';
-        const t0 = () => $$.htmlDecode(code0) == html && $$.htmlDecode(code0, 0) == html;
-        const t1 = () => $$.htmlDecode(code1, 1) == html;
-        const t2 = () => $$.htmlDecode(code2, 2) == html;
-        const t3 = () => $$.htmlDecode(code3, 3) == html;
-        const t4 = () => $$.htmlDecode(code4) == 'if (a &gt; b) return &quot;Larger&quot;';
-        return this.Test([t0, t1, t2, t3, t4]);
+        let html = 'if (a > b) && (c < a) return "Larger"; else \'Smaller\';',
+            code0 = 'if (a &gt; b) &amp;&amp; (c &lt; a) return &quot;Larger&quot;; else &apos;Smaller&apos;;',
+            code1 = 'if (a &#62; b) &#38;&#38; (c &#60; a) return &#34;Larger&#34;; else &#39;Smaller&#39;;',
+            code2 = 'if (a &amp;gt; b) return &amp;quot;Larger&amp;quot;';
+        const t0 = () => _htmlDecode(code0) == html && _htmlDecode(code0, 0) == html;
+        const t1 = () => {
+            let str = _htmlDecode(code1, 1);
+            return str == html;
+        };
+        const t2 = () => _htmlDecode(code2) == 'if (a &gt; b) return &quot;Larger&quot;';
+        return this.Test([t0, t1, t2]);
     }
 
     _url2JSON() {
         let url = './images/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
-            obj = $$.url2Object(url);
+            obj = _url2JSON(url);
         const t0 = () => obj.url == url;
         const t1 = () => obj.filePath == './images/小图/img1.asp';
         const t2 = () => obj.fileDir == './images/小图';
@@ -146,8 +145,8 @@
         const t4 = () => obj.fileShortName == 'img1';
         const t5 = () => obj.fileExt == '.asp';
         const t6 = () => obj.query == 'id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3';
-        const t7 = () => obj.queryValue('id') == 2 && obj.queryValue('name') == '张三' && obj.queryValue('arr') == '["e","f","g"]' && obj.queryValue('ref') == '../pages/a.html?pid=3';
-        const t8 = () => obj.hasParam('id') && obj.hasParam('name') && obj.hasParam('arr') && obj.hasParam('ref') && !obj.hasParam('pid');
+        const t7 = () => obj.hasParam('id') && obj.hasParam('name') && obj.hasParam('arr') && obj.hasParam('ref') && !obj.hasParam('pid');
+        const t8 = () => obj.params['id'] == 2;
         return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8]);
     }
 
@@ -715,11 +714,11 @@ function btnTest_click(evt) {
     const span = evt.srcElement.nextSibling,
         divOut = document.getElementById('divOut'),
         iframe = document.getElementById('iframe1'),
-        frm1 = frames['frame1'] || iframe.contentWindow,
-        idoc = frm1 ? frm1.document : null,
-        name = getTestorFunctionName(evt.srcElement);
+        frm1 = frames['frame1'] || iframe.contentWindow;
     try {
-        const testor = new Testor();
+        const idoc = frm1 ? frm1.document : null,
+            name = getTestorFunctionName(evt.srcElement),
+            testor = new Testor();
         let arr = typeof testor[name] == 'function' ? testor[name](idoc, divOut, span) : [];
         OnTestSucceed(arr, span);
     } catch (ex) {

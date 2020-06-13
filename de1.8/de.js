@@ -1,7 +1,6 @@
 ﻿/// de.js ver1.8 (2020-05-30 ~)
 ///   1. Upgrade to es6;
 /// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
-'use strict';
 const _url2JSON = (url) => {
     const data = {
         url: url,
@@ -30,6 +29,100 @@ const _url2JSON = (url) => {
         }
     };
     return data;
+};
+
+const _merge = (target, ...objs) => {
+    for (let obj of objs) Object.defineProperties(target, Object.getOwnPropertyDescriptors(obj));
+    return target;
+};
+
+const _htmlEncode = (str, mode) => {
+    if (typeof str !== "string" || str == '') {
+        return '';
+    } else if (typeof mode === 'undefined' || mode === 0) {
+        return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&apos;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    } else if (mode === 1) {
+        return str.replace(/&/g, '&#38;').replace(/"/g, '&#34;').replace(/'/g, '&#39;').replace(/</g, '&#60;').replace(/>/g, '&#62;');
+    }
+};
+
+const _htmlDecode = (str, mode) => {
+    if (typeof str !== "string" || str == '') {
+        return '';
+    } else if (typeof mode === 'undefined' || mode === 0) {
+        return str.replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&apos;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+    } else if (mode === 1) {
+        return str.replace(/&#38;/g, '&').replace(/&#34;/g, '"').replace(/&#39;/g, "'").replace(/&#60;/g, '<').replace(/&#62;/g, '>');
+    }
+};
+
+const _ajax = (conf) => {
+    const noop = () => { },
+        default_configure = {
+            url: '#',
+            method: 'GET',
+            data: '',
+            async: true,
+            timeout: 15000,
+            ontimeout: noop,
+            headers: [{
+                name: 'Content-Type',
+                value: 'application/x-www-form-urlencoded'
+            }],
+            onsuccess: noop,
+            onerror: noop
+        },
+        fillConfigure = (conf, default_configure) => {
+            _merge(conf, default_configure);
+            for (let header of conf.headers) {
+                if (header.name.toLowerCase() == 'content-type') {
+                    return conf;
+                }
+            }
+            conf.headers.push(default_configure.headers[0]);
+            return conf;
+        },
+        getXHR = () => {
+            const newActiveX = () => {
+                const arr = ['Msxml3.XMLHTTP', 'Msxml2.XMLHTTP', 'Microsoft.XMLHTTP'];
+                for (let el of arr) {
+                    try {
+                        return new window.ActiveXObject(el);
+                    } catch (err) {
+                        continue;
+                    }
+                }
+                return null;
+            };
+            return window.XMLHttpRequest && (window.location.protocol !== 'file:' || !window.ActiveXObject) ? new window.XMLHttpRequest() : newActiveX();
+        },
+        xhr = getXHR();
+    conf = fillConfigure(conf, default_configure);
+    xhr.open(conf.method, conf.url, conf.async);
+    for (let header of conf.headers) {
+        xhr.setRequestHeader(header.name, header.value);
+    }
+    try {
+        xhr.timeout = conf.timeout;
+        xhr.ontimeout = conf.ontimeout;
+        xhr.onerror = conf.onerror;
+    } catch (ex) {
+        // IE6 will raise an exception here.
+        console.log(ex.message)
+    }
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            conf.onsuccess({
+                status: xhr.status,
+                response: xhr.response,
+                type: xhr.responseType,
+                xml: xhr.responseXML,
+                text: xhr.responseText,
+                body: xhr.responseBody
+            });
+        }
+    }
+    xhr.send(conf.data);
 };
 
 Date.prototype.toJSON = function () {
@@ -665,76 +758,6 @@ Date.prototype.diff = function(part, date) {
                 }
                 return _de(element, doc);
             }
-        },
-        _ajax = conf => {
-            const noop = () => { },
-                default_configure = {
-                    url: '#',
-                    method: 'GET',
-                    data: '',
-                    async: true,
-                    timeout: 15000,
-                    ontimeout: noop,
-                    headers: [{
-                        name: 'Content-Type',
-                        value: 'application/x-www-form-urlencoded'
-                    }],
-                    onsuccess: noop,
-                    onerror: noop
-                },
-                fillConfigure = (conf, default_configure) => {
-                    for (let name in default_configure) {
-                        conf[name] = conf[name] === undef ? default_configure[name] : conf[name];
-                    };
-                    for (let header of conf.headers) {
-                        if (header.name.toLowerCase() == 'content-type') {
-                            return conf;
-                        }
-                    }
-                    conf.headers.push(default_configure.headers[0]);
-                    return conf;
-                },
-                getXHR = () => {
-                    const newActiveX = () => {
-                        const arr = ['Msxml3.XMLHTTP', 'Msxml2.XMLHTTP', 'Microsoft.XMLHTTP'];
-                        for (let el of arr) {
-                            try {
-                                return new win.ActiveXObject(el);
-                            } catch (err) {
-                                continue;
-                            }
-                        }
-                        return null;
-                    };
-                    return win.XMLHttpRequest && (win.location.protocol !== 'file:' || !win.ActiveXObject) ? new win.XMLHttpRequest() : newActiveX();
-                },
-                xhr = getXHR();
-            conf = fillConfigure(conf, default_configure);
-            xhr.open(conf.method, conf.url, conf.async);
-            for (let header of conf.headers) {
-                xhr.setRequestHeader(header.name, header.value);
-            }
-            try {
-                xhr.timeout = conf.timeout;
-                xhr.ontimeout = conf.ontimeout;
-                xhr.onerror = conf.onerror;
-            } catch (err) {
-                // IE6 will raise an exception here.
-                //$e('msg').innerHTML += err.message;
-            }
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState === 4) {
-                    conf.onsuccess({
-                        status: xhr.status,
-                        response: xhr.response,
-                        type: xhr.responseType,
-                        xml: xhr.responseXML,
-                        text: xhr.responseText,
-                        body: xhr.responseBody
-                    });
-                }
-            }
-            xhr.send(conf.data);
         };
     document.ready = fn => {
         if (typeof (fn) == 'function') {
@@ -768,5 +791,11 @@ Date.prototype.diff = function(part, date) {
     };
     win.$tags = (specifies, doc) => typeof doc === 'undefined' || !doc ? $e(document.documentElement).tags(specifies) : $e(doc.documentElement).tags(specifies);
     win.$t = win.$tags;
-    win.$$ = {};
+    win.$$ = {
+        //format: String.format,
+        htmlEncode: _htmlEncode,
+        htmlDecode: _htmlDecode,
+        url2Object: _url2JSON,
+        ajax: _ajax
+    };
 })(window, document);
