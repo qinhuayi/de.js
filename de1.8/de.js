@@ -73,7 +73,7 @@ const _ajax = (conf) => {
             onerror: noop
         },
         fillConfigure = (conf, default_configure) => {
-            _merge(conf, default_configure);
+            conf = _merge(default_configure, conf);
             for (let header of conf.headers) {
                 if (header.name.toLowerCase() == 'content-type') {
                     return conf;
