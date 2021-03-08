@@ -1,5 +1,6 @@
 ﻿/// de.js ver1.8 (2020-05-30 ~)
 ///   1. Upgrade to es6;
+///   2. Modified $e.addClass();
 /// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
 const _url2JSON = (url) => {
     const data = {
@@ -391,7 +392,7 @@ Date.prototype.diff = function(part, date) {
                         return saveExpr.replace(reg(rep.insideComma), ',').replace(reg(rep.outsideComma), ',').replace(reg(rep.slash), '\\').replace(reg(rep.backSlash), '/').replace(reg(rep.leftSquareBracket), '[').replace(reg(rep.rightSquareBracket), ']').replace(reg(rep.singleQuotes), "'").replace(reg(rep.doubleQuotes), '"');
                     },
                     safeSpecifies = replaceSafeExpression(specifies).split(','),
-                    examClass = (e, name) => (' ' + e.className + ' ').indexOf(' ' + name + ' ') >= 0,
+                    examClass = (e, name) => (' ' + e.className + ' ').includes(' ' + name + ' '),
                     examAttr = (e, expr) => {
                         let vexpr = '',
                             val = null;
@@ -405,13 +406,13 @@ Date.prototype.diff = function(part, date) {
                             return false;
                         };
                         if (extract('*=')) {
-                            return val && val.indexOf(vexpr) >= 0;
+                            return val && val.includes(vexpr);
                         } else if (extract('~=')) {
-                            return !val || val.indexOf(vexpr) < 0;
+                            return !val || !val.includes(vexpr);
                         } else if (extract('$=')) {
                             return val && val.lastIndexOf(vexpr) == (val.length - vexpr.length);
                         } else if (extract('^=')) {
-                            return val && val.indexOf(vexpr) == 0;
+                            return val && val.startsWith(vexpr);
                         } else if (extract('!=')) {
                             return val != vexpr;
                         } else if (extract('==')) {
@@ -426,7 +427,7 @@ Date.prototype.diff = function(part, date) {
                     examAttrs = (e, exprss) => {
                         exprss = exprss.substr(1, exprss.length - 2);
                         let pass = true,
-                            exprs = exprss.indexOf(rep.outsideComma) >= 0 ? exprss.split(rep.outsideComma) : exprss.split(',');
+                            exprs = exprss.includes(rep.outsideComma) ? exprss.split(rep.outsideComma) : exprss.split(',');
                         for (let expr of exprs) {
                             pass = pass && examAttr(e, expr.trim());
                         }
@@ -650,9 +651,8 @@ Date.prototype.diff = function(part, date) {
                 return e;
             };
             e.addClass = name => {
-                if (typeof (name) == 'string') {
-                    e.removeClass(e, name);
-                    e.className = e.className + ' ' + name.trim();
+                if (typeof (name) == "string" && !(" " + e.className + " ").includes(" " + name + " ")) {
+                    e.className = e.className + " " + name.trim();
                 }
                 return e;
             };

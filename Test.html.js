@@ -105,7 +105,7 @@
             return rs && (arr = $t('div.doc\\\\a[href*="/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
         };
         var t20 = function () {
-            var rs = (arr = $t('p.poem/a[id^=a, href*="./X/页/"], div.doc//img[id^="img", src*="/images/"]')) && arr.length == 4 && arr[1].id == 'a1' && arr[3].id == 'img1';
+            var rs = (arr = $t('p.poem/a[id^=a, href*="./X/页/"], div.doc//img[id^="img", src*="/res/"]')) && arr.length == 4 && arr[1].id == 'a1' && arr[3].id == 'img1';
             return rs && (arr = $t('p.poem/a[id^="a", href*="./X/页/"], body//img[id^="img", src*="' + src0 + '"]')) && arr.length == 3 && arr[1].id == 'a1' && arr[2].id == 'img0';
         };
         var t21 = function () {
@@ -195,16 +195,16 @@
         return this.Test([t0, t1, t2, t3, t4]);
     },
     "$$.url2Object": function () {
-        var url = './images/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
+        var url = './res/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
             obj = $$.url2Object(url);
         var t0 = function () {
             return obj.url == url;
         };
         var t1 = function () {
-            return obj.filePath == './images/小图/img1.asp';
+            return obj.filePath == './res/小图/img1.asp';
         };
         var t2 = function () {
-            return obj.fileDir == './images/小图';
+            return obj.fileDir == './res/小图';
         };
         var t3 = function () {
             return obj.fileName == 'img1.asp';

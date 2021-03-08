@@ -72,7 +72,7 @@
             return rs && (arr = $t('div.doc\\\\a[href*="/a.html"]')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a1';
         };
         const t20 = () => {
-            let rs = (arr = $t('p.poem/a[id^=a, href*="./X/页/"], div.doc//img[id^="img", src*="/images/"]')) && arr.length == 4 && arr[1].id == 'a1' && arr[3].id == 'img1';
+            let rs = (arr = $t('p.poem/a[id^=a, href*="./X/页/"], div.doc//img[id^="img", src*="/res/"]')) && arr.length == 4 && arr[1].id == 'a1' && arr[3].id == 'img1';
             return rs && (arr = $t('p.poem/a[id^="a", href*="./X/页/"], body//img[id^="img", src*="' + src0 + '"]')) && arr.length == 3 && arr[1].id == 'a1' && arr[2].id == 'img0';
         };
         const t21 = () => (arr = $t('input[name=group2]', idoc)) && arr.length == 4;
@@ -136,11 +136,11 @@
     }
 
     _url2JSON() {
-        let url = './images/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
+        let url = './res/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
             obj = _url2JSON(url);
         const t0 = () => obj.url == url;
-        const t1 = () => obj.filePath == './images/小图/img1.asp';
-        const t2 = () => obj.fileDir == './images/小图';
+        const t1 = () => obj.filePath == './res/小图/img1.asp';
+        const t2 = () => obj.fileDir == './res/小图';
         const t3 = () => obj.fileName == 'img1.asp';
         const t4 = () => obj.fileShortName == 'img1';
         const t5 = () => obj.fileExt == '.asp';
