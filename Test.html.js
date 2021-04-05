@@ -398,6 +398,15 @@
         };
         return this.Test([t0, t1, t2, t3, t4]);
     },
+    "cs": function (idoc) {
+        var t0 = function () {
+            return $e('divTestor').cs('width') == '920px';
+        };
+        var t1 = function () {
+            return $e('divSide', idoc).cs('width') == '80px' && $e('divSide', idoc).cs('height') == '40px'
+        };
+        return this.Test([t0, t1]);
+    },
     "hide": function (idoc) {
         var t0 = function () {
             return $e('btnClear').hide().id == 'btnClear' && $e('btnClear').style.display == 'none';

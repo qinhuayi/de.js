@@ -1,6 +1,7 @@
 ﻿/// de.js ver1.7.2 (2021-03-08 ++)
 ///   1. Add String.contains();
 ///   2. Modified $e.addClass();
+///   3. Add function $e.cs(name);
 /// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
 String.prototype.trim = function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
@@ -614,6 +615,10 @@ Date.prototype.diff = function (part, date) {
                     return e.style[name];
                 }
                 return e;
+            };
+            e.cs = function (name) {
+                var style = window.getComputedStyle ? window.getComputedStyle(e, null) : e.currentStyle;
+                return typeof name === undefined ? style : typeof name == "string" ? style[name] : null;
             };
             e.pos = function (mode) {
                 var x = 0,

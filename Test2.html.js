@@ -269,6 +269,12 @@
         return this.Test([t0, t1, t2, t3, t4]);
     }
 
+    cs(idoc) {
+        var t0 = () => $e('divTestor').cs('width') == '920px';
+        var t1 = () => $e('divSide', idoc).cs('width') == '80px' && $e('divSide', idoc).cs('height') == '40px';
+        return this.Test([t0, t1]);
+    }
+
     hide(idoc) {
         const t0 = () => $e('btnClear').hide().id == 'btnClear' && $e('btnClear').style.display == 'none';
         const t1 = () => $e('p1', idoc).hide().id == 'p1' && $e('p1', idoc).style.display == 'none';

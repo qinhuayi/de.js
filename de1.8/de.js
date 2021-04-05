@@ -1,6 +1,7 @@
 ﻿/// de.js ver1.8 (2020-05-30 ~)
 ///   1. Upgrade to es6;
 ///   2. Modified $e.addClass();
+///   3. Add function $e.cs(name);
 /// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
 const _url2JSON = (url) => {
     const data = {
@@ -616,6 +617,10 @@ Date.prototype.diff = function(part, date) {
                     return e.style[name];
                 }
                 return e;
+            };
+            e.cs = (name) => {
+                let style = window.getComputedStyle ? window.getComputedStyle(e, null) : e.currentStyle;
+                return typeof name === undefined ? style : typeof name == 'string' ? style[name] : null;
             };
             e.pos = () => {
                 let x = 0,
