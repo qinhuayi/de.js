@@ -2,6 +2,7 @@
 ///   1. Upgrade to es6;
 ///   2. Modified $e.addClass();
 ///   3. Add function $e.cs(name);
+///   4. Removed internal function fillConfigure() in _ajax;
 /// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
 const _url2JSON = (url) => {
     const data = {
@@ -74,16 +75,6 @@ const _ajax = (conf) => {
             onsuccess: noop,
             onerror: noop
         },
-        fillConfigure = (conf, default_configure) => {
-            conf = _merge(default_configure, conf);
-            for (let header of conf.headers) {
-                if (header.name.toLowerCase() == 'content-type') {
-                    return conf;
-                }
-            }
-            conf.headers.push(default_configure.headers[0]);
-            return conf;
-        },
         getXHR = () => {
             const newActiveX = () => {
                 const arr = ['Msxml3.XMLHTTP', 'Msxml2.XMLHTTP', 'Microsoft.XMLHTTP'];
@@ -99,7 +90,7 @@ const _ajax = (conf) => {
             return window.XMLHttpRequest && (window.location.protocol !== 'file:' || !window.ActiveXObject) ? new window.XMLHttpRequest() : newActiveX();
         },
         xhr = getXHR();
-    conf = fillConfigure(conf, default_configure);
+    conf = Object.assign({}, default_configure, conf);
     xhr.open(conf.method, conf.url, conf.async);
     for (let header of conf.headers) {
         xhr.setRequestHeader(header.name, header.value);
