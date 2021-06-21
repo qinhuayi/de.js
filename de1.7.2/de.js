@@ -2,6 +2,8 @@
 ///   1. Add String.contains();
 ///   2. Modified $e.addClass();
 ///   3. Add function $e.cs(name);
+///   4. Removed internal function fillConfigure() in _ajax;
+///   5. Modified function $$.merge();
 /// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
 String.prototype.trim = function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
@@ -857,7 +859,7 @@ Date.prototype.diff = function (part, date) {
             };
             return data;
         },
-        _merge = function (a, b, c, d, e) {
+        _merge = function (a) {
             var merge = function (ori, ext) {
                 if (ori !== undefined && ext !== undefined) {
                     for (var name in ext) {
@@ -865,12 +867,11 @@ Date.prototype.diff = function (part, date) {
                     }
                 }
                 return ori;
-            };
-            var e0 = merge({}, e);
-            var d0 = merge({}, d);
-            var c0 = merge({}, c);
-            var b0 = merge({}, b);
-            return merge(a, merge(b0, merge(c0, merge(d0, e0))));
+            }, b = {};
+            for (var i = arguments.length - 1; i > 0; i--) {
+                b = merge(b, arguments[i]);
+            }
+            return merge(b, a);
         },
         _ajax = function (conf) {
             var noop = function () { },
@@ -888,18 +889,6 @@ Date.prototype.diff = function (part, date) {
                     onsuccess: noop,
                     onerror: noop
                 },
-                fillConfigure = function (conf, default_configure) {
-                    for (var name in default_configure) {
-                        conf[name] = conf[name] === undefined ? default_configure[name] : conf[name];
-                    };
-                    for (var i = 0; i < conf.headers.length; i++) {
-                        if (conf.headers[i].name.toLowerCase() == "content-type") {
-                            return conf;
-                        }
-                    }
-                    conf.headers.push(default_configure.headers[0]);
-                    return conf;
-                },
                 getXHR = function () {
                     var newActiveX = function () {
                         var arr = ['Msxml3.XMLHTTP', 'Msxml2.XMLHTTP', 'Microsoft.XMLHTTP'];
@@ -915,7 +904,7 @@ Date.prototype.diff = function (part, date) {
                     return window.XMLHttpRequest && (window.location.protocol !== "file:" || !window.ActiveXObject) ? new window.XMLHttpRequest() : newActiveX();
                 },
                 xhr = getXHR();
-            conf = fillConfigure(conf, default_configure);
+            conf = _merge({}, default_configure, conf)
             xhr.open(conf.method, conf.url, conf.async);
             for (var i = 0; i < conf.headers.length; i++) {
                 xhr.setRequestHeader(conf.headers[i].name, conf.headers[i].value);
