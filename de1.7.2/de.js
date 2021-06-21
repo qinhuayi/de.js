@@ -871,7 +871,7 @@ Date.prototype.diff = function (part, date) {
             for (var i = arguments.length - 1; i > 0; i--) {
                 b = merge(b, arguments[i]);
             }
-            return merge(b, a);
+            return merge(a, b);
         },
         _ajax = function (conf) {
             var noop = function () { },
