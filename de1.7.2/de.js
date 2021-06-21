@@ -859,7 +859,7 @@ Date.prototype.diff = function (part, date) {
             };
             return data;
         },
-        _merge = function (a) {
+        _merge = function (a, b, c, d, e, f, g, h) {
             var merge = function (ori, ext) {
                 if (ori !== undefined && ext !== undefined) {
                     for (var name in ext) {
@@ -867,11 +867,14 @@ Date.prototype.diff = function (part, date) {
                     }
                 }
                 return ori;
-            }, b = {};
-            for (var i = arguments.length - 1; i > 0; i--) {
-                b = merge(b, arguments[i]);
-            }
-            return merge(a, b);
+            };
+            var g0 = merge({}, g),
+                f0 = merge({}, f),
+                e0 = merge({}, e),
+                d0 = merge({}, d),
+                c0 = merge({}, c),
+                b0 = merge({}, b);
+            return merge(a, merge(b0, merge(c0, merge(d0, merge(e0, merge(f0, merge(g0, h)))))));
         },
         _ajax = function (conf) {
             var noop = function () { },
