@@ -660,19 +660,19 @@
         };
         return this.Test([t0, t1, t2]);
     },
-    "Array.forEach": function () {
-        var rs = true;
-        var t0 = function () {
-            var arr = [], indexs = [];
-            [1, 3, 7].forEach(function (e, i) {
-                arr.push(e);
-                indexs.push(i);
-                rs = rs && e != this;
-            });
-            return arr[0] == 1 && arr[1] == 3 && arr[2] == 7 && indexs[0] == 0 && indexs[1] == 1 && indexs[2] == 2;
-        };
-        return this.Test([t0]).concat([rs]);
-    },
+    //"Array.forEach": function () {
+    //    var rs = true;
+    //    var t0 = function () {
+    //        var arr = [], indexs = [];
+    //        [1, 3, 7].forEach(function (e, i) {
+    //            arr.push(e);
+    //            indexs.push(i);
+    //            rs = rs && e != this;
+    //        });
+    //        return arr[0] == 1 && arr[1] == 3 && arr[2] == 7 && indexs[0] == 0 && indexs[1] == 1 && indexs[2] == 2;
+    //    };
+    //    return this.Test([t0]).concat([rs]);
+    //},
     "Array.each": function () {
         var rs = true;
         var t0 = function () {

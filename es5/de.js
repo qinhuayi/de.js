@@ -29,13 +29,13 @@ Array.prototype.each = function (fn) {
         }
     }
 };
-Array.prototype.forEach = function (fn) {
-    if (typeof (fn) == "function") {
-        for (var i = 0; i < this.length; i++) {
-            fn(this[i], i);
-        }
-    }
-};
+//Array.prototype.forEach = function (fn) {
+//    if (typeof (fn) == "function") {
+//        for (var i = 0; i < this.length; i++) {
+//            fn(this[i], i);
+//        }
+//    }
+//};
 Array.prototype.exists = function (e) {
     for (var i = 0; i < this.length; i++) {
         if (e === this[i]) {
