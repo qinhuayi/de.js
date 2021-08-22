@@ -111,7 +111,19 @@
         var t21 = function () {
             return (arr = $t('input[name=group2]', idoc)) && arr.length == 4;
         };
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21]);
+        var t22 = function () {
+            return (arr = $t('a[id]:first')) && arr[0].id == 'a0' && (arr = $t('a[id]:last')) && arr[0].id == 'a2';
+        };
+        var t23 = function () {
+            return (arr = $t('h2:last,a[id]:first')) && arr[0].id == 'h1' && arr[1].id == 'a0';
+        };
+        var t24 = function () {
+            return (arr = $t('div.doc//a:even')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a2';
+        };
+        var t25 = function () {
+            //todo: more test
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24]);
     },
     "$$.ajax": function (idoc, divOut, span) {
         var t0 = function () {

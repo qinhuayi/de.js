@@ -1,10 +1,5 @@
-﻿/// de.js ver1.7.2 (2021-03-08 ++)
-///   1. Add String.contains();
-///   2. Modified $e.addClass();
-///   3. Add function $e.cs(name);
-///   4. Removed internal function fillConfigure() in _ajax;
-///   5. Modified function $$.merge();
-/// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
+﻿/// de.js(es5) ver 1.8+
+/// Author: Qin Huayi; Email: qinhuayi@qq.com; Website: http://www.de-js.net; Source: https://github.com/qinhuayi/de.js
 String.prototype.trim = function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
 };
@@ -535,12 +530,41 @@ Date.prototype.diff = function (part, date) {
                     return arr;
                 },
                 getLevelElements = function (e, lspec) {
-                    var results = [];
-                    if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?$/ig.test(trim(lspec))) {
+                    var results = [],
+                        filter = function (arr, pseudoClassName) {
+                            var i = pseudoClassName.indexOf('('),
+                                name = i > 0 ? pseudoClassName.substr(0, i) : pseudoClassName,
+                                arg = i > 0 ? pseudoClassName.substring(i + 1, pseudoClassName.indexOf(')')) : -1,
+                                n = parseInt(arg, 10);
+                            switch (name) {
+                                case ':first':
+                                    return arr[0];
+                                case ':last':
+                                    return arr[arr.length - 1];
+                                case ':even':
+                                    for (var i = arr.length - 1; i >= 0 && ((i & 1) == 0 || arr.remove(i)); i--);
+                                    return arr;
+                                case ':odd':
+                                    for (var i = arr.length - 1; i >= 0 && ((i & 1) == 1 || arr.remove(i)); i--);
+                                    return arr;
+                                case ':eq':
+                                    return arr[n];
+                                case ':lt':
+                                    for (var i = arr.length - 1; i >= 0 && (i < n || arr.remove(i)); i--);
+                                    return arr;
+                                case ':gt':
+                                    for (var i = 0; i < arr.length && (i > n || arr.remove(i)); i++);
+                                    return arr;
+                                default:
+                                    return arr;
+                            }
+                        };
+                    if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?(\:(?:first|last|even|odd|(?:eq|gt|lt)\(-?\d+\)))?$/ig.test(trim(lspec))) {
                         var deep = RegExp.$1.charAt(0) == '\\',
                             tagName = deep ? RegExp.$1.substring(1) : RegExp.$1,
                             className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
                             express = RegExp.$3,
+                            pseudoClassName = RegExp.$4,
                             arr = deep ? e.getElementsByTagName(tagName.toUpperCase()) : getChildElements(e, tagName);
                         for (var i = 0; i < arr.length; i++) {
                             if ((!className || examor.examClass(arr[i], className)) && (!express || examor.examAttrs(arr[i], express))) {
@@ -548,7 +572,7 @@ Date.prototype.diff = function (part, date) {
                             }
                         }
                     }
-                    return results;
+                    return results.length > 0 && pseudoClassName ? filter(results, pseudoClassName) : results;
                 };
             for (var index = 0; index < safeSpecifies.length; index++) {
                 var parentNodes = [e],
