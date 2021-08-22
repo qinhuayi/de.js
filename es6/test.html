@@ -40,14 +40,64 @@
 </head>
 <body>
     <h1 id="h0">Test de.js(ES6) <span class="small">(可测试v1.8)</span></h1>
+    <div id="divTestor">
+        <h2 id="h2">Test Items  测试项目</h2>
+        <h3>Basic Functions  基本函数</h3>
+        <ul>
+            <li><span class="blue">$e(e, doc)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$t(specifies) $tags(specifies)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">_ajax(conf)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">_htmlEncode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">_htmlDecode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">_url2JSON(url)</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <h3>Document Element Extensions 文档元素扩展</h3>
+        <ul>
+            <li><span class="blue">document.path</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">document.ready(fn)</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <h3>de Object(Array)'s Methods And Properties  de对象(数组)的方法与属性</h3>
+        <ul>
+            <li><span class="blue">addClass(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">append(node)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">attr(name, value)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">bind(name, fn)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">css(name, value)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">cs(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">hide()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">html(str)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">insert(node, n)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">parent(specifies)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">pos()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">removeAttr(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">removeClass(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">show()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">tags(specifies)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">text(str)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">unbind(name, fn)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">val(value)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">value</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <h3>Primitive Types Extensions  原始类型扩展</h3>
+        <ul>
+            <li><span class="blue">Date.add(part, n)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.diff(part, date)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.fromString(str, format)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.toJSON()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.toString(format)</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <p><input id='btnTestAll' type="button" value="Test All"/></p>
+        <p><a href="www.de-js.net" target="_blank">www.de-js.net</a> <a href="mailto:qinhuayi@qq.com">mailto:qinhuayi@qq.com</a> <a href="https://github.com/qinhuayi/de.js" target="_blank">https://github.com/qinhuayi/de.js</a></p> 
+        <br />
+    </div><br />
     <div class="doc">
-        <h2 id="h1">HTML脚本区</h2>
+        <h2 id="h1">HTML For Tester  待测HTML</h2>
         <p id="p0" class="poem">诗一首：<b>一</b>去<b>二</b><b>三</b>里，<b>四</b><b>五</b>户人家，<b>六</b><b>七</b>颗桃树，<b>八</b><b>九</b><b>十</b>枝花。
             <a id="a0" class="link1" href="./X/页/a.html?id=1&mode=detail">详细..</a><a id="a1" class="link1" href="./X/页/a.html?id=1&mode=more">更多..</a><br />
         </p>
         <p>
-            图两张:<img id="img0" alt="image 0" _data="\\~!@#$%^&*()_+`-=[中文]\{}|;':,./< >?" src="./res/小图/img0.asp?arr=['a','[\,]','c']" />
-            <img id="img1" alt="image 1" _data='\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?' src='./res/小图/img1.asp?arr=["e","[\,]","g"]' />
+            图两张:<img id="img0" alt="image 0" _data="\\~!@#$%^&*()_+`-=[中文]\{}|;':,./< >?" src="../res/小图/img0.asp?arr=['a','[\,]','c']" />
+            <img id="img1" alt="image 1" _data='\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?' src='../res/小图/img1.asp?arr=["e","[\,]","g"]' />
             <a id="a2" class="link1" href="./X/页/b.html?id=1&mode=more">更多..</a>
             <span id="sp0" class="hidden">hidden text 0.</span><span id="sp1" class="hidden">hidden text 1.</span>
         </p>
@@ -93,59 +143,10 @@
                 </tbody>
             </table><textarea id="txtArea" rows="6" cols="40" wrap="soft"></textarea>
         </form>
-        <iframe id="iframe1" name="frame1" src="./iframe.html?v1"></iframe>
+        <iframe id="iframe1" name="frame1" src="../res/iframe.html?v1"></iframe>
         <div id="divOut"></div>
     </div>
-    <div id="divTestor">
-        <h2 id="h2">测试功能区</h2>
-        <h3>基本函数</h3>
-        <ul>
-            <li><span class="blue">$e(e, doc)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">$t(specifies) $tags(specifies)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">_ajax(conf)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">_htmlEncode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">_htmlDecode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">_url2JSON(url)</span><button type="button">Test</button><span class=msg></span></li>
-        </ul>
-        <h3>文档元素扩展方法与属性</h3>
-        <ul>
-            <li><span class="blue">document.path</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">document.ready(fn)</span><button type="button">Test</button><span class=msg></span></li>
-        </ul>
-        <h3>de文档元素(数组)方法与属性</h3>
-        <ul>
-            <li><span class="blue">addClass(name)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">append(node)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">attr(name, value)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">bind(name, fn)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">css(name, value)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">cs(name)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">hide()</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">html(str)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">insert(node, n)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">parent(specifies)</span><sup>1.7+</sup><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">pos()</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">removeAttr(name)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">removeClass(name)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">show()</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">tags(specifies)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">text(str)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">unbind(name, fn)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">val(value)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">value</span><button type="button">Test</button><span class=msg></span></li>
-        </ul>
-        <h3>类型扩展方法</h3>
-        <ul>
-            <li><span class="blue">Date.add(part, n)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">Date.diff(part, date)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">Date.fromString(str, format)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">Date.toJSON()</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">Date.toString(format)</span><button type="button">Test</button><span class=msg></span></li>
-        </ul>
-        <p><input id='btnTestAll' type="button" value="Test All"/></p>
-        <p><a href="www.de-js.net" target="_blank">www.de-js.net</a> <a href="mailto:qinhuayi@qq.com">mailto:qinhuayi@qq.com</a> <a href="https://github.com/qinhuayi/de.js" target="_blank">https://github.com/qinhuayi/de.js</a></p> 
-        <br />
-    </div><br />
+
     <div id="divSide">
         <span id="spSideText">Text 0</span>
     </div>

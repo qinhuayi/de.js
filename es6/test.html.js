@@ -86,7 +86,7 @@
                 let rs0 = xhr.text.indexOf('<ID>12</ID>') > 0 && xhr.text.indexOf('<Name>BCD</Name>') > 0 && xhr.text.indexOf('<Text>中文</Text>') > 0;
                 span.innerHTML += rs0 ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
             };
-            _ajax({ url: 'TestData.xml', onsuccess: onsuccess });
+            _ajax({ url: '../res/data.xml', onsuccess: onsuccess });
             return true;
         };
         const t1 = () => {
@@ -136,11 +136,11 @@
     }
 
     _url2JSON() {
-        let url = './res/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
+        let url = '../res/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
             obj = _url2JSON(url);
         const t0 = () => obj.url == url;
-        const t1 = () => obj.filePath == './res/小图/img1.asp';
-        const t2 = () => obj.fileDir == './res/小图';
+        const t1 = () => obj.filePath == '../res/小图/img1.asp';
+        const t2 = () => obj.fileDir == '../res/小图';
         const t3 = () => obj.fileName == 'img1.asp';
         const t4 = () => obj.fileShortName == 'img1';
         const t5 = () => obj.fileExt == '.asp';
@@ -167,7 +167,7 @@
     }
 
     ['document.ready']() {
-        const t0 = () => document.getElementById('h2').innerHTML.indexOf('ok') > 0;
+        const t0 = () => document.getElementById('h2').innerHTML.indexOf('ready') > 0;
         const t1 = () => typeof document._testReady == 'number' && document._testReady == 1;
         return this.Test([t0, t1]);
     }
@@ -265,7 +265,7 @@
         const t1 = () => $e('txt0').css('color') == 'red';
         const t2 = () => $e('p1', idoc).css('color', 'red').id == 'p1';
         const t3 = () => $e('p1', idoc).css('color') == 'red';
-        const t4 = () => $t('div.doc//a').css('fontWeight', 'bold').length == 3 && $t('a')[0].css('fontWeight') == 'bold';
+        const t4 = () => $t('div.doc//a').css('fontWeight', 'bold').length == 3 && $t('div.doc//a')[0].css('fontWeight') == 'bold';
         return this.Test([t0, t1, t2, t3, t4]);
     }
 
@@ -373,10 +373,10 @@
     }
 
     text(idoc, divOut) {
-        const t0 = () => $e('txt0').text('text0').id == 'txt0' && $e('txt0').innerHTML == 'text0';
-        const t1 = () => $e('sp0').text() == 'hidden text 0.';
-        const t2 = () => $e('sp2', idoc).text() == 'hidden text 2.';
-        const t3 = () => $t('p/b').text('一').length == 10 && $t('p/b')[1].text() == '一';
+        const t0 = () => $e('sp0').text() == 'hidden text 0.';
+        const t1 = () => $e('sp2', idoc).text() == 'hidden text 2.';
+        const t2 = () => $t('p/b').text('一').length == 10 && $t('p/b')[1].text() == '一';
+        const t3 = () => $e('txt0').text('TEXT0').id == 'txt0' && ($e('txt0').innerText || $e('txt0').textContent || '') == 'TEXT0';
         return this.Test([t0, t1, t2, t3]);
     }
 
@@ -766,7 +766,7 @@ document.ready(() => {
         typeof testor[name] == 'function' ? bind(btn, 'click', btnTest_click) : (btn.disabled = true);
     }
     bind(document.getElementById('btnTestAll'), 'click', btnTestAll_click);
-    document.getElementById('h2').innerHTML += '<span class="red"> ok!</span>';
+    document.getElementById('h2').innerHTML += '<span class="red"> Testers are ready!</span>';
 });
 
 document.ready(() => {

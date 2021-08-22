@@ -120,7 +120,7 @@
                 var rs0 = xhr.text.indexOf('<ID>12</ID>') > 0 && xhr.text.indexOf('<Name>BCD</Name>') > 0 && xhr.text.indexOf('<Text>中文</Text>') > 0;
                 span.innerHTML += rs0 ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
             };
-            $$.ajax({ url: 'TestData.xml', onsuccess: onsuccess });
+            $$.ajax({ url: '../res/data.xml', onsuccess: onsuccess });
             return true;
         };
         var t1 = function () {
@@ -195,16 +195,16 @@
         return this.Test([t0, t1, t2, t3, t4]);
     },
     "$$.url2Object": function () {
-        var url = './res/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
+        var url = '../res/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
             obj = $$.url2Object(url);
         var t0 = function () {
             return obj.url == url;
         };
         var t1 = function () {
-            return obj.filePath == './res/小图/img1.asp';
+            return obj.filePath == '../res/小图/img1.asp';
         };
         var t2 = function () {
-            return obj.fileDir == './res/小图';
+            return obj.fileDir == '../res/小图';
         };
         var t3 = function () {
             return obj.fileName == 'img1.asp';
@@ -257,7 +257,7 @@
     },
     "document.ready": function () {
         var t0 = function () {
-            return document.getElementById('h2').innerHTML.indexOf('ok') > 0;
+            return document.getElementById('h2').innerHTML.indexOf('ready') > 0;
         };
         var t1 = function () {
             return typeof document._testReady == 'number' && document._testReady == 1;
@@ -394,7 +394,7 @@
             return $e('p1', idoc).css('color') == 'red';
         };
         var t4 = function () {
-            return $t('div.doc//a').css('fontWeight', 'bold').length == 3 && $t('a')[0].css('fontWeight') == 'bold';
+            return $t('div.doc//a').css('fontWeight', 'bold').length == 3 && $t('div.doc//a')[0].css('fontWeight') == 'bold';
         };
         return this.Test([t0, t1, t2, t3, t4]);
     },
@@ -557,16 +557,16 @@
     },
     "text": function (idoc, divOut) {
         var t0 = function () {
-            return $e('txt0').text('text0').id == 'txt0' && $e('txt0').innerHTML == 'text0';
-        };
-        var t1 = function () {
             return $e('sp0').text() == 'hidden text 0.';
         };
-        var t2 = function () {
+        var t1 = function () {
             return $e('sp2', idoc).text() == 'hidden text 2.';
         };
-        var t3 = function () {
+        var t2 = function () {
             return $t('p/b').text('一').length == 10 && $t('p/b')[1].text() == '一';
+        };
+        var t3 = function () {
+            return $e('txt0').text('TEXT0').id == 'txt0' && ($e('txt0').innerText || $e('txt0').textContent || '') == 'TEXT0';
         };
         return this.Test([t0, t1, t2, t3]);
     },
@@ -1026,7 +1026,7 @@ document.ready(function () {
         typeof Testor[name] == 'function' ? bind(btns[i], 'click', btnTest_click) : (btns[i].disabled = true);
     }
     bind(document.getElementById('btnTestAll'), 'click', btnTestAll_click);
-    document.getElementById('h2').innerHTML += '<span class="red"> ok!</span>';
+    document.getElementById('h2').innerHTML += '<span class="red"> Testers are ready!</span>';
 });
 
 document.ready(function () {
