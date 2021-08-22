@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="Author" content="qinhuayi@qq.com" />
-    <base href="Test2.html" />
-    <title>Test de.js(v1.8+)</title>
+    <base href="test.html" />
+    <title>Test de.js(ES5)</title>
     <style type="text/css">
         body { font-size: 12px; }
         body, h1 { background-color: #eee; }
@@ -34,12 +34,12 @@
         #divSide { display:block; position:absolute; left:10px; top: 10px; width:80px; height:40px; margin:0px; padding:0px; border-width:0px; background-color:#a0a0a0; }
         #divSide span { display:inline-block; margin:5px 6px; padding:2px; border-width:0px; background-color:#fff; }
     </style>
-    <link rel="stylesheet" href="./res/page.css" />
-	<script src="./de1.8/de.js?v1" type="text/javascript" language="JavaScript"></script>
-    <script src="Test2.html.js?v8" type="text/javascript" language="JavaScript"></script>    
+    <link rel="stylesheet" href="../res/page.css" />
+    <script src="de.js?" type="text/javascript" language="JavaScript"></script>
+    <script src="test.html.js?" type="text/javascript" language="JavaScript"></script>    
 </head>
 <body>
-    <h1 id="h0">Test de.js <span class="small">(可测试v1.8)</span></h1>
+    <h1 id="h0">Test de.js(ES5) <span class="small">(可测试v1.6, v1.7, v1.7.1)</span></h1>
     <div class="doc">
         <h2 id="h1">HTML脚本区</h2>
         <p id="p0" class="poem">诗一首：<b>一</b>去<b>二</b><b>三</b>里，<b>四</b><b>五</b>户人家，<b>六</b><b>七</b>颗桃树，<b>八</b><b>九</b><b>十</b>枝花。
@@ -102,10 +102,11 @@
         <ul>
             <li><span class="blue">$e(e, doc)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">$t(specifies) $tags(specifies)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">_ajax(conf)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">_htmlEncode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">_htmlDecode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">_url2JSON(url)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$$.ajax(conf)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$$.format(format, arg0, arg1, ..., argn)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$$.htmlEncode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$$.htmlDecode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$$.url2Object(url)</span><button type="button">Test</button><span class=msg></span></li>
         </ul>
         <h3>文档元素扩展方法与属性</h3>
         <ul>
@@ -136,11 +137,17 @@
         </ul>
         <h3>类型扩展方法</h3>
         <ul>
+            <li><span class="blue">Array.forEach(fn)</span><sup>1.7+</sup><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Array.each(fn)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Array.exists(e)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Array.indexOf(e)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.add(part, n)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.diff(part, date)</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.fromString(str, format)</span><button type="button">Test</button><span class=msg></span></li>
-            <li><span class="blue">Date.toJSON()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.toObject()</span><button type="button">Test</button><span class=msg></span></li>
             <li><span class="blue">Date.toString(format)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">String.format(...)</span><sup>1.7+</sup><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">String.trim()</span><button type="button">Test</button><span class=msg></span></li>
         </ul>
         <p><input id='btnTestAll' type="button" value="Test All"/></p>
         <p><a href="www.de-js.net" target="_blank">www.de-js.net</a> <a href="mailto:qinhuayi@qq.com">mailto:qinhuayi@qq.com</a> <a href="https://github.com/qinhuayi/de.js" target="_blank">https://github.com/qinhuayi/de.js</a></p> 
