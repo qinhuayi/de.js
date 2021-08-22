@@ -1,9 +1,5 @@
-﻿/// de.js ver1.8 (2020-05-30 ~)
-///   1. Upgrade to es6;
-///   2. Modified $e.addClass();
-///   3. Add function $e.cs(name);
-///   4. Removed internal function fillConfigure() in _ajax;
-/// author: hoy qin; email: qinhuayi@qq.com, qinhuayi@kezhida.com.cn
+﻿/// de.js(es6) ver 1.8+
+/// Author: Qin Huayi; Email: qinhuayi@qq.com; Website: www.de-js.net; Source: https://github.com/qinhuayi/de.js
 const _url2JSON = (url) => {
     const data = {
         url: url,
