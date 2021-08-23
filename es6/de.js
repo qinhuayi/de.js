@@ -114,6 +114,9 @@ const _ajax = (conf) => {
     xhr.send(conf.data);
 };
 
+Array.prototype.remove = function (i) {
+    return this.splice(i, 1) | 1;
+};
 Date.prototype.toJSON = function () {
     const month = 'January February March April May June July August September October November December'.split(' '),
         week = 'Sunday Monday Tuesday Wednesday Thursday Friday Saturday'.split(' ');
@@ -530,18 +533,48 @@ Date.prototype.diff = function(part, date) {
                     return arr;
                 },
                 getLevelElements = (e, lspec) => {
-                    let results = [];
-                    if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?$/ig.test(lspec.trim())) {
+                    let results = [],
+                        filter = (arr, pseudoClassName) => {
+                            const i = pseudoClassName.indexOf('('),
+                                name = i > 0 ? pseudoClassName.substr(0, i) : pseudoClassName,
+                                arg = i > 0 ? pseudoClassName.substring(i + 1, pseudoClassName.indexOf(')')) : -1,
+                                n = parseInt(arg, 10);
+                            switch (name) {
+                                case ':first':
+                                    return arr[0];
+                                case ':last':
+                                    return arr[arr.length - 1];
+                                case ':even':
+                                    for (let i = arr.length - 1; i >= 0 && ((i & 1) == 0 || arr.remove(i)); i--);
+                                    return arr;
+                                case ':odd':
+                                    for (let i = arr.length - 1; i >= 0 && ((i & 1) == 1 || arr.remove(i)); i--);
+                                    return arr;
+                                case ':eq':
+                                    return arr[n];
+                                case ':lt':
+                                    for (let i = arr.length - 1; i >= 0 && (i < n || arr.remove(i)); i--);
+                                    return arr;
+                                case ':gt':
+                                    for (let i = arr.length - 1; i >= 0 && (i > n || arr.remove(i)); i--);
+                                    return arr;
+                                default:
+                                    return arr;
+                            }
+                        };
+                    if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?(\:(?:first|last|even|odd|(?:eq|gt|lt)\(-?\d+\)))?$/ig.test(lspec.trim())) {
                         let deep = RegExp.$1.charAt(0) == '\\',
                             tagName = deep ? RegExp.$1.substring(1) : RegExp.$1,
                             className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
                             express = RegExp.$3,
+                            pseudoClassName = RegExp.$4,
                             arr = deep ? e.getElementsByTagName(tagName.toUpperCase()) : getChildElements(e, tagName);
                         for (let el of arr) {
                             if ((!className || examor.examClass(el, className)) && (!express || examor.examAttrs(el, express))) {
                                 results.push(_de(el, document));
                             }
                         }
+                        pseudoClassName && results.length > 0 && (results = filter(results, pseudoClassName));
                     }
                     return results;
                 };
