@@ -76,7 +76,15 @@
             return rs && (arr = $t('p.poem/a[id^="a", href*="./X/页/"], body//img[id^="img", src*="' + src0 + '"]')) && arr.length == 3 && arr[1].id == 'a1' && arr[2].id == 'img0';
         };
         const t21 = () => (arr = $t('input[name=group2]', idoc)) && arr.length == 4;
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21]);
+        const t22 = () => (arr = $t('a[id]:first')) && arr[0].id == 'a0' && (arr = $t('h2:first,a[id]:first')) && arr.length == 2 && arr[0].id == 'h2' && arr[1].id == 'a0';
+        const t23 = () => (arr = $t('a[id]:last')) && arr[0].id == 'a2' && (arr = $t('h2:last,div.doc//a[id]:last')) && arr.length == 2 && arr[0].id == 'h1' && arr[1].id == 'a2';
+        const t24 = () => (arr = $t('div.doc//a:even')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a2';
+        const t25 = () => (arr = $t('div.doc//a:odd')) && arr.length == 1 && arr[0].id == 'a1';
+        const t26 = () => (arr = $t('form//tr:eq(1)')) && arr.length == 1 && arr[0].id == 'tr1' && (arr = $t('table//tr:eq(2)')) && arr.length == 1 && arr[0].id == 'tr2';
+        const t27 = () => (arr = $t('form//tr:gt(1)')) && arr.length == 3 && arr[0].id == 'tr2';
+        const t28 = () => (arr = $t('form//tr:lt(2)')) && arr.length == 2 && arr[0].id == 'tr0' && arr[1].id == 'tr1';
+        const t29 = () => (arr = $t('div.doc//a.link1[id]:gt(0)')) && arr.length == 2 && arr[0].id == 'a1' && arr[1].id == 'a2';
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29]);
     }
 
     _ajax(idoc, divOut, span) {
@@ -471,6 +479,14 @@
             return $e('*group2', idoc).value == 'south';
         };
         return this.Test([t0, t1, t2]);
+    }
+
+    ['Array.remove']() {
+        const t0 = () => {
+            let arr = [0, 1, 2, 3, 4];
+            return arr.remove(1) && arr[0] == 0 && arr[1] == 2 && arr.length == 4;
+        };
+        return this.Test([t0]);
     }
 
     ['Date.add']() {
