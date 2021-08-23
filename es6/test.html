@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta name="Author" content="qinhuayi@qq.com" />
+    <base href="test.html" />
+    <title>Test de.js(ES6)</title>
+    <style type="text/css">
+        body { font-size: 12px; }
+        body, h1 { background-color: #eee; }
+        .small { font-size: 12px; font-weight: normal; color: #999; }
+        .doc, h1, #divTestor { width: 920px; margin: 1px auto; }
+        .doc, #divTestor { background-color: #fff; padding: 0.5em; margin:0.6em auto; }
+        textarea { margin: 1em; }
+        #divOut { height: 2em; width:100%; }
+        #iframe1 { height: 10em; min-width:600px;width:70%; }
+        table { border-width: 1px; border-collapse: collapse; border-style: solid; border-color: #999; margin: 0.5em; display:inline-block; }
+        tr, td { padding: 0.2em; border-width: 1px; border-style: solid; border-color: #999; }
+        li { list-style-position: inside; list-style-type: decimal; line-height:1.5em;}
+        span { margin: 1px; padding:0.1em; }
+        b { color: #ff6a00; }
+        span, a, b { margin:0.1em; }
+        a { margin: 0.1em 0.5em; }
+        sup { color:red; font-size:9px;display:inline-block; }
+        .blue { color: blue; }
+        .red {color:red; }
+        .green {color:green;}
+        .bg_gray { background-color:gray;}
+        .bg_black { color:#fff; background-color:black;}
+        .hidden { display: none; }
+        li span.blue { width:22em; display:inline-block; text-align:left; }
+        #btnTestAll { margin:1em 5em; padding:0.5em 1em; font-size:18px; }
+        #divSide { display:block; position:absolute; left:10px; top: 10px; width:80px; height:40px; margin:0px; padding:0px; border-width:0px; background-color:#a0a0a0; }
+        #divSide span { display:inline-block; margin:5px 6px; padding:2px; border-width:0px; background-color:#fff; }
+    </style>
+    <link rel="stylesheet" href="../res/page.css" />
+    <script type="text/javascript" language="JavaScript" src="de.js?v0"></script>
+    <script type="text/javascript" language="JavaScript" src="test.html.js?v0"></script>    
+</head>
+<body>
+    <h1 id="h0">Test de.js(ES6)</h1>
+    <div id="divTestor">
+        <h2 id="h2">Test Items  测试项目</h2>
+        <h3>Basic Functions  基本函数</h3>
+        <ul>
+            <li><span class="blue">$e(e, doc)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">$t(specifies) $tags(specifies)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">_ajax(conf)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">_htmlEncode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">_htmlDecode(str, mode)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">_url2JSON(url)</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <h3>Document Element Extensions 文档元素扩展</h3>
+        <ul>
+            <li><span class="blue">document.path</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">document.ready(fn)</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <h3>de Object(Array)'s Methods And Properties  de对象(数组)的方法与属性</h3>
+        <ul>
+            <li><span class="blue">addClass(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">append(node)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">attr(name, value)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">bind(name, fn)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">css(name, value)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">cs(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">hide()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">html(str)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">insert(node, n)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">parent(specifies)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">pos()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">removeAttr(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">removeClass(name)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">show()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">tags(specifies)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">text(str)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">unbind(name, fn)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">val(value)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">value</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <h3>Primitive Types Extensions  原始类型扩展</h3>
+        <ul>
+            <li><span class="blue">Array.remove(i)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.add(part, n)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.diff(part, date)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.fromString(str, format)</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.toJSON()</span><button type="button">Test</button><span class=msg></span></li>
+            <li><span class="blue">Date.toString(format)</span><button type="button">Test</button><span class=msg></span></li>
+        </ul>
+        <p><input id='btnTestAll' type="button" value="Test All"/></p>
+        <p><a href="www.de-js.net" target="_blank">www.de-js.net</a> <a href="mailto:qinhuayi@qq.com">mailto:qinhuayi@qq.com</a> <a href="https://github.com/qinhuayi/de.js" target="_blank">https://github.com/qinhuayi/de.js</a></p> 
+        <br />
+    </div><br />
+    <div class="doc">
+        <h2 id="h1">HTML For Tester  待测HTML</h2>
+        <p id="p0" class="poem">诗一首：<b>一</b>去<b>二</b><b>三</b>里，<b>四</b><b>五</b>户人家，<b>六</b><b>七</b>颗桃树，<b>八</b><b>九</b><b>十</b>枝花。
+            <a id="a0" class="link1" href="./X/页/a.html?id=1&mode=detail">详细..</a><a id="a1" class="link1" href="./X/页/a.html?id=1&mode=more">更多..</a><br />
+        </p>
+        <p>
+            图两张:<img id="img0" alt="image 0" _data="\\~!@#$%^&*()_+`-=[中文]\{}|;':,./< >?" src="../res/小图/img0.asp?arr=['a','[\,]','c']" />
+            <img id="img1" alt="image 1" _data='\\~!@#$%^&*()_+`-=[中文]\{}|;":,./< >?' src='../res/小图/img1.asp?arr=["e","[\,]","g"]' />
+            <a id="a2" class="link1" href="./X/页/b.html?id=1&mode=more">更多..</a>
+            <span id="sp0" class="hidden">hidden text 0.</span><span id="sp1" class="hidden">hidden text 1.</span>
+        </p>
+        <form id="form1" action="#" name="form1">
+            <table>
+                <caption>表格</caption>
+                <tbody>
+                    <tr id="tr0">
+                        <td>类别</td>
+                        <td>
+                            <select id="sel">
+                                <option value="A" selected="selected">A类</option>
+                                <option value="B">B类</option>
+                                <option value="C">C类</option>
+                            </select></td>
+                    </tr>
+                    <tr id="tr1">
+                        <td>Price</td>
+                        <td>
+                            <input id="cb0" name="group2" type="checkbox" value="0-100" /><label for="cb0">0-100</label>
+                            <input id="cb1" name="group2" type="checkbox" value="100-500" /><label for="cb1">100-500</label>
+                            <input id="cb2" name="group2" type="checkbox" value="500-1000" /><label for="cb2">500-1000</label>
+                            <input id="cb3" name="group2" type="checkbox" value="1000-5000" /><label for="cb3">1000-5000</label>
+                        </td>
+                    </tr>
+                    <tr id="tr2">
+                        <td>Color</td>
+                        <td>
+                            <input id="rb0" name="group1" type="radio" value="red" checked /><label for="rb0">red</label>
+                            <input id="rb1" name="group1" type="radio" value="green" /><label for="rb1">green</label>
+                            <input id="rb2" name="group1" type="radio" value="blue" /><label for="rb2">blue</label></td>
+                    </tr>
+                    <tr id="tr3">
+                        <td>Note</td>
+                        <td><input id="txt0" type="text" _data="Text Data" value="abc123 efg456" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input id="btnClear" type="button" _data="Btn0 Data" value="Clear" />
+                            <input id="btnReset" type="button" value="Reset" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table><textarea id="txtArea" rows="6" cols="40" wrap="soft"></textarea>
+        </form>
+        <iframe id="iframe1" name="frame1" src="../res/iframe.html?v1"></iframe>
+        <div id="divOut"></div>
+    </div>
+
+    <div id="divSide">
+        <span id="spSideText">Text 0</span>
+    </div>
+</body>
+</html>

@@ -111,7 +111,31 @@
         var t21 = function () {
             return (arr = $t('input[name=group2]', idoc)) && arr.length == 4;
         };
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21]);
+        var t22 = function () {
+            return (arr = $t('a[id]:first')) && arr[0].id == 'a0' && (arr = $t('h2:first,a[id]:first')) && arr.length == 2 && arr[0].id == 'h2' && arr[1].id == 'a0';
+        };
+        var t23 = function () {
+            return (arr = $t('a[id]:last')) && arr[0].id == 'a2' && (arr = $t('h2:last,div.doc//a[id]:last')) && arr.length == 2 && arr[0].id == 'h1' && arr[1].id == 'a2';
+        };
+        var t24 = function () {
+            return (arr = $t('div.doc//a:even')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a2';
+        };
+        var t25 = function () {
+            return (arr = $t('div.doc//a:odd')) && arr.length == 1 && arr[0].id == 'a1';
+        };
+        var t26 = function () {
+            return (arr = $t('form//tr:eq(1)')) && arr.length == 1 && arr[0].id == 'tr1' && (arr = $t('table//tr:eq(2)')) && arr.length == 1 && arr[0].id == 'tr2';
+        };
+        var t27 = function () {
+            return (arr = $t('form//tr:gt(1)')) && arr.length == 3 && arr[0].id == 'tr2';
+        };
+        var t28 = function () {
+            return (arr = $t('form//tr:lt(2)')) && arr.length == 2 && arr[0].id == 'tr0' && arr[1].id == 'tr1';
+        };
+        var t29 = function () {
+            return (arr = $t('div.doc//a.link1[id]:gt(0)')) && arr.length == 2 && arr[0].id == 'a1' && arr[1].id == 'a2';
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29]);
     },
     "$$.ajax": function (idoc, divOut, span) {
         var t0 = function () {
@@ -120,7 +144,7 @@
                 var rs0 = xhr.text.indexOf('<ID>12</ID>') > 0 && xhr.text.indexOf('<Name>BCD</Name>') > 0 && xhr.text.indexOf('<Text>中文</Text>') > 0;
                 span.innerHTML += rs0 ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
             };
-            $$.ajax({ url: 'TestData.xml', onsuccess: onsuccess });
+            $$.ajax({ url: '../res/data.xml', onsuccess: onsuccess });
             return true;
         };
         var t1 = function () {
@@ -195,16 +219,16 @@
         return this.Test([t0, t1, t2, t3, t4]);
     },
     "$$.url2Object": function () {
-        var url = './res/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
+        var url = '../res/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
             obj = $$.url2Object(url);
         var t0 = function () {
             return obj.url == url;
         };
         var t1 = function () {
-            return obj.filePath == './res/小图/img1.asp';
+            return obj.filePath == '../res/小图/img1.asp';
         };
         var t2 = function () {
-            return obj.fileDir == './res/小图';
+            return obj.fileDir == '../res/小图';
         };
         var t3 = function () {
             return obj.fileName == 'img1.asp';
@@ -257,7 +281,7 @@
     },
     "document.ready": function () {
         var t0 = function () {
-            return document.getElementById('h2').innerHTML.indexOf('ok') > 0;
+            return document.getElementById('h2').innerHTML.indexOf('ready') > 0;
         };
         var t1 = function () {
             return typeof document._testReady == 'number' && document._testReady == 1;
@@ -394,7 +418,7 @@
             return $e('p1', idoc).css('color') == 'red';
         };
         var t4 = function () {
-            return $t('div.doc//a').css('fontWeight', 'bold').length == 3 && $t('a')[0].css('fontWeight') == 'bold';
+            return $t('div.doc//a').css('fontWeight', 'bold').length == 3 && $t('div.doc//a')[0].css('fontWeight') == 'bold';
         };
         return this.Test([t0, t1, t2, t3, t4]);
     },
@@ -557,16 +581,16 @@
     },
     "text": function (idoc, divOut) {
         var t0 = function () {
-            return $e('txt0').text('text0').id == 'txt0' && $e('txt0').innerHTML == 'text0';
-        };
-        var t1 = function () {
             return $e('sp0').text() == 'hidden text 0.';
         };
-        var t2 = function () {
+        var t1 = function () {
             return $e('sp2', idoc).text() == 'hidden text 2.';
         };
-        var t3 = function () {
+        var t2 = function () {
             return $t('p/b').text('一').length == 10 && $t('p/b')[1].text() == '一';
+        };
+        var t3 = function () {
+            return $e('txt0').text('TEXT0').id == 'txt0' && ($e('txt0').innerText || $e('txt0').textContent || '') == 'TEXT0';
         };
         return this.Test([t0, t1, t2, t3]);
     },
@@ -660,19 +684,19 @@
         };
         return this.Test([t0, t1, t2]);
     },
-    "Array.forEach": function () {
-        var rs = true;
-        var t0 = function () {
-            var arr = [], indexs = [];
-            [1, 3, 7].forEach(function (e, i) {
-                arr.push(e);
-                indexs.push(i);
-                rs = rs && e != this;
-            });
-            return arr[0] == 1 && arr[1] == 3 && arr[2] == 7 && indexs[0] == 0 && indexs[1] == 1 && indexs[2] == 2;
-        };
-        return this.Test([t0]).concat([rs]);
-    },
+    //"Array.forEach": function () {
+    //    var rs = true;
+    //    var t0 = function () {
+    //        var arr = [], indexs = [];
+    //        [1, 3, 7].forEach(function (e, i) {
+    //            arr.push(e);
+    //            indexs.push(i);
+    //            rs = rs && e != this;
+    //        });
+    //        return arr[0] == 1 && arr[1] == 3 && arr[2] == 7 && indexs[0] == 0 && indexs[1] == 1 && indexs[2] == 2;
+    //    };
+    //    return this.Test([t0]).concat([rs]);
+    //},
     "Array.each": function () {
         var rs = true;
         var t0 = function () {
@@ -699,6 +723,13 @@
         var t0 = function () {
             var arr = [1, 3, 7, 'a', 'c', 'e'];
             return arr.indexOf(1) == 0 && arr.indexOf(7) == 2 && arr.indexOf('c') == 4 && arr.indexOf('e') == 5;
+        };
+        return this.Test([t0]);
+    },
+    "Array.remove": function () {
+        var t0 = function () {
+            var arr = [0,1,2,3,4];
+            return arr.remove(1) && arr[0] == 0 && arr[1] == 2 && arr.length == 4;
         };
         return this.Test([t0]);
     },
@@ -960,6 +991,17 @@
         };
         return this.Test([t0, t1]);
     },
+    "String.includes": function () {
+        var t0 = function () {
+            var s0 = 'AB中文CD';
+            return s0.includes('AB') && s0.includes('中文') && s0.includes('CD');
+        };
+        var t1 = function () {
+            var s0 = '\t\r\n \uFEFF\xA0 AB\tCD\n中文 \uFEFF\xA0 \t\r\n';
+            return s0.includes('中文');
+        };
+        return this.Test([t0, t1]);
+    },
     Test: function (testors) {
         var arr = [];
         for (var i = 0; i < testors.length; i++) {
@@ -999,6 +1041,7 @@ function OnTestSucceed(arr, span) {
     span.innerHTML = '';
     for (var i = 0; i < arr.length; i++) {
         span.innerHTML += typeof arr[i] == 'string' ? arr[i] : arr[i] ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
+        span.innerHTML += ((i & 0x03) == 3 ? ' ' : '');
     }
 }
 
@@ -1026,7 +1069,7 @@ document.ready(function () {
         typeof Testor[name] == 'function' ? bind(btns[i], 'click', btnTest_click) : (btns[i].disabled = true);
     }
     bind(document.getElementById('btnTestAll'), 'click', btnTestAll_click);
-    document.getElementById('h2').innerHTML += '<span class="red"> ok!</span>';
+    document.getElementById('h2').innerHTML += '<span class="red"> Testers are ready!</span>';
 });
 
 document.ready(function () {
