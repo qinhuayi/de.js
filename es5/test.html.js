@@ -726,6 +726,13 @@
         };
         return this.Test([t0]);
     },
+    "Array.remove": function () {
+        var t0 = function () {
+            var arr = [0,1,2,3,4];
+            return arr.remove(1) && arr[0] == 0 && arr[1] == 2 && arr.length == 4;
+        };
+        return this.Test([t0]);
+    },
     "Date.add": function () {
         var t0 = function () {
             var date = new Date('2019-12-01'),
@@ -981,6 +988,17 @@
         var t1 = function () {
             var s0 = '\t\r\n \uFEFF\xA0 AB\tCD\n中文 \uFEFF\xA0 \t\r\n';
             return s0.trim() == 'AB\tCD\n中文';
+        };
+        return this.Test([t0, t1]);
+    },
+    "String.includes": function () {
+        var t0 = function () {
+            var s0 = 'AB中文CD';
+            return s0.includes('AB') && s0.includes('中文') && s0.includes('CD');
+        };
+        var t1 = function () {
+            var s0 = '\t\r\n \uFEFF\xA0 AB\tCD\n中文 \uFEFF\xA0 \t\r\n';
+            return s0.includes('中文');
         };
         return this.Test([t0, t1]);
     },
