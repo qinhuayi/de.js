@@ -112,18 +112,30 @@
             return (arr = $t('input[name=group2]', idoc)) && arr.length == 4;
         };
         var t22 = function () {
-            return (arr = $t('a[id]:first')) && arr[0].id == 'a0' && (arr = $t('a[id]:last')) && arr[0].id == 'a2';
+            return (arr = $t('a[id]:first')) && arr[0].id == 'a0' && (arr = $t('h2:first,a[id]:first')) && arr.length == 2 && arr[0].id == 'h2' && arr[1].id == 'a0';
         };
         var t23 = function () {
-            return (arr = $t('h2:last,a[id]:first')) && arr[0].id == 'h1' && arr[1].id == 'a0';
+            return (arr = $t('a[id]:last')) && arr[0].id == 'a2' && (arr = $t('h2:last,div.doc//a[id]:last')) && arr.length == 2 && arr[0].id == 'h1' && arr[1].id == 'a2';
         };
         var t24 = function () {
             return (arr = $t('div.doc//a:even')) && arr.length == 2 && arr[0].id == 'a0' && arr[1].id == 'a2';
         };
         var t25 = function () {
-            //todo: more test
+            return (arr = $t('div.doc//a:odd')) && arr.length == 1 && arr[0].id == 'a1';
         };
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24]);
+        var t26 = function () {
+            return (arr = $t('form//tr:eq(1)')) && arr.length == 1 && arr[0].id == 'tr1' && (arr = $t('table//tr:eq(2)')) && arr.length == 1 && arr[0].id == 'tr2';
+        };
+        var t27 = function () {
+            return (arr = $t('form//tr:gt(1)')) && arr.length == 3 && arr[0].id == 'tr2';
+        };
+        var t28 = function () {
+            return (arr = $t('form//tr:lt(2)')) && arr.length == 2 && arr[0].id == 'tr0' && arr[1].id == 'tr1';
+        };
+        var t29 = function () {
+            return (arr = $t('div.doc//a.link1[id]:gt(0)')) && arr.length == 2 && arr[0].id == 'a1' && arr[1].id == 'a2';
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29]);
     },
     "$$.ajax": function (idoc, divOut, span) {
         var t0 = function () {
@@ -1011,6 +1023,7 @@ function OnTestSucceed(arr, span) {
     span.innerHTML = '';
     for (var i = 0; i < arr.length; i++) {
         span.innerHTML += typeof arr[i] == 'string' ? arr[i] : arr[i] ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
+        span.innerHTML += ((i & 0x03) == 3 ? ' ' : '');
     }
 }
 
