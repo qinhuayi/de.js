@@ -553,7 +553,7 @@ Date.prototype.diff = function (part, date) {
                                     for (var i = arr.length - 1; i >= 0 && (i < n || arr.remove(i)); i--);
                                     return arr;
                                 case ':gt':
-                                    for (var i = 0; i < arr.length && (i > n || arr.remove(i)); i++);
+                                    for (var i = arr.length - 1; i >= 0 && (i > n || arr.remove(i)); i--);
                                     return arr;
                                 default:
                                     return arr;
