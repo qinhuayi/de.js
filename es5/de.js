@@ -571,8 +571,9 @@ Date.prototype.diff = function (part, date) {
                                 results.push(_de(arr[i], document));
                             }
                         }
+                        pseudoClassName && results.length > 0 && (results = filter(results, pseudoClassName));
                     }
-                    return results.length > 0 && pseudoClassName ? filter(results, pseudoClassName) : results;
+                    return results;
                 };
             for (var index = 0; index < safeSpecifies.length; index++) {
                 var parentNodes = [e],
