@@ -250,7 +250,7 @@
         };
         return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8]);
     },
-    "_new": function () {
+    "_new": function (idoc) {
         var t0 = function () {
             return _new('<i>').tagName == 'I';
         };
@@ -258,7 +258,12 @@
             var el = _new('<span id="s0">');
             return el.tagName == 'SPAN' && el.id == 's0';
         };
-        return this.Test([t0, t1]);
+        var t2 = function () {
+            var el = _new('<span id="s01">', idoc);
+            idoc.body.appendChild(el);
+            return el.tagName == 'SPAN' && el.id == 's01' && idoc.getElementById('s01') == el;
+        };
+        return this.Test([t0, t1, t2]);
     },
     "_merge": function () {
         var equal = function (a, b) {
