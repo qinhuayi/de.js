@@ -137,14 +137,14 @@
         };
         return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29]);
     },
-    "$$.ajax": function (idoc, divOut, span) {
+    "_ajax": function (idoc, divOut, span) {
         var t0 = function () {
             var onsuccess = function (xhr) {
                 document.getElementById('txtArea').value = xhr.text;
                 var rs0 = xhr.text.indexOf('<ID>12</ID>') > 0 && xhr.text.indexOf('<Name>BCD</Name>') > 0 && xhr.text.indexOf('<Text>中文</Text>') > 0;
                 span.innerHTML += rs0 ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
             };
-            $$.ajax({ url: '../res/data.xml', onsuccess: onsuccess });
+            _ajax({ url: '../res/data.xml', onsuccess: onsuccess });
             return true;
         };
         var t1 = function () {
@@ -155,46 +155,46 @@
                 document.getElementById('txtArea').value += xhr.status;
                 span.innerHTML += "<span class='green'>✓</span>status=" + xhr.status;
             };
-            $$.ajax({ url: '!@#$%^&*.html', onsuccess: onsuccess, onerror: onerror });
+            _ajax({ url: '!@#$%^&*.html', onsuccess: onsuccess, onerror: onerror });
             return true;
         };
         //...
         return this.Test([t0, t1]);
     },
-    "$$.format": function () {
+    "_format": function () {
         var t0 = function () {
-            return $$.format("{0}去{1}{2}里", '一', '二', '三') == '一去二三里';
+            return _format("{0}去{1}{2}里", '一', '二', '三') == '一去二三里';
         };
         var t1 = function () {
-            return $$.format("{0}去{1}{2}里=={0}去{1}{2}里", '一', '二', '三') == '一去二三里==一去二三里';
+            return _format("{0}去{1}{2}里=={0}去{1}{2}里", '一', '二', '三') == '一去二三里==一去二三里';
         };
         return this.Test([t0, t1]);
     },
-    "$$.htmlEncode": function () {
+    "_htmlEncode": function () {
         var html = 'if (a > b) && (c < a) return "Larger"; else \'Smaller\'; ',
             code0 = 'if (a &gt; b) &amp;&amp; (c &lt; a) return &quot;Larger&quot;; else &apos;Smaller&apos;; ',
             code1 = 'if (a &gt; b) &amp;&amp; (c &lt; a) return "Larger"; else \'Smaller\'; ',
             code2 = 'if (a > b) &amp;&amp; (c &lt; a) return &quot;Larger&quot;; else \'Smaller\'; ',
             code3 = 'if (a &#62; b) &#38;&#38; (c &#60; a) return &#34;Larger&#34;; else &#39;Smaller&#39;; ';
         var t0 = function () {
-            return $$.htmlEncode(html) == code0 && $$.htmlEncode(html, 0) == code0;
+            return _htmlEncode(html) == code0 && _htmlEncode(html, 0) == code0;
         };
         var t1 = function () {
-            return $$.htmlEncode(html, 1) == code1;
+            return _htmlEncode(html, 1) == code1;
         };
         var t2 = function () {
-            return $$.htmlEncode(html, 2) == code2;
+            return _htmlEncode(html, 2) == code2;
         };
         var t3 = function () {
-            return $$.htmlEncode(html, 3) == code3;
+            return _htmlEncode(html, 3) == code3;
         };        
         var t4 = function () {
             html = "if (a &gt; b) return &quot;Larger&quot;;";
-            return $$.htmlEncode(html, 0) == "if (a &amp;gt; b) return &amp;quot;Larger&amp;quot;;";
+            return _htmlEncode(html, 0) == "if (a &amp;gt; b) return &amp;quot;Larger&amp;quot;;";
         };
         return this.Test([t0, t1, t2, t3, t4]);
     },
-    "$$.htmlDecode": function () {
+    "_htmlDecode": function () {
         var html = 'if (a > b) && (c < a) return "Larger"; else \'Smaller\'; ',
             code0 = 'if (a &gt; b) &amp;&amp; (c &lt; a) return &quot;Larger&quot;; else &apos;Smaller&apos;; ',
             code1 = 'if (a &gt; b) &amp;&amp; (c &lt; a) return "Larger"; else \'Smaller\'; ',
@@ -202,25 +202,25 @@
             code3 = 'if (a &#62; b) &#38;&#38; (c &#60; a) return &#34;Larger&#34;; else &#39;Smaller&#39;; ',
             code4 = 'if (a &amp;gt; b) return &amp;quot;Larger&amp;quot;;';
         var t0 = function () {
-            return $$.htmlDecode(code0) == html && $$.htmlDecode(code0, 0) == html;
+            return _htmlDecode(code0) == html && _htmlDecode(code0, 0) == html;
         };
         var t1 = function () {
-            return $$.htmlDecode(code1, 1) == html;
+            return _htmlDecode(code1, 1) == html;
         };
         var t2 = function () {
-            return $$.htmlDecode(code2, 2) == html;
+            return _htmlDecode(code2, 2) == html;
         };
         var t3 = function () {
-            return $$.htmlDecode(code3, 3) == html;
+            return _htmlDecode(code3, 3) == html;
         };
         var t4 = function () {
-            return $$.htmlDecode(code4) == 'if (a &gt; b) return &quot;Larger&quot;;';
+            return _htmlDecode(code4) == 'if (a &gt; b) return &quot;Larger&quot;;';
         };
         return this.Test([t0, t1, t2, t3, t4]);
     },
-    "$$.url2Object": function () {
+    "_url2Object": function () {
         var url = '../res/小图/img1.asp?id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3',
-            obj = $$.url2Object(url);
+            obj = _url2Object(url);
         var t0 = function () {
             return obj.url == url;
         };
@@ -250,8 +250,39 @@
         };
         return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8]);
     },
+    "_new": function (idoc) {
+        var t0 = function () {
+            return _new('<i>').tagName == 'I';
+        };
+        var t1 = function () {
+            var el = _new('<span id="s0">');
+            return el.tagName == 'SPAN' && el.id == 's0';
+        };
+        var t2 = function () {
+            var el = _new('<span id="s01">', idoc);
+            idoc.body.appendChild(el);
+            return el.tagName == 'SPAN' && el.id == 's01' && idoc.getElementById('s01') == el;
+        };
+        return this.Test([t0, t1, t2]);
+    },
+    "_merge": function () {
+        var equal = function (a, b) {
+            for (var n in a) if (b[n] == undefined || b[n] != a[n]) return false;
+            return true;
+        };
+        var t0 = function () {
+            var a = { a: 'a', b: 'b0' }, b = { b: 'b1', c: 'c1' }, o = _merge(a, b);
+            return equal(o, { a: 'a', b: 'b1', c: 'c1' }) && equal(a, { a: 'a', b: 'b0' }) && equal(b, { b: 'b1', c: 'c1' });
+        };
+        var t1 = function () {
+            var a = { a: 'a', b: 'b0' }, b = { b: 'b1', c: 'c1' }, c = { b: 'b2', c: 'c2', d: 'd2' }, d = null, e = 123, f = 'abc', g = undefined, h = { h: 'h' };
+            var o = _merge(a, b, c, d, e, f, g, h);
+            return equal(o, { a: 'a', b: 'b2', c: 'c2', d: 'd2', h: 'h' }) && equal(a, { a: 'a', b: 'b0' }) && equal(b, { b: 'b1', c: 'c1' }) && equal(c, { b: 'b2', c: 'c2', d: 'd2' }) && d == null && e == 123 && f == 'abc' && g == undefined && equal(h, { h: 'h' });
+        };
+        return this.Test([t0, t1]);
+    },
     "document.path": function () {
-        var path = $$.url2Object(document.location.href);
+        var path = _url2Object(document.location.href);
         var t0 = function () {
             return document.path.url === path.url;
         };

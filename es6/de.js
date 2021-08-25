@@ -1,4 +1,4 @@
-﻿/// de.js(es6) ver 1.9
+﻿/// de.js(es6) ver 1.9.1
 /// Author: Qin Huayi; Email: qinhuayi@qq.com; Website: www.de-js.net; Source: https://github.com/qinhuayi/de.js
 const _url2JSON = (url) => {
     const data = {
@@ -30,9 +30,10 @@ const _url2JSON = (url) => {
     return data;
 };
 
-const _merge = (target, ...objs) => {
-    for (let obj of objs) Object.defineProperties(target, Object.getOwnPropertyDescriptors(obj));
-    return target;
+const _merge = (...objs) => {
+    let rst = {};
+    for (let obj of objs) typeof obj == 'object' && obj && Object.defineProperties(rst, Object.getOwnPropertyDescriptors(obj));
+    return rst;
 };
 
 const _htmlEncode = (str, mode) => {
@@ -816,11 +817,12 @@ Date.prototype.diff = function(part, date) {
     };
     win.$tags = (specifies, doc) => typeof doc === 'undefined' || !doc ? $e(document.documentElement).tags(specifies) : $e(doc.documentElement).tags(specifies);
     win.$t = win.$tags;
-    win.$$ = {
-        //format: String.format,
-        htmlEncode: _htmlEncode,
-        htmlDecode: _htmlDecode,
-        url2Object: _url2JSON,
-        ajax: _ajax
-    };
+    win._new = _new;
+    //win.$$ = {
+    //    //format: String.format,
+    //    htmlEncode: _htmlEncode,
+    //    htmlDecode: _htmlDecode,
+    //    url2Object: _url2JSON,
+    //    ajax: _ajax
+    //};
 })(window, document);

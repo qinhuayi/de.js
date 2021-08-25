@@ -1,4 +1,4 @@
-﻿/// de.js(es5) ver 1.9
+﻿/// de.js(es5) ver 1.9.1
 /// Author: Qin Huayi; Email: qinhuayi@qq.com; Website: http://www.de-js.net; Source: https://github.com/qinhuayi/de.js
 String.prototype.trim = function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
@@ -287,7 +287,7 @@ Date.prototype.diff = function (part, date) {
     return null;
 };
 
-(function (window, document, undefined) {
+(function (win, document, undefined) {
     "use strict"
     var readyList = [],
         trim = function (str) {
@@ -644,7 +644,7 @@ Date.prototype.diff = function (part, date) {
                 return e;
             };
             e.cs = function (name) {
-                var style = window.getComputedStyle ? window.getComputedStyle(e, null) : e.currentStyle;
+                var style = win.getComputedStyle ? win.getComputedStyle(e, null) : e.currentStyle;
                 return typeof name === undefined ? style : typeof name == "string" ? style[name] : null;
             };
             e.pos = function (mode) {
@@ -744,9 +744,9 @@ Date.prototype.diff = function (part, date) {
                 return _tags(e, specifies);
             };
             //extentions since 1.6b
-            if (typeof $$.extentions === 'object' && typeof $$.extentions[e.tagName] === 'function') {
-                $$.extentions[e.tagName](e);
-            }
+            //if (typeof $$.extentions === 'object' && typeof $$.extentions[e.tagName] === 'function') {
+            //    $$.extentions[e.tagName](e);
+            //}
             e._de = true;
             return e;
         },
@@ -884,22 +884,16 @@ Date.prototype.diff = function (part, date) {
             };
             return data;
         },
-        _merge = function (a, b, c, d, e, f, g, h) {
-            var merge = function (ori, ext) {
-                if (ori !== undefined && ext !== undefined) {
-                    for (var name in ext) {
-                        ori[name] = ext[name];
-                    }
-                }
-                return ori;
-            };
-            var g0 = merge({}, g),
-                f0 = merge({}, f),
-                e0 = merge({}, e),
-                d0 = merge({}, d),
-                c0 = merge({}, c),
-                b0 = merge({}, b);
-            return merge(a, merge(b0, merge(c0, merge(d0, merge(e0, merge(f0, merge(g0, h)))))));
+        _merge = function () {
+            var rst = {},
+                merge = function (a, b) {
+                    var o = {};
+                    if (typeof a == 'object') for (var name in a) o[name] = a[name];
+                    if (typeof b == 'object') for (var name in b) o[name] = b[name];
+                    return o;
+                };
+            for (var i = 0; i < arguments.length; i++) rst = merge(rst, arguments[i]);
+            return rst;
         },
         _ajax = function (conf) {
             var noop = function () { },
@@ -922,14 +916,14 @@ Date.prototype.diff = function (part, date) {
                         var arr = ['Msxml3.XMLHTTP', 'Msxml2.XMLHTTP', 'Microsoft.XMLHTTP'];
                         for (var i = 0; i < arr.length; i++) {
                             try {
-                                return new window.ActiveXObject(arr[i]);
+                                return new win.ActiveXObject(arr[i]);
                             } catch (err) {
                                 continue;
                             }
                         }
                         return null;
                     };
-                    return window.XMLHttpRequest && (window.location.protocol !== "file:" || !window.ActiveXObject) ? new window.XMLHttpRequest() : newActiveX();
+                    return win.XMLHttpRequest && (win.location.protocol !== "file:" || !win.ActiveXObject) ? new win.XMLHttpRequest() : newActiveX();
                 },
                 xhr = getXHR();
             conf = _merge({}, default_configure, conf)
@@ -965,12 +959,12 @@ Date.prototype.diff = function (part, date) {
         }
     };
     document.path = _url2Object(document.location.href);
-    window.onload = function () {
+    win.onload = function () {
         for (var i = 0; i < readyList.length; i++) {
             readyList[i].call(document);
         }
     };
-    window.$e = function (eid) {
+    win.$e = function (eid) {
         var doc = arguments[1] === undefined ? document : (typeof arguments[1] === "object" && arguments[1].nodeName == "#document" ? arguments[1] : null);
         if ("object" == typeof (eid) && eid) {
             return eid.nodeType == 1 || eid.nodeType == 3 || (eid.nodeName == doc.nodeName) ? _de(eid, doc) : null;
@@ -989,18 +983,25 @@ Date.prototype.diff = function (part, date) {
             }
         }
     };
-    window.$tags = function (specifies, doc) {
+    win.$tags = function (specifies, doc) {
         return typeof doc === undefined || !doc ? $e(document.documentElement).tags(specifies) : $e(doc.documentElement).tags(specifies);
     };
-    window.$t = window.$tags;
-    window.$$ = {
-        create: _new,
-        format: _format,
-        htmlEncode: _htmlEncode,
-        htmlDecode: _htmlDecode,
-        url2Object: _url2Object,
-        merge: _merge,
-        extentions: {}, //reserve for 1.6b+
-        ajax: _ajax
-    };
+    win.$t = win.$tags;
+    //win.$$ = {
+    //    create: _new,
+    //    format: _format,
+    //    htmlEncode: _htmlEncode,
+    //    htmlDecode: _htmlDecode,
+    //    url2Object: _url2Object,
+    //    merge: _merge,
+    //    extentions: {}, //reserve for 1.6b+
+    //    ajax: _ajax
+    //};
+    win._new = _new;
+    win._format = _format;
+    win._htmlEncode = _htmlEncode;
+    win._htmlDecode = _htmlDecode;
+    win._url2Object = _url2Object;
+    win._merge = _merge;
+    win._ajax = _ajax;
 })(window, document);

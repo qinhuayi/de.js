@@ -158,6 +158,37 @@
         return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8]);
     }
 
+    _new(idoc) {
+        const t0 = () => _new('<i>').tagName == 'I';
+        const t1 = () => {
+            var el = _new('<span id="s0">');
+            return el.tagName == 'SPAN' && el.id == 's0';
+        };
+        const t2 = function () {
+            var el = _new('<span id="s01">', idoc);
+            idoc.body.appendChild(el);
+            return el.tagName == 'SPAN' && el.id == 's01' && idoc.getElementById('s01') == el;
+        };
+        return this.Test([t0, t1, t2]);
+    }
+
+    _merge() {
+        const equal = (a, b) => {
+            for (var n in a) if (b[n] == undefined || b[n] != a[n]) return false;
+            return true;
+        };
+        const t0 = function () {
+            const a = { a: 'a', b: 'b0' }, b = { b: 'b1', c: 'c1' }, o = _merge(a, b);
+            return equal(o, { a: 'a', b: 'b1', c: 'c1' }) && equal(a, { a: 'a', b: 'b0' }) && equal(b, { b: 'b1', c: 'c1' });
+        };
+        const t1 = function () {
+            const a = { a: 'a', b: 'b0' }, b = { b: 'b1', c: 'c1' }, c = { b: 'b2', c: 'c2', d: 'd2' }, d = null, e = 123, f = 'abc', g = undefined, h = { h: 'h' };
+            const o = _merge(a, b, c, d, e, f, g, h);
+            return equal(o, { a: 'a', b: 'b2', c: 'c2', d: 'd2', h: 'h' }) && equal(a, { a: 'a', b: 'b0' }) && equal(b, { b: 'b1', c: 'c1' }) && equal(c, { b: 'b2', c: 'c2', d: 'd2' }) && d == null && e == 123 && f == 'abc' && g == undefined && equal(h, { h: 'h' });
+        };
+        return this.Test([t0, t1]);
+    }
+
     ['document.path']() {
         let path = _url2JSON(document.location.href);
         const t0 = () => document.path.url === path.url;
