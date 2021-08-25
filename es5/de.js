@@ -1,4 +1,4 @@
-﻿/// de.js(es5) ver 1.9
+﻿/// de.js(es5) ver 1.9.1
 /// Author: Qin Huayi; Email: qinhuayi@qq.com; Website: http://www.de-js.net; Source: https://github.com/qinhuayi/de.js
 String.prototype.trim = function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");

@@ -1,4 +1,4 @@
-﻿/// de.js(es6) ver 1.9
+﻿/// de.js(es6) ver 1.9.1
 /// Author: Qin Huayi; Email: qinhuayi@qq.com; Website: www.de-js.net; Source: https://github.com/qinhuayi/de.js
 const _url2JSON = (url) => {
     const data = {
