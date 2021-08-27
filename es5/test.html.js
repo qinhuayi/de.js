@@ -135,7 +135,10 @@
         var t29 = function () {
             return (arr = $t('div.doc//a.link1[id]:gt(0)')) && arr.length == 2 && arr[0].id == 'a1' && arr[1].id == 'a2';
         };
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29]);
+        var t30 = function () {
+            return (arr = $t('(a.link1|img)[id]')) && arr.length == 5 && arr[0].id == 'a0'; //&& (arr = $t('div.doc//(a.link1|img)[_data],textarea')) && arr.length == 3 && arr[0].id == 'img0' && arr[2].id == 'txtArea';
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30]);
     },
     "_ajax": function (idoc, divOut, span) {
         var t0 = function () {
