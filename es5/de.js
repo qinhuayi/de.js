@@ -522,10 +522,27 @@ Date.prototype.diff = function (part, date) {
             var elements = [],
                 examor = new _examor(specifies),
                 safeSpecifies = examor.safeSpecifies,
-                getChildElements = function (e, tagName) {
+                getDescendants = function (e, tags) {
+                    var arr = [];
+                    tags.forEach(function (tag) {
+                        var name = tag.includes('.') ? tag.substring(0, tag.indexOf('.')) : tag,
+                            cls = tag.includes('.') ? tag.substr(tag.indexOf('.') + 1) : '',
+                            elements = e.getElementsByTagName(name.toUpperCase());
+                        for (var i = 0; i < elements.length; i++) {
+                            if (!cls || examor.examClass(elements[i], cls) && !arr.exists(elements[i]))
+                                arr.push(elements[i]);
+                        }
+                    });
+                    return arr;
+                },
+                getDirectChilds = function (e, tags) {
                     var arr = [];
                     for (var i = 0; i < e.childNodes.length; i++) {
-                        !!e.childNodes[i].tagName && e.childNodes[i].tagName.toUpperCase() == tagName.toUpperCase() && arr.push(e.childNodes[i]);
+                        var tagName = !!e.childNodes[i].tagName ? e.childNodes[i].tagName.toUpperCase() : null;
+                        tags.forEach(function (t) {
+                            if (t.toUpperCase() == tagName || t.toUpperCase().indexOf(tagName + '.') == 0 && examor.examClass(e.childNodes[i], t.substr(t.indexOf('.') + 1)))
+                                arr.push(e.childNodes[i]);
+                        });
                     }
                     return arr;
                 },
@@ -559,18 +576,15 @@ Date.prototype.diff = function (part, date) {
                                     return arr;
                             }
                         };
-                    if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?(\:(?:first|last|even|odd|(?:eq|gt|lt)\(-?\d+\)))?$/ig.test(trim(lspec))) {
+                    if (/^(\\?\w+(?:\.\w+)?|\\?\(\w+(?:\.\w+)?(?:\|\w+(?:\.\w+)?)*\))(\[[^\]]+\])?(\:(?:first|last|even|odd|(?:eq|gt|lt)\(-?\d+\)))?$/ig.test(trim(lspec))) {
                         var deep = RegExp.$1.charAt(0) == '\\',
-                            tagName = deep ? RegExp.$1.substring(1) : RegExp.$1,
-                            className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
-                            express = RegExp.$3,
-                            pseudoClassName = RegExp.$4,
-                            arr = deep ? e.getElementsByTagName(tagName.toUpperCase()) : getChildElements(e, tagName);
-                        for (var i = 0; i < arr.length; i++) {
-                            if ((!className || examor.examClass(arr[i], className)) && (!express || examor.examAttrs(arr[i], express))) {
+                            tags = RegExp.$1.substr(deep ? 1 : 0).replace('(', '').replace(')', '').split('|'),
+                            express = RegExp.$2,
+                            pseudoClassName = RegExp.$3,
+                            arr = deep ? getDescendants(e, tags) : getDirectChilds(e, tags);
+                        for (var i = 0; i < arr.length; i++)
+                            if (!express || examor.examAttrs(arr[i], express))
                                 results.push(_de(arr[i], document));
-                            }
-                        }
                         pseudoClassName && results.length > 0 && (results = filter(results, pseudoClassName));
                     }
                     return results;
@@ -987,16 +1001,16 @@ Date.prototype.diff = function (part, date) {
         return typeof doc === undefined || !doc ? $e(document.documentElement).tags(specifies) : $e(doc.documentElement).tags(specifies);
     };
     win.$t = win.$tags;
-    //win.$$ = {
-    //    create: _new,
-    //    format: _format,
-    //    htmlEncode: _htmlEncode,
-    //    htmlDecode: _htmlDecode,
-    //    url2Object: _url2Object,
-    //    merge: _merge,
-    //    extentions: {}, //reserve for 1.6b+
-    //    ajax: _ajax
-    //};
+    win.$$ = {
+        create: _new,
+        format: _format,
+        htmlEncode: _htmlEncode,
+        htmlDecode: _htmlDecode,
+        url2Object: _url2Object,
+        merge: _merge,
+        extentions: {}, //reserve for 1.6b+
+        ajax: _ajax
+    };
     win._new = _new;
     win._format = _format;
     win._htmlEncode = _htmlEncode;
