@@ -576,14 +576,15 @@ Date.prototype.diff = function (part, date) {
                                     return arr;
                             }
                         };
-                    if (/^(\\?\w+(?:\.\w+)?|\\?\(\w+(?:\.\w+)?(?:\|\w+(?:\.\w+)?)*\))(\[[^\]]+\])?(\:(?:first|last|even|odd|(?:eq|gt|lt)\(-?\d+\)))?$/ig.test(trim(lspec))) {
+                    if (/^(\\?\w+|\\?\(\w+(?:\.\w+)?(?:\|\w+(?:\.\w+)?)*\))(\.\w+)?(\[[^\]]+\])?(\:(?:first|last|even|odd|(?:eq|gt|lt)\(-?\d+\)))?$/ig.test(trim(lspec))) {
                         var deep = RegExp.$1.charAt(0) == '\\',
                             tags = RegExp.$1.substr(deep ? 1 : 0).replace('(', '').replace(')', '').split('|'),
-                            express = RegExp.$2,
-                            pseudoClassName = RegExp.$3,
+                            className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
+                            express = RegExp.$3,
+                            pseudoClassName = RegExp.$4,
                             arr = deep ? getDescendants(e, tags) : getDirectChilds(e, tags);
                         for (var i = 0; i < arr.length; i++)
-                            if (!express || examor.examAttrs(arr[i], express))
+                            if ((!className || examor.examClass(arr[i], className)) && (!express || examor.examAttrs(arr[i], express))) 
                                 results.push(_de(arr[i], document));
                         pseudoClassName && results.length > 0 && (results = filter(results, pseudoClassName));
                     }
