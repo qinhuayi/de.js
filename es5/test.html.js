@@ -747,12 +747,12 @@
         };
         return this.Test([t0]).concat([rs]);
     },
-    "Array.exists": function () {
+    "Array.includes": function () {
         var t0 = function () {
             var arr0 = [1, 3, 7],
                 arr1 = ['a', 'c', 'e'];
-            return arr0.exists(1) && arr0.exists(3) && arr0.exists(7) && !arr0.exists(2)
-                && arr1.exists('a') && arr1.exists('c') && arr1.exists('e') && !arr1.exists('b');
+            return arr0.includes(1) && arr0.includes(3) && arr0.includes(7) && !arr0.includes(2)
+                && arr1.includes('a') && arr1.includes('c') && arr1.includes('e') && !arr1.includes('b');
         };
         return this.Test([t0]);
     },
