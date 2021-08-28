@@ -84,7 +84,10 @@
         const t27 = () => (arr = $t('form//tr:gt(1)')) && arr.length == 3 && arr[0].id == 'tr2';
         const t28 = () => (arr = $t('form//tr:lt(2)')) && arr.length == 2 && arr[0].id == 'tr0' && arr[1].id == 'tr1';
         const t29 = () => (arr = $t('div.doc//a.link1[id]:gt(0)')) && arr.length == 2 && arr[0].id == 'a1' && arr[1].id == 'a2';
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29]);
+        const t30 = () => (arr = $t('(a|img).link1[id]')) && arr.length == 3 && arr[0].id == 'a0' && (arr = $t('div.doc//(a|img).link1[id],textarea')) && arr.length == 4 && arr[0].id == 'a0' && arr[3].id == 'txtArea';
+        const t31 = () => (arr = $t('(a.link1|img)[id]')) && arr.length == 5 && arr[0].id == 'a0' && arr[4].id == 'img1' && (arr = $t('div.doc//(a.link1|img)[id],textarea')) && arr.length == 6 && arr[0].id == 'a0' && arr[5].id == 'txtArea';
+
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31]);
     }
 
     _ajax(idoc, divOut, span) {
@@ -781,9 +784,10 @@ function btnTest_click(evt) {
 
 function OnTestSucceed(arr, span) {
     span.innerHTML = '';
-    for (let el of arr) {
-        span.innerHTML += typeof el == 'string' ? el : el ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
-    }
+    arr.forEach((el, i) => {
+        span.innerHTML += typeof el == 'string' ? el : el ? "<span class='green'>✓</span>" : `<span class='red' title='${i}'>✕</span>`;
+        span.innerHTML += i % 5 == 4 ? ' ' : '';
+    });
 }
 
 function bind(e, name, method) {

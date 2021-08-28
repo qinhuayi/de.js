@@ -526,10 +526,27 @@ Date.prototype.diff = function(part, date) {
             const elements = [],
                 examor = new _examor(specifies),
                 safeSpecifies = examor.safeSpecifies,
-                getChildElements = (e, tagName) => {
+                getDescendants = (e, tags) => {
                     let arr = [];
-                    for (let node of e.childNodes) {
-                        !!node.tagName && node.tagName.toUpperCase() == tagName.toUpperCase() && arr.push(node);
+                    tags.forEach(tag => {
+                        const name = tag.includes('.') ? tag.substring(0, tag.indexOf('.')) : tag,
+                            cls = tag.includes('.') ? tag.substr(tag.indexOf('.') + 1) : '',
+                            elements = e.getElementsByTagName(name.toUpperCase());
+                        for (var i = 0; i < elements.length; i++) {
+                            if (!cls || examor.examClass(elements[i], cls) && !arr.includes(elements[i]))
+                                arr.push(elements[i]);
+                        }
+                    });
+                    return arr;
+                },
+                getDirectChilds = (e, tags) => {
+                    let arr = [];
+                    for (var i = 0; i < e.childNodes.length; i++) {
+                        const tagName = !!e.childNodes[i].tagName ? e.childNodes[i].tagName.toUpperCase() : null;
+                        tags.forEach(t => {
+                            if (t.toUpperCase() == tagName || t.toUpperCase().indexOf(tagName + '.') == 0 && examor.examClass(e.childNodes[i], t.substr(t.indexOf('.') + 1)))
+                                arr.push(e.childNodes[i]);
+                        });
                     }
                     return arr;
                 },
@@ -563,18 +580,16 @@ Date.prototype.diff = function(part, date) {
                                     return arr;
                             }
                         };
-                    if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?(\:(?:first|last|even|odd|(?:eq|gt|lt)\(-?\d+\)))?$/ig.test(lspec.trim())) {
-                        let deep = RegExp.$1.charAt(0) == '\\',
-                            tagName = deep ? RegExp.$1.substring(1) : RegExp.$1,
+                    if (/^(\\?\w+|\\?\(\w+(?:\.\w+)?(?:\|\w+(?:\.\w+)?)*\))(\.\w+)?(\[[^\]]+\])?(\:(?:first|last|even|odd|(?:eq|gt|lt)\(-?\d+\)))?$/ig.test(lspec.trim())) {
+                        const deep = RegExp.$1.charAt(0) == '\\',
+                            tags = RegExp.$1.substr(deep ? 1 : 0).replace('(', '').replace(')', '').split('|'),
                             className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
                             express = RegExp.$3,
                             pseudoClassName = RegExp.$4,
-                            arr = deep ? e.getElementsByTagName(tagName.toUpperCase()) : getChildElements(e, tagName);
-                        for (let el of arr) {
-                            if ((!className || examor.examClass(el, className)) && (!express || examor.examAttrs(el, express))) {
-                                results.push(_de(el, document));
-                            }
-                        }
+                            arr = deep ? getDescendants(e, tags) : getDirectChilds(e, tags);
+                        for (var i = 0; i < arr.length; i++)
+                            if ((!className || examor.examClass(arr[i], className)) && (!express || examor.examAttrs(arr[i], express)))
+                                results.push(_de(arr[i], document));
                         pseudoClassName && results.length > 0 && (results = filter(results, pseudoClassName));
                     }
                     return results;
@@ -818,11 +833,11 @@ Date.prototype.diff = function(part, date) {
     win.$tags = (specifies, doc) => typeof doc === 'undefined' || !doc ? $e(document.documentElement).tags(specifies) : $e(doc.documentElement).tags(specifies);
     win.$t = win.$tags;
     win._new = _new;
-    //win.$$ = {
-    //    //format: String.format,
-    //    htmlEncode: _htmlEncode,
-    //    htmlDecode: _htmlDecode,
-    //    url2Object: _url2JSON,
-    //    ajax: _ajax
-    //};
+    win.$$ = {
+        //format: String.format,
+        htmlEncode: _htmlEncode,
+        htmlDecode: _htmlDecode,
+        url2Object: _url2JSON,
+        ajax: _ajax
+    };
 })(window, document);
