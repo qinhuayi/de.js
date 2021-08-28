@@ -135,7 +135,13 @@
         var t29 = function () {
             return (arr = $t('div.doc//a.link1[id]:gt(0)')) && arr.length == 2 && arr[0].id == 'a1' && arr[1].id == 'a2';
         };
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29]);
+        var t30 = function () {
+            return (arr = $t('(a|img).link1[id]')) && arr.length == 3 && arr[0].id == 'a0' && (arr = $t('div.doc//(a|img).link1[id],textarea')) && arr.length == 4 && arr[0].id == 'a0' && arr[3].id == 'txtArea';
+        };
+        var t31 = function () {
+            return (arr = $t('(a.link1|img)[id]')) && arr.length == 5 && arr[0].id == 'a0' && arr[4].id == 'img1' && (arr = $t('div.doc//(a.link1|img)[id],textarea')) && arr.length == 6 && arr[0].id == 'a0' && arr[5].id == 'txtArea';
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31]);
     },
     "_ajax": function (idoc, divOut, span) {
         var t0 = function () {
@@ -741,12 +747,12 @@
         };
         return this.Test([t0]).concat([rs]);
     },
-    "Array.exists": function () {
+    "Array.includes": function () {
         var t0 = function () {
             var arr0 = [1, 3, 7],
                 arr1 = ['a', 'c', 'e'];
-            return arr0.exists(1) && arr0.exists(3) && arr0.exists(7) && !arr0.exists(2)
-                && arr1.exists('a') && arr1.exists('c') && arr1.exists('e') && !arr1.exists('b');
+            return arr0.includes(1) && arr0.includes(3) && arr0.includes(7) && !arr0.includes(2)
+                && arr1.includes('a') && arr1.includes('c') && arr1.includes('e') && !arr1.includes('b');
         };
         return this.Test([t0]);
     },
@@ -1071,8 +1077,8 @@ function btnTest_click(evt) {
 function OnTestSucceed(arr, span) {
     span.innerHTML = '';
     for (var i = 0; i < arr.length; i++) {
-        span.innerHTML += typeof arr[i] == 'string' ? arr[i] : arr[i] ? "<span class='green'>✓</span>" : "<span class='red'>✕</span>";
-        span.innerHTML += ((i & 0x03) == 3 ? ' ' : '');
+        span.innerHTML += typeof arr[i] == 'string' ? arr[i] : arr[i] ? "<span class='green'>✓</span>" : "<span class='red' title='{0}'>✕</span>".format(i);
+        span.innerHTML += i % 5 == 4 ? ' ' : '';
     }
 }
 
