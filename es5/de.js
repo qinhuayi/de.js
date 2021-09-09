@@ -169,8 +169,8 @@ Date.prototype.fromString = function (str, format) {
         reader = {
             readString: function (format, str, part) {
                 var reg = RegExpBuilder.build(format, part),
-                    matchs = reg.exec(str);
-                return (!!matchs && !!RegExp.$1) ? RegExp.$1 : null;
+                    matches = reg.exec(str);
+                return (!!matches && !!RegExp.$1) ? RegExp.$1 : null;
             },
             readNumber: function (format, str, part) {
                 var s = reader.readString(format, str, part);
@@ -445,18 +445,18 @@ Date.prototype.diff = function (part, date) {
             },
                 rep = createReplacement(),
                 replaceSafeExpression = function (expr) {
-                    var matchs = expr.match(/('[^']+')|("[^"]+")/g);
-                    if (matchs) {
-                        for (var i = 0; i < matchs.length; i++) {
-                            var m = matchs[i],
+                    var matches = expr.match(/('[^']+')|("[^"]+")/g);
+                    if (matches) {
+                        for (var i = 0; i < matches.length; i++) {
+                            var m = matches[i],
                                 str = m.substr(1, m.length - 2).replace(/\,/g, rep.insideComma).replace(/\\/g, rep.slash).replace(/\//g, rep.backSlash).replace(/\[/g, rep.leftSquareBracket).replace(/\]/g, rep.rightSquareBracket).replace(/'/g, rep.singleQuotes).replace(/"/g, rep.doubleQuotes);
                             expr = expr.replace(m, str);
                         }
                     }
-                    matchs = expr.match(/\[([^\]]+)\]/g);
-                    if (matchs) {
-                        for (var i = 0; i < matchs.length; i++) {
-                            var m = matchs[i],
+                    matches = expr.match(/\[([^\]]+)\]/g);
+                    if (matches) {
+                        for (var i = 0; i < matches.length; i++) {
+                            var m = matches[i],
                                 str = m.replace(/\,/g, rep.outsideComma);
                             expr = expr.replace(m, str);
                         }
@@ -535,7 +535,7 @@ Date.prototype.diff = function (part, date) {
                     });
                     return arr;
                 },
-                getDirectChilds = function (e, tags) {
+                getDirectChildren = function (e, tags) {
                     var arr = [];
                     for (var i = 0; i < e.childNodes.length; i++) {
                         var tagName = !!e.childNodes[i].tagName ? e.childNodes[i].tagName.toUpperCase() : null;
@@ -582,7 +582,7 @@ Date.prototype.diff = function (part, date) {
                             className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',
                             express = RegExp.$3,
                             pseudoClassName = RegExp.$4,
-                            arr = deep ? getDescendants(e, tags) : getDirectChilds(e, tags);
+                            arr = deep ? getDescendants(e, tags) : getDirectChildren(e, tags);
                         for (var i = 0; i < arr.length; i++)
                             if ((!className || examor.examClass(arr[i], className)) && (!express || examor.examAttrs(arr[i], express))) 
                                 results.push(_de(arr[i], document));
@@ -758,9 +758,9 @@ Date.prototype.diff = function (part, date) {
             e.tags = function (specifies) {
                 return _tags(e, specifies);
             };
-            //extentions since 1.6b
-            //if (typeof $$.extentions === 'object' && typeof $$.extentions[e.tagName] === 'function') {
-            //    $$.extentions[e.tagName](e);
+            //extensions since 1.6b
+            //if (typeof $$.extensions === 'object' && typeof $$.extensions[e.tagName] === 'function') {
+            //    $$.extensions[e.tagName](e);
             //}
             e._de = true;
             return e;
@@ -779,10 +779,10 @@ Date.prototype.diff = function (part, date) {
                     }
                 },
                 replace: function (tag, rep) {
-                    var matchs = tag.match(/('[^']+')|("[^"]+")/g);
-                    if (matchs) {
-                        for (var i = 0; i < matchs.length; i++) {
-                            var m = matchs[i], str = m.substr(1, m.length - 2).replace(/ /g, rep.blank).replace(/'/g, rep.singleQuotes).replace(/"/g, rep.doubleQuotes);
+                    var matches = tag.match(/('[^']+')|("[^"]+")/g);
+                    if (matches) {
+                        for (var i = 0; i < matches.length; i++) {
+                            var m = matches[i], str = m.substr(1, m.length - 2).replace(/ /g, rep.blank).replace(/'/g, rep.singleQuotes).replace(/"/g, rep.doubleQuotes);
                             tag = tag.replace(m, str);
                         }
                     }

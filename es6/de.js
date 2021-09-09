@@ -224,8 +224,8 @@ Date.prototype.fromString = function (str, format) {
         reader = {
             readString: function (format, str, part) {
                 const reg = RegExpBuilder.build(format, part),
-                    matchs = reg.exec(str);
-                return (!!matchs && !!RegExp.$1) ? RegExp.$1 : null;
+                    matches = reg.exec(str);
+                return (!!matches && !!RegExp.$1) ? RegExp.$1 : null;
             },
             readNumber: function (format, str, part) {
                 const s = reader.readString(format, str, part);
@@ -363,16 +363,16 @@ Date.prototype.diff = function(part, date) {
                 },
                     rep = createReplacement(),
                     replaceSafeExpression = expr => {
-                        let matchs = expr.match(/('[^']+')|("[^"]+")/g);
-                        if (matchs) {
-                            for (let m of matchs) {
+                        let matches = expr.match(/('[^']+')|("[^"]+")/g);
+                        if (matches) {
+                            for (let m of matches) {
                                 let str = m.substr(1, m.length - 2).replace(/\,/g, rep.insideComma).replace(/\\/g, rep.slash).replace(/\//g, rep.backSlash).replace(/\[/g, rep.leftSquareBracket).replace(/\]/g, rep.rightSquareBracket).replace(/'/g, rep.singleQuotes).replace(/"/g, rep.doubleQuotes);
                                 expr = expr.replace(m, str);
                             }
                         }
-                        matchs = expr.match(/\[([^\]]+)\]/g);
-                        if (matchs) {
-                            for (let m of matchs) {
+                        matches = expr.match(/\[([^\]]+)\]/g);
+                        if (matches) {
+                            for (let m of matches) {
                                 let str = m.replace(/\,/g, rep.outsideComma);
                                 expr = expr.replace(m, str);
                             }
@@ -750,9 +750,9 @@ Date.prototype.diff = function(part, date) {
                 return !!node ? _de(node, e.ownerDocument) : null;
             };
             e.tags = specifies => _tags(e, specifies);
-            //extentions since 1.6b
-            //if (typeof $$.extentions === 'object' && typeof $$.extentions[e.tagName] === 'function') {
-            //    $$.extentions[e.tagName](e);
+            //extensions since 1.6b
+            //if (typeof $$.extensions === 'object' && typeof $$.extensions[e.tagName] === 'function') {
+            //    $$.extensions[e.tagName](e);
             //}
             e._de = true;
             return e;
@@ -769,9 +769,9 @@ Date.prototype.diff = function(part, date) {
                     }
                 },
                 replace: (tag, rep) => {
-                    const matchs = tag.match(/('[^']+')|("[^"]+")/g);
-                    if (matchs) {
-                        for (let m of matchs) {
+                    const matches = tag.match(/('[^']+')|("[^"]+")/g);
+                    if (matches) {
+                        for (let m of matches) {
                             let str = m.substr(1, m.length - 2).replace(/ /g, rep.blank).replace(/'/g, rep.singleQuotes).replace(/"/g, rep.doubleQuotes);
                             tag = tag.replace(m, str);
                         }
