@@ -1009,7 +1009,7 @@ Date.prototype.diff = function (part, date) {
         htmlDecode: _htmlDecode,
         url2Object: _url2Object,
         merge: _merge,
-        extentions: {}, //reserve for 1.6b+
+        extensions: {}, //reserve for 1.6b+
         ajax: _ajax
     };
     win._new = _new;
