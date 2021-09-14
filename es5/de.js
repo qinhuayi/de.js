@@ -20,7 +20,7 @@ String.prototype.includes = function (str) {
 Array.prototype.each = function (fn) {
     if (typeof (fn) == "function") {
         for (var i = 0; i < this.length; i++) {
-            fn.call(this[i], i, this[i]);
+            fn.call(this[i], i, this[i], this);
         }
     }
 };
