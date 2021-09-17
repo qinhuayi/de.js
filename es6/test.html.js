@@ -156,9 +156,10 @@
         const t4 = () => obj.fileShortName == 'img1';
         const t5 = () => obj.fileExt == '.asp';
         const t6 = () => obj.query == 'id=2&name=张三&arr=["e","f","g"]&ref=../pages/a.html?pid=3';
-        const t7 = () => obj.hasParam('id') && obj.hasParam('name') && obj.hasParam('arr') && obj.hasParam('ref') && !obj.hasParam('pid');
-        const t8 = () => obj.params['id'] == 2;
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8]);
+        const t7 = () => obj.queryValue('id') == 2 && obj.queryValue('name') == '张三' && obj.queryValue('arr') == '["e","f","g"]' && obj.queryValue('ref') == '../pages/a.html?pid=3';
+        const t8 = () => obj.hasParam('id') && obj.hasParam('name') && obj.hasParam('arr') && obj.hasParam('ref') && !obj.hasParam('pid');
+        const t9 = () => obj.params.length == 4 && obj.params[0].name == 'id' && obj.params[0].value == 2 && obj.params[1].name == 'name' && obj.params[1].value == '张三' && obj.params[2].name == 'arr' && obj.params[2].value == '["e","f","g"]' && obj.params[3].name == 'ref' && obj.params[3].value == '../pages/a.html?pid=3';
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9]);
     }
 
     _new(idoc) {
@@ -201,11 +202,10 @@
         const t4 = () => document.path.fileShortName === path.fileShortName;
         const t5 = () => document.path.fileExt === path.fileExt;
         const t6 = () => document.path.query === path.query;
-        const t7 = () => typeof document.path.hasParam == 'function' && !document.path.hasParam('idid');
-        const t8 = () => {
-            throw { message: 'id=' + document.path.params['id'] };
-        };
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8]);
+        const t7 = () => typeof document.path.queryValue == 'function' && document.path.queryValue('id') == path.queryValue('id');
+        const t8 = () => typeof document.path.hasParam == 'function' && document.path.hasParam('id') == path.hasParam('id');
+        const t9 = () => typeof document.path.params == typeof [] && document.path.params.length == 1 && document.path.params[0].name == 'id' && path.params[0].name == 'id' && path.params[0].value == 6;
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9]);
     }
 
     ['document.ready']() {
