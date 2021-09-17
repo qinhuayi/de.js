@@ -254,7 +254,10 @@
         var t8 = function () {
             return obj.hasParam('id') && obj.hasParam('name') && obj.hasParam('arr') && obj.hasParam('ref') && !obj.hasParam('pid');
         };
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8]);
+        var t9 = function () {
+            return obj.params.length == 4 && obj.params[0].name == 'id' && obj.params[0].value == 2 && obj.params[1].name == 'name' && obj.params[1].value == '张三' && obj.params[2].name == 'arr' && obj.params[2].value == '["e","f","g"]' && obj.params[3].name == 'ref' && obj.params[3].value == '../pages/a.html?pid=3';
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9]);
     },
     "_new": function (idoc) {
         var t0 = function () {
@@ -314,7 +317,10 @@
         var t8 = function () {
             return typeof document.path.hasParam == 'function' && document.path.hasParam('id') == path.hasParam('id');
         };
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8]);
+        var t9 = function () {
+            return typeof document.path.params == typeof [] && document.path.params.length == 1 && document.path.params[0].name == 'id' && path.params[0].name == 'id' && path.params[0].value == 5;
+        };
+        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9]);
     },
     "document.ready": function () {
         var t0 = function () {
