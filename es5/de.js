@@ -855,10 +855,7 @@ Date.prototype.diff = function (part, date) {
                 var index = expr.indexOf('='),
                     name = index >= 0 ? expr.substr(0, index) : expr,
                     value = index >= 0 ? expr.substr(index + 1) : null;
-                return {
-                    name: name,
-                    value: value
-                };
+                return { name: name, value: value };
             },
                 getValue = function (keyValues, key) {
                     if (typeof key === "string") {
@@ -882,6 +879,7 @@ Date.prototype.diff = function (part, date) {
                     queryValue: function (key) {
                         return getValue(data.query.split('&'), key);
                     },
+                    params: [],
                     hasParam: function (key) {
                         return data.query.indexOf(key + '=') == 0 || data.query.indexOf('&' + key + '=') >= 0;
                     }
@@ -896,6 +894,9 @@ Date.prototype.diff = function (part, date) {
                 n = data.fileName.lastIndexOf('.');
                 data.fileShortName = n > 0 ? data.fileName.substr(0, n) : data.fileName;
                 data.fileExt = n > 0 ? data.fileName.substring(n) : '';
+                data.query && data.query.split('&').forEach(function (expr) {
+                    data.params.push(getKeyValue(expr));
+                });
             };
             return data;
         },

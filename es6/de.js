@@ -3,10 +3,17 @@
 const _url2JSON = (url) => {
     const data = {
         url: url,
-        params: {},
-        hasParam: (name) => data.params[name] !== undefined
+        filePath: '',
+        fileDir: '',
+        fileName: '',
+        fileShortName: '',
+        fileExt: '',
+        query: '',
+        queryValue: name => data.hasParam(name) ? data.params.find(p => p.name == name).value : null,
+        params: [],
+        hasParam: name => data.params.find(p => p.name == name) != undefined
     };
-    const getOneKey = (expr) => {
+    const getOneKey = expr => {
         let index = expr.indexOf('='),
             name = index >= 0 ? expr.substr(0, index) : expr,
             value = index >= 0 ? expr.substr(index + 1) : null;
@@ -24,7 +31,7 @@ const _url2JSON = (url) => {
         data.fileExt = n > 0 ? data.fileName.substring(n) : '';
         for (let expr of data.query.split('&')) {
             let key = getOneKey(expr);
-            data.params[key.name] = key.value;
+            data.params.push(key);
         }
     };
     return data;
