@@ -1,0 +1,2363 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>de.js Manual</title>
+    
+<style type="text/css">
+* { margin: 0px; padding: 0px; border-width: 0px; }
+body { font-size: 14px; font-family: '宋体' Arial; }
+h1, h2, h3, h4 { font-weight: bold; font-family: 'Arial Unicode MS', STSong; letter-spacing: 1px; }
+p { text-indent: 2em; line-height: 1.5em; margin: 0.6em 1em; letter-spacing: 0.5px; }
+li { list-style-type: none; }
+.center { text-align: center; }
+.right { text-align: right; float: right; }
+.gold { color: #b04f17; }
+.red { color: red; }
+
+a.a0, .a0 a { font-family: 'Courier New'; margin: 0.1em 0.3em; }
+a.a0:link, a.a0:visited, .a0 a:link, .a0 a:visited { color: blue; text-decoration: none; }
+a.a0:hover, a.a0:active, .a0 a:hover, .a0 a:active { color: #ff3300; text-decoration: underline; }
+
+a.a1, .a1 a { margin: 0.1em 0.3em; }
+a.a1:link, a.a1:visited, .a1 a:link, .a1 a:visited { color: #fff; text-decoration: none; }
+a.a1:hover, a.a1:active, .a1 a:hover, .a1 a:active { color: #ff3300; text-decoration: none; }
+
+</style>
+    
+<style type="text/css">
+html {overflow-x: hidden; }
+body, .head, .foot { background-color: #99BF60; }
+.head, .body, .foot {width: 100%; display: block; clear: both; }
+.head { height: 3.8em; }
+h1 { margin-top: 0.2em; padding: 0.2em; color: #fff; display: inline-block; }
+h1 i {font-size: 12px; margin: 0px 0.4em; }
+.body { display: inline-block; min-height: 60%; background-color: #C9DFA7;}
+.menu { width: 19%; min-height: 15em; font-size: 12px;  background-color: #E3EFD1;}
+.menu h2 { font-size: 14px; text-align: center; padding: 0.3em; color: #99BF60; background-color: #fff; }
+.menu ul {  }
+.menu li { list-style-position: inside; text-indent: 0px; line-height: 1.2em; }
+.menu li a:before { content: '◆'; color: #99BF60; margin-right: 0.5em; padding-left: 0.5em; }
+.menu a { width: 100%; margin: 0.1em 0px; font-family: 'Arial'; display: inline-block; font-size: 8px; color: #3E551C; }
+.menu a:link, .menu a:visited { text-decoration: none; color: #3E551C; background-color: transparent; }
+.menu a:hover, .menu a:active { text-decoration: none; background-color: #fff; }
+.menu a i, .content a i {font-size: 7px; color: red; margin: -0.1em 0.3em 0.1em 0.3em;}
+sup { font-size: 7px; color: red; }
+.content { padding: 1em;  }
+.content h2, .content h3 { padding-left: 0.5em; text-align: left; font-family: 'Arial'; color: #fff;}
+.content ul { margin: 0.5em 1em;}
+.content ul li { list-style: decimal inside; }
+.content li, .content p { font-family: 'Arial Narrow';}
+.content table.tab { border-width: 1px; border-color: #7DAA39; border-collapse: collapse; border-top-style: solid; border-left-style: solid; border-right-style: none; border-bottom-style: none; }
+.content table.tab tr th, .content table.tab tr td { border-width: 1px; border-color: #7DAA39; border-top-style: none; border-left-style: none; border-right-style: solid; border-bottom-style: solid; padding: 0.2em 0.3em; }
+.content table.tab tr th { height: 2em; background-color: #99BF60; }
+.content .card { margin: 0.5em; }
+.content .code { line-height: 1.6em; font-family: 'Courier New'; background-color: #e0e0e0; padding: 0.6em; text-indent: 0px; margin: 0px; }
+.content i.code { padding: 0.1em 0.4em;}
+.content .notice { margin: 1em 1.2em; padding: 0.2em; text-indent: 1em; color: #666; }        
+.content ul.code li { line-height: 1.5em; padding: 0.1em 0.3em; text-indent: 0px; margin: 0.1em 0px; list-style-type: none; background-color: #e0e0e0; }
+#divMenu { display: inline-block; clear: left;}
+.foot { height: 2em; }
+.foot a, .foot span { line-height: 1.4em; padding: 0.2em; margin: 0.1em 0.5em;}
+#divMain { display: inline-block; vertical-align:top; font-size: 12px; width: 79%; min-width: 720px; min-height: 600px; height: 99%; clear: right;}
+</style>
+    <script type="text/javascript">
+        window.onload = function(){
+            var n = document.location.href.indexOf('?'),
+                id = n > 0 ? document.location.href.substr(n + 1) : 'intro',
+                el = document.getElementById(id),
+                divMain = document.getElementById('divMain');
+            divMain.innerHTML = el ? el.innerHTML : '';
+            if ('DEBUG' && document.location.href.includes('-src.htm')) {
+                divMain.innerHTML = document.getElementById('_default').innerHTML;
+            }
+        };
+    </script>
+<body>
+    <div class="head">
+        <h1>de.js<i>(v2.0)</i></h1>
+    </div>
+    <div class="body">
+        <div id="divMenu" class="menu">
+            <h2>MENU</h2>
+            <ul>
+                <li><a href="?intro">Introduction</a></li>
+                <li><a href="?index">Index</a></li>
+                <li><a href="?$e">$e(e, doc)</a></li>
+                <li><a href="?$t">$t(specifies, doc)</a></li>
+                <li><a href="?_ajax">_ajax(conf)</a></li>
+                <li><a href="?_format">_format(format, ...)<i>es5</i></a></li>
+                <li><a href="?_htmlEncode">_htmlEncode(str, mode)</a></li>
+                <li><a href="?_htmlDecode">_htmlDecode(str, mode)</a></li>
+                <li><a href="?_url2Object">_url2Object(url)</a></li>
+                <li><a href="?_new">_new(tag)</a></li>
+                <li><a href="?_merge">_merge(a0, a1, ..., an)</a></li>
+                <li><a href="?document.path">document.path</a></li>
+                <li><a href="?document.ready">document.ready(fn)</a></li>
+                <li><a href="?de.addClass">de.addClass(name)</a></li>
+                <li><a href="?de.append">de.append(el)</a></li>
+                <li><a href="?de.attr">de.attr(name, value)</a></li>
+                <li><a href="?de.bind">de.bind(name, fn)</a></li>
+                <li><a href="?de.css">de.css(name, value)</a></li>
+                <li><a href="?de.hide">de.hide()</a></li>
+                <li><a href="?de.html">de.html(str)</a></li>
+                <li><a href="?de.insert">de.insert(node, n)</a></li>
+                <li><a href="?de.parent">de.parent(specifies)<i>de</i></a></li>
+                <li><a href="?de.pos">de.pos()<i>de</i></a></li>
+                <li><a href="?de.removeAttr">de.removeAttr(name)</a></li>
+                <li><a href="?de.removeClass">de.removeClass(name)</a></li>
+                <li><a href="?de.show">de.show()</a></li>
+                <li><a href="?de.tags">de.tags(specifies)<i>de</i></a></li>
+                <li><a href="?de.text">de.text(str)</a></li>
+                <li><a href="?de.unbind">de.unbind(name, fn)</a></li>
+                <li><a href="?de.val">de.val(value)</a></li>
+                <li><a href="?de.value">de.value<i>de array</i></a></li>
+                <li><a href="?Array.each">Array.each(fn)<i>es5</i></a></li>
+                <li><a href="?Array.includes">Array.includes(e)<i>es5</i></a></li>
+                <li><a href="?Array.indexOf">Array.indexOf(e)<i>es5</i></a></li>
+                <li><a href="?Array.remove">Array.remove(i)</a></li>
+                <li><a href="?Date.add">Date.add(part, n)</a></li>
+                <li><a href="?Date.diff">Date.diff(part, date)</a></li>
+                <li><a href="?Date.fromString">Date.fromString(str, format)</a></li>
+                <li><a href="?Date.toObject">Date.toObject()</a></li>
+                <li><a href="?Date.toString">Date.toString(format)</a></li>
+                <li><a href="?String.format">String.format(...)<i>es5</i></a></li>
+                <li><a href="?String.trim">String.trim()<i>es5</i></a></li>
+            </ul>
+        </div>
+        <div id="divMain" class="content">
+            
+        </div>
+    </div>
+    <div class="foot">
+        <span id="spMsg"></span><span class="right"><a class='a1' href='http://de-js.net'>www.de-js.net</a></span>
+    </div>
+    <br />
+
+    
+<script type="text/text" id="index">
+<h2>de Functions Index</h2>
+<p>Many de functions support varied usages, more details are available behind the following links.</p>
+<h3>1. Basic Functions</h3>
+<ul class="a0">
+    <li><a href="?$e">$e(e, doc)</a><span class="comment">Select one or a set of elements, or create one new element and wrap it as a de object.</span></li>
+    <li><a href="?$t">$t(specifies, doc)</a>, <a href="?$t">$tags(specifies, doc)</a><span class="comment">Select a set of elements by tag specifies from HTML document and wrap them as a de object array.</span></li>
+    <li><a href="?_ajax">_ajax(conf)</a><span class="comment">Request one remote address by AJAX.</span></li>
+    <li><a href="?_format">_format(format, ...)<i>es5</i></a><span class="comment">Format one string by a pattern string and a set of values.</span></li>
+    <li><a href="?_htmlEncode">_htmlEncode(str, mode)</a><span class="comment">Encode text for HTML source.</span></li>
+    <li><a href="?_htmlDecode">_htmlDecode(str, mode)</a><span class="comment">Decode text for HTML source.</span></li>
+    <li><a href="?_url2Object">_url2Object(url)</a><span class="comment">Convert an URL string to a special object.</span></li>
+    <li><a href="?_new">_new(tag)</a><span class="comment">Create a document element and wrap it as a de object.</span></li>
+    <li><a href="?_merge">_merge(a0, a1, ..., an)</a><span class="comment">Read the properties and values of all objects and merge into a new object.</span></li>
+</ul>
+<h3>2. Document Elements Extension</h3>
+<ul class="a0">
+    <li><a href="?document.path">document.path</a><span class="comment">An object converted from using the '_url2Object(document.location.href)'.</span></li>
+    <li><a href="?document.ready">document.ready(fn)</a><span class="comment">Call the specified function when the document load completes.</span></li>
+</ul>
+<h3>3. de Object (or de Array) Methods And Properties</h3>
+<ul class="a0">
+    <li><a href="?de.addClass">de.addClass(name)</a><span class="comment">Add a style class name to the element.</span></li>
+    <li><a href="?de.append">de.append(el)</a><span class="comment">Append a new element to the tail of the child of the element.</span></li>
+    <li><a href="?de.attr">de.attr(name, value)</a><span class="comment">Gets an attribute value, or assigns the attribute.</span></li>
+    <li><a href="?de.bind">de.bind(name, fn)</a><span class="comment">Bind the specified function to an event of a document element allowing the element to call the specified function when it triggers this event.</span></li>
+    <li><a href="?de.css">de.css(name, value)</a><span class="comment">Assign a style for an element, or get a value for a current style of the element.</span></li>
+    <li><a href="?de.hide">de.hide()</a><span class="comment">Hidden elements. The effect is equivalent to setting the 'style.display' to 'none'.</span></li>
+    <li><a href="?de.html">de.html(str)</a><span class="comment">Gets or sets the HTML string within the start and end tags of the document element.</span></li>
+    <li><a href="?de.insert">de.insert(node, n)</a><span class="comment">Insert a new node in the child node (i. e., the sub element).</span></li>
+    <li><a href="?de.parent">de.parent(specifies)<i>de</i></a><span class="comment">Gets the first parent that fits the specifies.</span></li>
+    <li><a href="?de.pos">de.pos()<i>de</i></a><span class="comment">Gets the absolute location of the element in the document display area. Both the element and its ancestor are required to have clear locations.</span></li>
+    <li><a href="?de.removeAttr">de.removeAttr(name)</a><span class="comment">Remove an attribute from an HTML element, including it's name and value.</span></li>
+    <li><a href="?de.removeClass">de.removeClass(name)</a><span class="comment">Remove a style class name of an element. The effect is equivalent to setting the value of the property 'className'.</span></li>
+    <li><a href="?de.show">de.show()</a><span class="comment">Displays elements. The effect is equivalent to setting the value of the 'style.display'. </span></li>
+    <li><a href="?de.tags">de.tags(specifies)<i>de</i></a><span class="comment">Select a set of elements within the HTML tag of the element and wrap it as an array of de objects.</span></li>
+    <li><a href="?de.text">de.text(str)</a><span class="comment">Gets the plain text value within the start and end tag of an element, or sets the text within the start and end tag of the element.</span></li>
+    <li><a href="?de.unbind">de.unbind(name, fn)</a><span class="comment">Unbind the specified function from the event binding of the document element.</span></li>
+    <li><a href="?de.val">de.val(value)</a><span class="comment">Gets or sets the value of the element.</span></li>
+    <li><a href="?de.value">de.value<i>de array</i></a><span class="comment">Get the 'form value' from the element array, and if the element has the checked attribute (such as checkbox or radio), get only the value of the element of the checked='True'.</span></li>
+</ul>
+<p class="notice">Methods marked by <sup>de</sup> are available only for de objects and not for de arrays, by <sup>de array</sup> are the opposite, and the rest are available for both.</p>
+<h3>4. Primitive Type Extensions</h3>
+<ul class="a0">
+    <li><a><del>Array.forEach(fn)</del><i>removed</i></a>All the JS engine that supports the ES5 standard already supports this method by default.</li>
+    <li><a href="?Array.each">Array.each(fn)<i>es5</i></a><span class="comment">Each element in the loop array and use the sequence number and the element as parameters to call a function.</span></li>
+    <li><a href="?Array.includes">Array.includes(e)<i>es5</i></a><span class="comment">Determine whether an object exists in the array.</span></li>
+    <li><a href="?Array.indexOf">Array.indexOf(e)<i>es5</i></a><span class="comment">Gets where an object first appears in the array.</span></li>
+    <li><a href="?Array.remove">Array.remove(i)</a><span class="comment">Remove the i th element in the array.</span></li>
+    <li><a href="?Date.add">Date.add(part, n)</a><span class="comment">Add a time interval to the Date value and get a new value of the Date type.</span></li>
+    <li><a href="?Date.diff">Date.diff(part, date)</a><span class="comment">The interval between the two Date values.</span></li>
+    <li><a href="?Date.fromString">Date.fromString(str, format)</a><span class="comment">Convert from a date time string to a value of type Date and set the value of the original Date object.</span></li>
+    <li><a href="?Date.toObject">Date.toObject()</a><span class="comment">Gets a custom JSON object from a Date type.</span></li>
+    <li><a href="?Date.toString">Date.toString(format)</a><span class="comment">Convert the value of the Date type by format to a string.</span></li>
+    <li><a href="?String.format">String.format(...)<i>es5</i></a><span class="comment">Fill in a string template with a set of input values to get a new string.</span></li>
+    <li><a href="?String.trim">String.trim()<i>es5</i></a><span class="comment">Remove the blank characters at the beginning and end of the string.</span></li>
+</ul>
+<p class="notice">Methods marked by <sup>es5</sup> are only available in the ES5 version, on the reason that they all have similar methods in ES6. Refer to the ES6 standard documentation for your details.</p>
+<p id="msg" class="red"></p>
+<br>
+</script>
+    
+<script type="text/text" id="intro">
+<h2>Overview</h2>
+<div class="card">
+    <p>de.js is a lightweight library of javascript extension functions for a browser environment. de.js integrates some of the most common methods into document object, de object and de objects arrays packaged with HTML elements, and Javascript primitive types for more convenient programming. Here are the main features:</p>
+    <ul>
+        <li>Allows you to select a set of page elements by a tag specifies, similar to selector for JQuery.</li>
+        <li>Provides the basic Ajax</li>
+        <li>Extended the Date, Array, string type method</li>
+        <li>Extending the methods and properties of the document object</li>
+    </ul>
+    <p>This document is oriented to basic Javascript programmers. It is recommended that all readers also consult the following other documents for reference:</p>
+    <ul>
+        <li>Help manual for DHTML4.01 and HTML5 from W3C.</li>
+        <li>Help manual for CSS2.0 and CSS3.0.</li>
+        <li>Help manual for Javascript, and documentation of ES5 and ES6+.</li>
+        <li>Review the basics about Ajax and XMLHttpRequest.</li>
+    </ul>
+</div>
+<br/>
+<div class="card">
+    <h2>de function index</h2>
+    <p>Click here for the <a href="?index">de function index</a>.</p>
+</div>
+<br/>
+<div class="card">
+    <h2>Birth and concept of de</h2>
+    <p>de's name is taken from the Document Elements initials.</p>
+    <p>de was originally created to get rid of the reliance on JQuery programming, allowing developers who prefer regular programming and DHTML native methods. To move developers who used JQuery to de, de is compatible and follows many of its features.For example, many method names of de are identical or similar to the method names of JQuery.</p>
+    <p>de is fundamentally different from JQuery, does not pursue large and complete, or maximize browser compatibility. de selects elements by finding document tag name, essentially different from how JQuery finds documents using regular expressions, and equal efficiency and performance overhead.</p>
+</div>
+<br/>
+<div class="card a0">
+    <h2>Help improve de</h2>
+    <p>If Bug or comments or suggestions, please email to <a href="mailto:qinhuayi@qq.com">qinhuayi@qq.com</a>.</p>
+    <p>This project source code can be found on the Github. The address is <a href="https://github.com/qinhuayi/de.js">https://github.com/qinhuayi/de.js</a>.</p>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="menu">
+File not found! website/manual/menu-en.htm
+</script>
+    
+<script type="text/text" id="$e">
+<h2>$e(e, doc)</h2>
+<div class="card">
+    <p>Select one or a set of elements or create a new element and wrap it as a de object or a de object array. </p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:18em;" /><col/></colgroup>
+        <tr>
+            <th>Num</th>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameters</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Select an element in the document and wrap it as a de object.</td>
+            <td>de object</td>
+            <td><ul class="code"><li>$e('div1')</li><li>$e(document.body)</li><li>$e('div1', top.document)</li></ul></td>
+            <td>
+                <p><b>e:</b>Element's id value or element itself.</p>
+                <p><b>doc:</b>Document object, the default value is window.document. It can be Non-current document such as the document object in iframe or window.parent.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Select a set of elements in the document and wrap it as a de object.</td>
+            <td>de object array</td>
+            <td><ul class="code"><li>$e('*frame')</li><li>$e('*radio', top.document)</li></ul></td>
+            <td>
+                <p><b>e:</b>Char '*' flow an element's name</p>
+                <p><b>doc:</b>The meaning is the same, slightly</p>            
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Create a new element in the document and wrap it as a de object.</td>
+            <td>de object</td>
+            <td><ul class="code"><li>$e("&lt;p class='bd1'&gt;")</li><li>$e("&lt;div&gt;", top.document)</li></ul></td>
+            <td>
+                <p><b>e:</b>The html string of the open tag of the element.</p>
+                <p><b>doc:</b>In the same way, slightly.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>Example</H3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var div2 = $e('div2'),
+        p1 = $e("&lt;p id='p1' style='background-color:#ccc;'&gt;");
+    $e('div1').innerHTML = 'This is a string in div1';
+    $e(div2).innerHTML = 'This is a string in div2';
+    p1.innerHTML = 'This is a new string in p1:' + $e('*cbColor').value;
+    div2.appendChild(p1);
+}
+</pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="$t">
+<h2 id="h2-0">$t(specifies, doc)</h2>
+<div class="card">
+    <p>Select a set of elements from a HTML document by tag specifies and wrap it as an array of de object.</p>
+    <p>Equations to <b>$tags(specifies, doc)</b>.</p>
+    <table class="tab">
+        <colgroup>
+            <col />
+            <col />
+            <col style="min-width: 38em;" />
+            <col />
+        </colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Select a set of elements from a HTML document by tag specifies and wrap it as an array of de object.</td>
+            <td>an array of de objects.</td>
+            <td>
+                <ul class="code">
+                    <li>$t('p,li,td,th')</li>
+                    <li>$tags('div.block')</li>
+                    <li>$t('div.block/p//strong', doc)</li>
+                    <li>$t("img[src*='/upload/']")</li>
+                    <li>$t('input.txt0[type=password]')</li>
+                    <li>$t("input[type=radio, name='radioGroup1']")</li>
+                    <li>$t("input[id^=txt], textarea[id^=txt]")</li>
+                    <li>$t("table.form//td:first")</li>
+                    <li>$t("tr:even")</li>
+                    <li>$t("div.ctx//li:eq(2)")</li>
+                    <li>$t("(a|button).btn")</li>
+                    <li>$t("(a|button|input.btn)[name]")</li>
+                    <li>$t("(a|button).btn, input.btn[name]:gt(1)")</li>
+                </ul>
+            </td>
+            <td>
+                <p><b>specifies: </b>String type. Made of one or more <b>tag specifies string</b> s separated by comma ',' satisfying one of the features can be selected. See below for details.</p>
+                <p><b>doc:</b>Document object, the default value is window.document. It can be Non-current document such as the document object in iframe or window.parent.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3 id="h3-0">Parameter specifies</h3>
+    <p>One or more tag specifies strings，string type. Made of one or more <b>tag specifies string</b> s separated by comma ',' satisfying one of the features can be selected. See below for details.</p>
+    <p>A specifies format containing all parts (all instances are simplified versions of it) can be described in the following paradigm:</p>
+    <p class="code">tag0.class0[expr01, ..., expr0N]:pseudoClass0/tag1.class1[expr11, ..., expr1N]:pseudoClass1/.../tagM.classM[exprM1, ..., exprMN]:pseudoClassM, ...</p>
+    <p>When multiple tags have the same specifies you can indicate it with several vertical line separators '|' and a pair of brackets:</p>
+    <p class="code">.../(tag0|tag1|tag2).class0[expr0, ..., exprN]:pseudoClass0, ...</p>
+</div>
+<div class="card">
+    <h3 id="h3-1">Layer delimiters</h3>
+    <p>There are four of layer-delimiters: '/', '//', '\', '\\', where '/' and '\' means two left and right tags interval one layer, namely direct parent-son nodes, '\\' and '//' means two tags interval one or more layers, namely high and low-level relationship. The following are examples:</p>
+    <ul class="code">
+        <li>div/p/span</li>
+        <li>form/div.group1/input[type=submit]</li>
+        <li>div.content//table.tab0</li>
+    </ul>
+<div class="card">
+    <h3 id="h3-2">Single-layer tag specifies</h3>    
+    <p>A complete single-layer tag specifies string consists of 4-part connections: tag name, class name, attribute conditional expression group, pseudo-class selector.</p>
+    <p class="code">tag.class[expr0, ..., exprN]:pseudoClass</p>
+    <p>When multiple tags have the same specifies you can indicate it with several vertical line separators '|' and a pair of brackets (nested not supported): </p>
+    <p class="code">(tag0|tag1|...).class0[expr0, ..., exprN]:pseudoClass0</p>
+    <p class="code">(tag0|tag1.class0|...).class1[expr0, ..., exprN]:pseudoClass0</p>
+    <p>Attribute conditional expression groups can be composed of one or more Attribute conditional expressions, multiple separated by comma ','.</p>
+    <ul class="rules">
+        <li>Tag name is given regardless of case</li>
+        <li>Class name is case-sensitive.</li>
+        <li>The tag name must be given, and other parts can be omitted.</li>
+        <li>Class name must be preceded by a point number '.', Multiple class names are not supported.</li>
+        <li>Expression groups are wrapped in medium parentheses.</li>
+        <li>With multiple expressions, each expression holds true.</li>
+    </ul>
+    <p>Example:</p>
+    <ul class="code">
+        <li>table</li>
+        <li>table.tab0</li>
+        <li>input.btn[type='button']</li>
+        <li>input.cb[type='checkbox',id*='color']</li>
+    </ul>
+</div>
+<div class="card">
+    <h3 id="h3-3">Attribute expression</h3>
+    <p>The attribute expression is divided into 3 parts: attribute name, relational operator, string constant.</p>
+    <p class="code">AttributeName &lt;RelationOperator&gt; StringValue</p>
+    <ul class="rules">
+        <li>Attribute name is given regardless of case.</li>
+        <li>An expression can contain only the attribute name to determine if the attribute name exists.</li>
+        <li>Relational operators can leave spaces or spaces left and right.</li>
+        <li>String constants can be wrapped in single or double quotes. Reserve characters appear must be wrapped in quotes.</li>
+        <li>Pseudo-class selectors act on the last resulting array.</li>
+        <li>The attribute name 'className' is equivalent to 'class', can be used for each other.</li>
+    </ul>
+    <p>Example:</p>
+    <ul class="code">
+        <li>input[type=button]</li>
+        <li>a[src $= '.gif']</li>
+        <li>(input, textarea)[id ^= 'txt']</li>
+        <li>select[name *= "color"]</li>
+        <li>a[className ~= 'focus']</li>
+        <li>a[href]</li>
+    </ul>
+</div>
+<div class="card">
+    <h3 id="h3-4">Relational operator</h3>
+    <p>The attribute expression accepts the following 6 relational operators:</p>
+    <table class="tab">
+        <tr>
+            <th>Operator</th>
+            <th>Meaning</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td>=</td>
+            <td rowspan="2">equal</td>
+            <td rowspan="2">
+                <ul class="code">
+                    <li>[type = radio]</li>
+                    <li>[type == radio]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>==</td>
+        </tr>
+        <tr>
+            <td>*=</td>
+            <td>Contains</td>
+            <td>
+                <ul class="code">
+                    <li>[src *= &#39;upload&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>~=</td>
+            <td>Not contain</td>
+            <td>
+                <ul class="code">
+                    <li>[id ~= &#39;code&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>$=</td>
+            <td>The tail characters is equal to</td>
+            <td>
+                <ul class="code">
+                    <li>[name $= &#39;email&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>^=</td>
+            <td>Head characters are equal to</td>
+            <td>
+                <ul class="code">
+                    <li>[id ^= &#39;txt&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>!=</td>
+            <td>Not equal to</td>
+            <td>
+                <ul class="code">
+                    <li>[name != &#39;email&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <br />
+</div>
+<div class="card">
+    <h3 id="h3-5">Pseudo-class selector</h3>
+    <p>There are several following pseudo-classes with the table below: </p>
+    <table class="tab">
+        <tr>
+            <th>Name</th>
+            <th>Meaning</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td>:first</td>
+            <td>Select the first element</td>
+            <td>
+                <ul class="code">
+                    <li>$t("input:first")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:last</td>
+            <td>Select the last element</td>
+            <td>
+                <ul class="code">
+                    <li>$t("input:first")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:even</td>
+            <td>Select the element with even serial numbers</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:even")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:odd</td>
+            <td>Select the element with add serial numbers</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:odd")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:eq(i)</td>
+            <td>Select the i th element</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:eq(2)")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:gt(i)</td>
+            <td>Select all the elements after the i th one</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:gt(2)")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:lt(i)</td>
+            <td>Select all the elements before the i th one</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:lt(2)")</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <br />
+</div>
+<div class="card">
+    <h3 id="h3-5">Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    $tags('p,span,li').addClass('font1');
+    $t('input[type=checkbox]').attr('checked', false);
+    $t('table.tab1//p.tips').hide();
+}
+</pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_ajax">
+<h2>_ajax(conf)</h2>
+<div class="card">
+    <p>Request one remote address by AJAX. Refer to the W3C documentation yourself about AJAX.</p>
+    <table class="tab">
+        <colgroup>
+            <col />
+            <col />
+            <col style="min-width: 30em;" />
+            <col />
+        </colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameters</th>
+        </tr>
+        <tr>
+            <td>Request one remote address by AJAX.</td>
+            <td>None</td>
+            <td>
+                <ul class="code">
+                    <li>_ajax({url: 'service.asp'})</li>
+                    <li>_ajax({url: 'data.xml', onsuccess: bindData })</li>
+                    <li>_ajax({url: 'service.php', method:'POST', data: 'number=3&color=red', onsuccess: showResult, onerror: showError })</li>
+                </ul>
+            </td>
+            <td>
+                <p>
+                    <span><b>conf：</b>Configuration of the http request, The default value is：</span>
+                    { url: '#',
+                    <br />
+                    method: 'GET',
+                    <br />
+                    data: '',
+                    <br />
+                    async: true,
+                    <br />
+                    timeout: 15000,
+                    <br />
+                    ontimeout: noop, 
+                    <br />
+                    headers: [{ name: 'Content-Type', value: 'application/x-www-form-urlencoded' }], 
+                    <br />
+                    onsuccess: noop,
+                    <br />
+                    onerror: noop }。<br />
+                    <span>The given value will be merge with the default value before used.</span>
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3>Parameter conf detail</h3>
+    <ol>
+        <li><b>url：</b><span>The url of the request address, Type String.</span></li>
+        <li><b>method：</b><span>http request method, Type String. The commonly values are 'GET, 'POST', 'HEAD', ..., The default value is 'GET'.</span></li>
+        <li><b>data：</b><span>Data submitted when requesting the page.Usually a string in a url query format or a JSON string or a FormData.</span></li>
+        <li><b>async：</b><span>Specifies whether the request is performed asynchronously. Type is boolean, The default value is true.</span></li>
+        <li><b>timeout：</b><span>Response timeout time for the page (ms).Type number, the default value is 15000.</span></li>
+        <li><b>ontimeout：</b><span>Method triggered after the timeout. Type is function. It is bound to the ontimeout event listener of the XMLHttpRequest(xhr object).</span></li>
+        <li><b>headers：</b><span>Header of the http request. Type is Array. The default value is <i class="code">[{ name: 'Content-Type', value: 'application/x-www-form-urlencoded' }]</span>, Modifying here (or adding a new value) may need to simultaneously modify the value of the above parameter data to match the type of POST data.</i></li>
+        <li><b>onsuccess：</b><span>Method triggered after getting a successful response.  Type is function. This function is used to handle the status of readyState == 4(i. e., the request completed and response ready), in the onreadystatechange event of xhr. Calling this function passes in a parameter such as：<i class="code">{ status: xhr.status, response: xhr.response, type: xhr.responseType, xml: xhr.responseXML, text: xhr.responseText, body: xhr.responseBody }</i>. You can implement this method yourself to handle the page response results.</span></li>
+        <li><b>onerror：</b><span>Method triggered when an error occurs at the network level occurs. The type is function, It is bound to the onerror event listener of the xhr object.</span></li>
+    </ol>
+    <br />
+</div>
+<br />
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+var getUrl = '/data/201601.xml',
+    postUrl = '/service/action.xml?method=1',
+    data = _format('id={0}&data={1}', 1, encodeURIComponent('This is the posting data XYZ.')),
+    success = function (xhr) {
+        switch(xhr.status) {
+            case 200:
+                return $e('div1').innerHTML = _format('Page request succeed, the content is:{0}。', xhr.responseText);
+            case 404:
+                return $e('div1').innerHTML = 'Page not found.';
+            case 500:
+                return $e('div1').innerHTML = 'Server internal error!';
+            default:
+                return $e('div1').innerHTML = _format('Page request failed, status code: {0}, response text: {1}。', xhr.status, xhr.responseText);
+        }
+    },
+    timeout = function () {
+        $e('div1').innerHTML = 'Request timeout!';
+    },
+    error = function () {
+        $e('div1').innerHTML = 'Network failed!';
+    },
+    btnGet_click = function (evt) {
+        $e('div1').innerHTML = _format('Loading {0}...', getUrl);
+        _ajax({url: getUrl, ontimeout: timeout, onerror: error, onsuccess: success });
+    },
+    btnPost_click = function (evt) {
+        $e('div1').innerHTML = _format('Loading {0}...', postUrl);
+        _ajax({url: postUrl, method: 'POST', data: data, ontimeout: timeout, onerror: error, onsuccess: success });
+    };
+$e('btnGet').bind('click', btnGet_click);
+$e('btnPost').bind('click', btnPost_click);
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_format">
+<h2>_format(format, ...)</h2>
+<div class="card">
+    <p>Fill in a string template with a set of input values to get a new string.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameters</th>
+        </tr>
+        <tr>
+            <td>Format a string</td>
+            <td>String</td>
+            <td><ul class="code"><li>_format('Count:{0},Date:{1}.', count, now)</li></ul></td>
+            <td>
+                <p><b>format：</b>A template string, Use '{0}', '{1}',..., '{n}' separately represents the first parameter, the second parameter,..., the n th parameter.</p>
+                <p><b>...：</b>The parameter value used in the template with unlimited type, the non-string type is automatically implicitly converted to a string.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var format = 'This is a string in {0}. Now the time is: {1}.',
+        id0 = 'div0', 
+        id1 = 'div1';
+    $e(id0).innerHTML = _format(format, id0, new Date());
+    $e(id1).innerHTML = _format(format, id1, new Date());
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_htmlDecode">
+<h2>_htmlDecode(str, mode)</h2>
+<div class="card">
+    <p>Decodes the plain text used for the HTML source. Restore back the HTML reserved characters replaced with code in the text.</p>
+    <table class="tab">
+        <colgroup><col style="width:7em;"/><col style="width:4em;"/><col style="min-width:23em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Decodes the plain text used for the HTML source</td>
+            <td>String</td>
+            <td><ul class="code">
+                <li>_htmlDecode('&amp;lt;script&amp;gt;')</li>
+                <li>_htmlDecode($e('txtArea1').value)</li>
+                <li>_htmlEncode($e('p1').innerHTML, 1)</li>
+                </ul></td>
+            <td>
+                <p><b>str：</b>Plain text that will be decoded</p>
+                <p><b>mode：</b>Type number, Accept 0,1,2,3 Four modes.The default value is 0. 
+                    <p>Mode 0 will Mode 0 restores 5 'entity name' <i class="code">&amp;amp; &amp;quot; &amp;apos; &amp;lt; &amp;gt;</i> to 5 reserved characters <i class="code">& " ' &lt; &gt;</i>.</p>
+                    <p>Mode 1 will be converted using a HTML plain text node.</p>
+                    <p>Mode 2 restores 3 'entity name' <i class="code">&amp;amp; &amp;quot; &amp;lt; </i> to 3 reserved characters <i class="code">& " &lt; </i>. </p>
+                    <p>Mode 3 restores 5 'entity number' <i class="code">&amp;amp; &amp;quot; &amp;apos; &amp;lt; &amp;gt;</i> to 5 reserved characters <i class="code">& " ' &lt; &gt;</i>. </p>
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnHtmlDecode_click(evt) {
+    var mode = parseInt($e('*rbMode').value);
+    $e('txtArea').value = _htmlDecode($e('txtArea').value, mode);
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_htmlEncode">
+<h2>_htmlEncode(str, mode)</h2>
+<div class="card">
+    <p>Encodes the plain text used for the HTML source. The HTML reserved characters are replaced with code that can be parsed by the browser.</p>
+    <table class="tab">
+        <colgroup><col style="width:7em;"/><col style="width:4em;"/><col style="min-width:23em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Encodes the plain text used for the HTML source</td>
+            <td>String</td>
+            <td><ul class="code">
+                <li>_htmlEncode('if a &gt; b or a &lt; c...')</li>
+                <li>_htmlEncode($e('txtArea1').value)</li>
+                <li>_htmlEncode($e('div1').innerHTML, 1)</li>
+                </ul></td>
+            <td>
+                <p><b>str：</b>Plain text that will be encoded.</p>
+                <p><b>mode：</b>Type number, Accept 0,1,2,3 Four modes.The default value is 0. 
+                    <p>Mode 0 will replace the 5 reserved characters <i class="code">& " ' &lt; &gt;</i> with the 'entity name' <i class="code">&amp;amp; &amp;quot; &amp;apos; &amp;lt; &amp;gt;</i>.</p>
+                    <p>Mode 1 will be converted using a HTML plain text node.</p>
+                    <p>Mode 2 replaces the 3 reserved characters <i class="code">& " &lt;</i> with the 'entity name' <i class="code">&amp;amp; &amp;quot; &amp;lt; </i>. </p>
+                    <p>Mode 3 replaces the 5 reserved characters <i class="code">& " ' &lt; &gt;</i> with the 'entity number' <i class="code">&amp;#38; &amp;#34; &amp;#39; &amp;#60; &amp;#62;</i>. </p>
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnHtmlEncode_click(evt) {
+    var mode = parseInt($e('*rbMode').value);
+    $e('txtArea').value = _htmlEncode($e('txtArea').value, mode);
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_merge">
+<h2>_merge(a0, a1, ..., aN)</h2>
+<div class="card">
+    <p>Create a new object, and copy the properties of all the parameter objects into this object. The copy rules are as follows:</p>
+    <ul class="rules">
+        <li>Only object types can be copied, and other types will be ignored;</li>
+        <li>The copy will proceed in order, and with properties of the same name, the latter parameter overrides the previous one;</li>
+        <li>The copy does not change the original object;</li>
+        <li>Only copy attribute names and values, ignoring methods.</li>
+    </ul>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:23em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameters</th>
+        </tr>
+        <tr>
+            <td>Create a new object, and copy the properties of all the parameter objects into this object.</td>
+            <td>object</td>
+            <td><ul class="code">
+                <li>var d = _merge(a, b, c);</li>
+                <li>var d = _merge(a, null, b, c);</li></ul></td>
+            <td>
+                <p><b>a0, a1, ..., aN</b>The objects used to merge the properties.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var a = {a: 'a0', b: 'b0'},
+        b = {b: 'b1'},
+        c = {b: 'b2', c: 'c2'}
+    var d = _merge(a, null, b, c);
+    console.info(JSON.stringify(d));
+}          
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_new">
+<h2>_new(html)</h2>
+<div class="card">
+    <p>Create a new element in the document and wrap it as a de object.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:18em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameters</th>
+        </tr>
+        <tr>
+            <td>Create a new element in the document and wrap it as a de object.</td>
+            <td>de object</td>
+            <td><ul class="code"><li>$e("&lt;p class='bd1'&gt;")</li><li>$e("&lt;div&gt;", top.document)</li></ul></td>
+            <td>
+                <p><b>html:</b>The html string of the open tag of the element.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var p1 = _new("&lt;p id='p1' style='background-color:#ccc;'&gt;");
+    $e('div1').appendChild(p1);
+}        
+</pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_url2Object">
+<h2>_url2Object(url)</h2>
+<div class="card">
+    <p>Convert an URL string to a special object.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:20em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Convert an URL string to a special object.</td>
+            <td>Type Object, such as <i class="code">{ url: '', filePath: '', fileDir: '', fileName: '', fileShortName: '', fileExt: '', query: '', queryValue: fn, params: null, hasParam: fn }</i>;
+            </td>
+            <td><ul class="code"><li>_url2Object(document.location.href)</li><li>_url2Object($e('img0').src)</li></ul></td>
+            <td>
+                <p><b>url：</b>url string.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>Return Value Details</h3>
+    <p>The return value object definition has the following properties and methods:</p>
+    <ol>
+        <li><b>url：</b>Type string, The original URL, commonly a full path URL.</li>
+        <li><b>filePath：</b>Type string, The file path section of the URL.</li>
+        <li><b>fileDir：</b>Type string, The directory section of the URL.</li>
+        <li><b>fileName：</b>Type string, The file name section of the URL including an extension.</li>
+        <li><b>fileShortName：</b>Type string, The file name section of the URL without an extension.</li>
+        <li><b>fileExt：</b>Type string, Extension of the file name of the URL, with the point number '.'.</li>
+        <li><b>query：</b>Type string, The query string (i. e., the page parameter) section of the URL.</li>
+        <li><b>queryValue：</b>Type function, The return value is of type string, The definition is <i class="code">function queryValue(name){...}</i>, The function is: Get the parameter value by the parameter name, If it does not exists, return undefined.</li>
+        <li><b>params：</b>Type Array, Storage a set of name-value objects corresponding to query parameters.</li>
+        <li><b>hasParam：</b>Type function, The return value is of type boolean, The definition is <i class="code">function hasParam(name){...}</i>, The function is: Determine whether the page parameter name exists.</li>
+    </ol>
+</div>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var path = _url2Object(document.location.href);
+    $e(&#39;p0&#39;).innerHTML = _format(&#39;filePath = {0}&#39;, path.filePath);
+    $e('p0').innerHTML += _format(&#39;fileDir = {0}&#39;, path.fileDir); 
+    $e('p0').innerHTML += _format(&#39;fileName = {0}&#39;, path.fileName); 
+    $e('p0').innerHTML += _format(&#39;fileShortName = {0}&#39;, path.fileShortName); 
+    $e('p0').innerHTML += _format(&#39;fileExt = {0}&#39;, path.fileExt); 
+    $e('p0').innerHTML += _format(&#39;query = {0}&#39;, path.query); 
+    $e('p0').innerHTML += _format(&#39;&amp;id = {0}&#39;, path.queryValue(&#39;id&#39;)); 
+    $e('p0').innerHTML += _format(&#39;hasParam(&#39;name&#39;) = {0}&#39;, path.hasParam(&#39;name&#39;)); 
+}
+</pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="document.path">
+<h2>document.path</h2>
+<div class="card">
+    <p>An object converted from using _url2Object(document.location.href). See the below for the object details:</p>
+    <h3>Object path details</h3>
+    <ol>
+        <li><b>url：</b>Type string, The original URL, commonly a full path URL.</li>
+        <li><b>filePath：</b>Type string, The file path section of the URL.</li>
+        <li><b>fileDir：</b>Type string, The directory section of the URL.</li>
+        <li><b>fileName：</b>Type string, The file name section of the URL including an extension.</li>
+        <li><b>fileShortName：</b>Type string, The file name section of the URL without an extension.</li>
+        <li><b>fileExt：</b>Type string, Extension of the file name of the URL, with the point number '.'.</li>
+        <li><b>query：</b>Type string, The query string (i. e., the page parameter) section of the URL.</li>
+        <li><b>queryValue：</b>Type function, The return value is of type string, The definition is <i class="code">function queryValue(name){...}</i>, The function is: Get the parameter value by the parameter name, If it does not exists, return undefined.</li>
+        <li><b>params：</b>Type Array, Storage a set of name-value objects corresponding to query parameters.</li>
+        <li><b>hasParam：</b>Type function, The return value is of type boolean, The definition is <i class="code">function hasParam(name){...}</i>, The function is: Determine whether the page parameter name exists.</li>
+    </ol>
+</div>
+<br/>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    $e(&#39;p0&#39;).innerHTML = _format(&#39;filePath = {0}&#39;, document.path.filePath);
+    $e('p0').innerHTML += _format(&#39;fileDir = {0}&#39;, document.path.fileDir); 
+    $e('p0').innerHTML += _format(&#39;fileName = {0}&#39;, document.path.fileName); 
+    $e('p0').innerHTML += _format(&#39;fileShortName = {0}&#39;, document.path.fileShortName); 
+    $e('p0').innerHTML += _format(&#39;fileExt = {0}&#39;, document.path.fileExt); 
+    $e('p0').innerHTML += _format(&#39;query = {0}&#39;, document.path.query); 
+    $e('p0').innerHTML += _format(&#39;&amp;id = {0}&#39;, document.path.queryValue(&#39;id&#39;)); 
+    $e('p0').innerHTML += _format(&#39;hasParam(&#39;name&#39;) = {0}&#39;, document.path.hasParam(&#39;name&#39;)); 
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="document.ready">
+<h2>document.ready(fn)</h2>
+<div class="card">
+    <p>Call the specified function when the document load completes.</p>
+    <p>You can be called in order multiple times using this method to specify different functions.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:32em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameters</th>
+        </tr>
+        <tr>
+            <td>Call the specified function when the document load completes.</td>
+            <td>None</td>
+            <td><ul class="code">
+                <li>document.ready(onload)</li>
+                <li>document.ready(function() { alert('Ready!') })</li></ul>
+            </td>
+            <td>
+                <p><b>Parameter fn：</b>Type function, The method called, No parameters.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function onLoaded() {
+    $e('div1').innerHTML = 'This is a string in div1';
+}
+document.ready(onLoaded);
+</pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.addClass">
+<h2>de.addClass(name)</h2>
+<div class="card">
+    <p>Add a style class to the element。The effect is equivalent to modifying the attribute 'class' or the property 'className'. The existing class names will not be added repeatedly.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameters</th>
+        </tr>
+        <tr>
+            <td>Add a style class to the element.</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('div1').addClass('effect1')</li>
+                <li>$e('button1').addClass('highlight1')</li>
+                </ul></td>
+            <td>
+                <p><b>name：</b>A style class name, Type string.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.append">
+<h2>de.append(el)</h2>
+<div class="card">
+    <p>Add a child element to the element. That adds a new node to the end of the childNodes array of the element.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Add a child element to the element</td>
+            <td>de object itself</td>
+            <td><ul class="code">
+                <li>$e('div1').append(p1)</li>
+                <li>$e('div1').append($e('p2'))</li>
+                <li>$e('div1').append($e("&lt;p id='p3'&gt;"))</li>                    
+                </ul></td>
+            <td>
+                <p><b>el：</b>A HTML document element.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.attr">
+<h2>de.attr(name, value) </h2>
+<div class="card">
+    <p>Gets an attribute value, or assigns the attribute.</p>
+    <p><b>Attribute: </b> Attribute is different from Property in this document, The former corresponds to the HTML tag of the element, The latter refers to the properties in the javascript object.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Order Number</th>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Gets an attribute value</td>
+            <td>string, number, or boolean。</td>
+            <td><ul class="code"><li>$e('button1').attr('title')</li>
+                <li>$e('checkbox1').attr('checked')</li>
+                <li>$e('div1').attr('custom_data')</li>
+                </ul></td>
+            <td>
+                <p><b>name：</b>Attribute name, Type string</p>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Assigns an attribute</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('button1').attr('title', 'Click to run x')</li>
+                <li>$e('checkbox1').attr('checked', false)</li>
+                <li>$e('div1').attr('custom_data', custom_data)</li>
+                </ul></td>
+            <td>
+                <p><b>name:</b>Attribute name, Type string</p>
+                <p><b>value:</b>Attribute value, Type of string, number, or boolean.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.bind">
+<h2>de.bind(name, fn)</h2>
+<div class="card">
+    <p>Bind the specified function to an event of a document element allowing the element to call the specified function when it triggers this event.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Bind the specified function to an event of a document element</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('button1').bind('click', btn_click)</li></ul></td>
+            <td>
+                <p><b>name：</b>Event name. Type string, Note no 'on' as a prefix.</p>
+                <p><b>fn：</b>Function called when triggering the event. Type function. The function passes on a 'window.event' object as a parameter.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    alert('event.type=' + evt.type);
+}
+$e('btnTest').bind('click', btnTest_click);
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.css">
+<h2>de.css(name, value)</h2>
+<div class="card">
+    <p>Assign a style for an element, or get a value for a current style of the element. Equivalent to adding a value to the style attribute or getting a value from the currentStyle property.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Order Number</th>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Assign a style for an element</td>
+            <td>de object itself</td>
+            <td><ul class="code">
+                <li>$e('div1').css('color')</li>
+                <li>$e('div1').css('width')</li>
+                </ul></td>
+            <td>
+                <p><b>name：</b>Style name, Type string.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Get a value for a current style of the element</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('div1').css('color', 'red')</li>
+                <li>$e('div1').css('backgroundColor', '#ccc')</li>
+                </ul></td>
+            <td>
+                <p><b>name：</b>Style name, Type string.</p>
+                <p><b>value：</b>Style value, Type string.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.hide">
+<h2>de.hide()</h2>
+<div class="card">
+    <p>Hidden element. The effect is equivalent to setting the 'style.display' to 'none'.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:24em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Hidden element</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('div1').hide()</li>
+                </ul></td>
+            <td>
+                None
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.html">
+<h2>de.html(str)</h2>
+<div class="card">
+    <p>Gets or sets the HTML string within the start and end tags of the document element. Equivalent to getting or setting the innerHTML value of a document element.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Order Number</th>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Gets the innerHTML value</td>
+            <td>A string in HTML format.</td>
+            <td><ul class="code"><li>$e('div1').html()</li>
+                </ul></td>
+            <td>
+                None
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Sets the innerHTML value</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('div1').html('&lt;p&gt;This is a text inside the div1.&lt;/p&gt;')</li>
+                </ul></td>
+            <td>
+                <p><b>str：</b>Type string. A string in HTML format.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.insert">
+<h2>de.insert(node, n)</h2>
+<div class="card">
+    <p>Insert a new element before the n sub-element of the element. Note: Many elements have implicit text node sub-elements</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Insert a new element before the n sub-element of the element</td>
+            <td>de object itself</td>
+            <td><ul class="code">
+                <li>$e('div1').insert($e('p2'), 0)</li>
+                <li>$e('div1').insert($e("&lt;p id='p3'&gt;"), 1)</li>                    
+                </ul></td>
+            <td>
+                <p><b>node：</b>The new element</p>
+                <p><b>n：</b>The position.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.parent">
+<h2>de.parent(specifies)</h2>
+<div class="card">
+    <p>Gets the first parent that fits the specifies.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:24em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Gets the first parent that fits the specifies</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('a1').parent('div.menu')</li>
+                </ul></td>
+            <td>
+                <p><b>specifies：</b>One or more tag specifies strings，string type. Made of one or more <b>tag specifies string</b> s separated by comma ',' satisfying one of the features can be selected. See part of the sections in <a href="detail.htm?lang=cn&name=de.tags">tags(specifies)</a> for details.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var form = $e('txtName').parent('form.form1');
+    form.submit();
+    //...
+}
+    </pre>
+</div>
+</script>
+    
+<script type="text/text" id="de.pos">
+<h2>de.pos()</h2>
+<div class="card">
+    <p>Gets the absolute location of the element in the document display area. Both the element and its ancestor are required to have clear locations.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:24em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Gets the absolute location of the element in the document display area</td>
+            <td>An Object such as <i class="code">{ x: 0, y: 0 }</i>.</td>
+            <td><ul class="code"><li>$e('div1').pos('title')</li>
+                </ul></td>
+            <td>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var pos = $e('button1').pos();
+    $e('div1').style.left = pos.x + 'px';
+    $e('div1').style.top = pos.y + 'px';
+    $e('div1').show();
+}
+    </pre>
+</div>
+</script>
+    
+<script type="text/text" id="de.removeAttr">
+<h2>de.removeAttr(name)</h2>
+<div class="card">
+    <p>Remove an attribute from a HTML element, including it's name and value.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Remove an attribute</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('button1').removeAttr('title')</li>
+                <li>$e('checkbox1').removeAttr('checked')</li>
+                <li>$e('div1').removeAttr('custom_name')</li>
+                </ul></td>
+            <td>
+                <p><b>name：</b>Attribute name, Type string.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+</script>
+    
+<script type="text/text" id="de.removeClass">
+<h2>de.removeClass(name)</h2>
+<div class="card">
+    <p>Remove a style class name of an element. The effect is equivalent to setting the value of the property 'className'. Duplicate class names remove only the first one.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Remove a style class name of an element</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('div1').removeClass('effect1')</li>
+                <li>$e('button1').removeClass('highlight1')</li>
+                </ul></td>
+            <td>
+                <p><b>name：</b>Style class name, Type string.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.show">
+<h2>de.show()</h2>
+<div class="card">
+    <p>Displays the element. The effect is equivalent to modifying the value of 'style.display'. Set the value to 'block', 'inline-block', 'inline', 'TABLE', .. based on the type of element.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:24em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Displays the element</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('div1').show()</li>
+                </ul></td>
+            <td>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.tags">
+<h2>de.tags(specifies)</h2>
+<div class="card">
+    <p>Select a set of elements within the HTML tag of the element and wrap it as an array of de objects.</p>
+    <p><b>Notice：</b> The de object array has no 'tags' method. Such as <i class="code">$t('div').tags('p')，$e('div1').tags('p').tags('span')</i> will raise an error.</p>
+    <table class="tab">
+        <colgroup><col style="width:10em;"/><col /><col style="width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Select a set of elements within the HTML tag of the element and wrap it as an array of de objects.</td>
+            <td>An array of de objects</td>
+            <td>
+                <ul class="code">
+                    <li>$e(document.body).tags('p,li,td,th')</li>
+                    <li>$e('div1').tags('div.block')</li>
+                    <li>$e('div1').tags('div.block/p//strong')</li>
+                    <li>$e('div1').tags("img[src*='/upload/']")</li>
+                    <li>$e('form1').tags('input.txt0[type=password]')</li>
+                    <li>$e('form1').tags('input[type=radio,name='radioGroup1']')</li>
+                    <li>$e('form1').tags("input[id^=txt],textarea[id^=txt]")</li>
+                    <li>$e('form1').tags("input[type=hidden]:eq(2)")</li>
+                    <li>$e('form1').tags("(a|button).btn")</li>
+                    <li>$e('form1').tags("(a|button|input.btn)[name]")</li>
+                </ul>
+            </td>
+            <td>
+                <p><b>specifies: </b>String type. Made of one or more <b>tag specifies string</b> s separated by comma ',' satisfying one of the features can be selected. See below for details.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3 id="h3-0">Parameter specifies</h3>
+    <p>One or more tag specifies strings，string type. Made of one or more <b>tag specifies string</b> s separated by comma ',' satisfying one of the features can be selected. See below for details.</p>
+    <p>A specifies format containing all parts (all instances are simplified versions of it) can be described in the following paradigm:</p>
+    <p class="code">tag0.class0[expr01, ..., expr0N]:pseudoClass0/tag1.class1[expr11, ..., expr1N]:pseudoClass1/.../tagM.classM[exprM1, ..., exprMN]:pseudoClassM, ...</p>
+    <p>When multiple tags have the same specifies you can indicate it with several vertical line separators '|' and a pair of brackets:</p>
+    <p class="code">.../(tag0|tag1|tag2).class0[expr0, ..., exprN]:pseudoClass0, ...</p>
+</div>
+<div class="card">
+    <h3 id="h3-1">Layer delimiters</h3>
+    <p>There are four of layer-delimiters: '/', '//', '\', '\\', where '/' and '\' means two left and right tags interval one layer, namely direct parent-son nodes, '\\' and '//' means two tags interval one or more layers, namely high and low-level relationship. The following are examples:</p>
+    <ul class="code">
+        <li>div/p/span</li>
+        <li>form/div.group1/input[type=submit]</li>
+        <li>div.content//table.tab0</li>
+    </ul>
+<div class="card">
+    <h3 id="h3-2">Single-layer tag specifies</h3>    
+    <p>A complete single-layer tag specifies string consists of 4-part connections: tag name, class name, attribute conditional expression group, pseudo-class selector.</p>
+    <p class="code">tag.class[expr0, ..., exprN]:pseudoClass</p>
+    <p>When multiple tags have the same specifies you can indicate it with several vertical line separators '|' and a pair of brackets (nested not supported): </p>
+    <p class="code">(tag0|tag1|...).class0[expr0, ..., exprN]:pseudoClass0</p>
+    <p class="code">(tag0|tag1.class0|...).class1[expr0, ..., exprN]:pseudoClass0</p>
+    <p>Attribute conditional expression groups can be composed of one or more Attribute conditional expressions, multiple separated by comma ','.</p>
+    <ul class="rules">
+        <li>Tag name is given regardless of case</li>
+        <li>Class name is case-sensitive.</li>
+        <li>The tag name must be given, and other parts can be omitted.</li>
+        <li>Class name must be preceded by a point number '.', Multiple class names are not supported.</li>
+        <li>Expression groups are wrapped in medium parentheses.</li>
+        <li>With multiple expressions, each expression holds true.</li>
+    </ul>
+    <p>Example:</p>
+    <ul class="code">
+        <li>table</li>
+        <li>table.tab0</li>
+        <li>input.btn[type='button']</li>
+        <li>input.cb[type='checkbox',id*='color']</li>
+    </ul>
+</div>
+<div class="card">
+    <h3 id="h3-3">Attribute expression</h3>
+    <p>The attribute expression is divided into 3 parts: attribute name, relational operator, string constant.</p>
+    <p class="code">AttributeName &lt;RelationOperator&gt; StringValue</p>
+    <ul class="rules">
+        <li>Attribute name is given regardless of case.</li>
+        <li>An expression can contain only the attribute name to determine if the attribute name exists.</li>
+        <li>Relational operators can leave spaces or spaces left and right.</li>
+        <li>String constants can be wrapped in single or double quotes. Reserve characters appear must be wrapped in quotes.</li>
+        <li>Pseudo-class selectors act on the last resulting array.</li>
+        <li>The attribute name 'className' is equivalent to 'class', can be used for each other.</li>
+    </ul>
+    <p>Example:</p>
+    <ul class="code">
+        <li>input[type=button]</li>
+        <li>a[src $= '.gif']</li>
+        <li>(input, textarea)[id ^= 'txt']</li>
+        <li>select[name *= "color"]</li>
+        <li>a[className ~= 'focus']</li>
+        <li>a[href]</li>
+    </ul>
+</div>
+<div class="card">
+    <h3 id="h3-4">Relational operator</h3>
+    <p>The attribute expression accepts the following 6 relational operators:</p>
+    <table class="tab">
+        <tr>
+            <th>Operator</th>
+            <th>Meaning</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td>=</td>
+            <td rowspan="2">equal</td>
+            <td rowspan="2">
+                <ul class="code">
+                    <li>[type = radio]</li>
+                    <li>[type == radio]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>==</td>
+        </tr>
+        <tr>
+            <td>*=</td>
+            <td>Contains</td>
+            <td>
+                <ul class="code">
+                    <li>[src *= &#39;upload&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>~=</td>
+            <td>Not contain</td>
+            <td>
+                <ul class="code">
+                    <li>[id ~= &#39;code&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>$=</td>
+            <td>The tail characters is equal to</td>
+            <td>
+                <ul class="code">
+                    <li>[name $= &#39;email&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>^=</td>
+            <td>Head characters are equal to</td>
+            <td>
+                <ul class="code">
+                    <li>[id ^= &#39;txt&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>!=</td>
+            <td>Not equal to</td>
+            <td>
+                <ul class="code">
+                    <li>[name != &#39;email&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <br />
+</div>
+<div class="card">
+    <h3 id="h3-5">Pseudo-class selector</h3>
+    <p>There are several following pseudo-classes with the table below: </p>
+    <table class="tab">
+        <tr>
+            <th>Name</th>
+            <th>Meaning</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td>:first</td>
+            <td>Select the first element</td>
+            <td>
+                <ul class="code">
+                    <li>$t("input:first")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:last</td>
+            <td>Select the last element</td>
+            <td>
+                <ul class="code">
+                    <li>$t("input:first")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:even</td>
+            <td>Select the element with even serial numbers</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:even")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:odd</td>
+            <td>Select the element with add serial numbers</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:odd")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:eq(i)</td>
+            <td>Select the i th element</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:eq(2)")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:gt(i)</td>
+            <td>Select all the elements after the i th one</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:gt(2)")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:lt(i)</td>
+            <td>Select all the elements before the i th one</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:lt(2)")</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <br />
+</div>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    $e(document.body).tags('p,span,li').addClass('font1');
+    $e('form1').tags('input[type=checkbox]').attr('checked', false);
+    $e('div1').tags('table.tab1//p.tips:last').hide();
+};
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.text">
+<h2>de.text(str)</h2>
+<div class="card">
+    <p>Gets the plain text within the start and end tag of an element, or sets the text within the start and end tag of the element.</p>
+    <p>Equivalent to obtaining or setting the 'innerText' value under some browsers, or the 'textContent' value in others.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Order Number</th>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Gets the plain text within the start and end tag of an element</td>
+            <td>A string</td>
+            <td><ul class="code"><li>$e('div1').text()</li>
+                </ul></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Sets the text within the start and end tag of the element</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('div1').text('这是div1的文本。')</li>
+                </ul></td>
+            <td>
+                <p><b>str：</b>A plain text.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.unbind">
+<h2>de.unbind(name, fn)</h2>
+<div class="card">
+    <p>Unbind the specified function from the event binding of the document element</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Unbind the specified function from the event binding of the document element</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('button1').unbind('click', btn_click)</li></ul></td>
+            <td>
+                <p><b>name：</b>Event name. Type string, Note no 'on' as a prefix.</p>
+                <p><b>fn：</b>Function called when triggering the event.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    alert('event.type=' + evt.type);
+}
+$e('btnTest').unbind('click', btnTest_click);
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.val">
+<h2>de.val(value)</h2>
+<div class="card">
+    <p>Gets or sets the value of the element.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Order Number</th>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Gets the value of the element</td>
+            <td>Type string</td>
+            <td><ul class="code"><li>$e('input1').val()</li>
+                <li>$e('txtArea1').val()</li>
+                </ul></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Sets the value of the element</td>
+            <td>de object itself</td>
+            <td><ul class="code"><li>$e('input1').val('This is a string "abc".')</li>
+                <li>$e('checkbox1').val(1)</li>
+                </ul></td>
+            <td>
+                <p><b>value：</b>Of type string, number, or boolean.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.value">
+<h2>deArray.value 属性</h2>
+<div class="card">
+    <p>Get the 'form value' from the de object array, That is, the value of the value property. And if the element has the checked attribute (such as checkbox or radio), get only the value of the element of the checked='True'.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:28em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Get the 'form value' from the de object array</td>
+            <td>Type string</td>
+            <td><ul class="code"><li>$e('*checkbox').value</li>
+                <li>$e('form1').tags('input[type=radio]').value</li>
+                </ul></td>
+            <td>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Array.each">
+<h2>Array.each(fn)</h2>
+<div class="card">
+    <p>Loops access each element in the array and pass 3 parameters to run a specified function. These 3 parameters are successively the index number, the element, and the array.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Loops access each element in the array and pass 3 parameters to run a specified function.</td>
+            <td>None</td>
+            <td><ul class="code"><li>$e('*checkbox').each(function (i, cb) {...})</li>
+                <li>$e('form1').tags('input.cb').each(function (i, cb, arr) {...})</li>
+                </ul></td>
+            <td>
+                <p><b>fn：</b>The function called. The function has 3 parameters, successively the index number, the element, and the array.</p>
+            </td>
+        </tr>
+    </table>
+</div><br/>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+'red blue yellow black white'.split(' ').each(function (i, e) {
+    $e('p0').innerHTML += _format('The {0}th color is {1}&lt;br&gt;', i, e);
+});
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Array.includes">
+<h2>Array.includes(e)</h2>
+<div class="card">
+    <p>Determine whether an object or a value exists in the array. If an object in the array has the same type and value, returns true, otherwise false.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Determine whether an object exists in the array</td>
+            <td>Type boolean</td>
+            <td><ul class="code"><li>arr0.includes('red')</li>
+                <li>arr1.includes(7)</li>
+                <li>arr2.includes(false)</li>
+                <li>nodes.indexOf(node1)</li>
+                </ul></td>
+            <td>
+                <p><b>e：</b>Any type.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+var colors = 'red blue yellow black white'.split(' ');
+$e(document.body).tags('div.color').each(function  (i, e) {
+    var color = e.id.replace('div_', '');
+    e.css('display', colors.includes(color) ? 'block' : 'none');
+});
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Array.indexOf">
+<h2>Array.indexOf(e)</h2>
+<div class="card">
+    <p>Gets where an object or a value first appears in the array. Two objects of the same type and value are treated as equal.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Gets where an object or a value first appears in the array</td>
+            <td>Type integer. Indicate the position of the element.</td>
+            <td><ul class="code"><li>arr0.indexOf('red')</li>
+                <li>arr1.indexOf(7)</li>
+                <li>arr2.indexOf(false)</li>
+                <li>nodes.indexOf(node1)</li>
+                </ul></td>
+            <td>
+                <p><b>e：</b>Any type.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Array.remove">
+<h2>Array.remove(i)</h2>
+<div class="card">
+    <p>Remove the i th element in the array. Values of i beyond the range are ignored.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Remove the i th element in the array</td>
+            <td>None</td>
+            <td><ul class="code"><li>arr0.remove(2)</li>
+                <li>nodes.remove(0)</li>
+                </ul></td>
+            <td>
+                <p><b>i：</b>Type integer, The location of the element to be removed.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Date.add">
+<h2>Date.add(part, n)</h2>
+<div class="card">
+    <p>Add a time interval to the Date value and get a new value of the Date type. The original Date remains unchanged.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width: 36em;" /><col /></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Add a time interval to the Date value and get a new value of the Date type</td>
+            <td>Type Date</td>
+            <td>
+                <ul class="code">
+                    <li>date0.add('d', -1)</li>
+                    <li>date1.add('m', 12)</li>
+                    <li>date2.add('s', 1000)</li>
+                </ul>
+            </td>
+            <td>
+                <p><b>part：</b>Units of the time interval. A single character, multiple characters will take the first character. See below for details.</p>
+                <p><b>n：</b>The time interval. Type integer, can be negative.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3>Parameter part details</h3>
+    <p>Valid characters are listed below:</p>
+    <ul>
+        <li><b>f：</b>Milliseconds</li>
+        <li><b>s：</b>Seconds</li>
+        <li><b>m：</b>Minutes</li>
+        <li><b>h|H：</b>Hours</li>
+        <li><b>d|D：</b>Days</li>
+        <li><b>M：</b>Months</li>
+        <li><b>w|W：</b>Weeks</li>
+        <li><b>y|Y：</b>Years</li>
+    </ul>
+    <br />
+</div>
+<br />
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    $e('p0').innerHTML = new Date().add('m', -1).toString("The date of last month is yyyy-MM-DD");
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Date.diff">
+<h2>Date.diff(part, date)</h2>
+<div class="card">
+    <p>The interval between the two Date values.</p>
+    <table class="tab">
+        <colgroup>
+            <col />
+            <col />
+            <col style="min-width: 36em;" />
+            <col />
+        </colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>The interval between the two Date values</td>
+            <td>Type integer</td>
+            <td>
+                <ul class="code">
+                    <li>date0.diff('d', date1)</li>
+                    <li>date0.diff('m', date1)</li>
+                    <li>date0.diff('s', date1)</li>
+                </ul>
+            </td>
+            <td>
+                <p><b>part：</b>Units of the time interval. A single character, multiple characters will take the first character. See below for details.</p>
+                <p><b>date：</b>The Date used for the comparison, The later returns a larger value</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3>Parameter part details</h3>
+    <p>Valid characters are listed below:</p>
+    <ul>
+        <li><b>f：</b>Milliseconds</li>
+        <li><b>s：</b>Seconds</li>
+        <li><b>m：</b>Minutes</li>
+        <li><b>h|H：</b>Hours</li>
+        <li><b>d|D：</b>Days</li>
+        <li><b>M：</b>Months</li>
+        <li><b>w|W：</b>Weeks</li>
+        <li><b>y|Y：</b>Years</li>
+    </ul>
+    <br />
+</div>
+<br />
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var date0 = new Date().fromString($e('txtDate0').value, 'yyyy-MM-DD hh:min:ss.fff'),
+        n = new Date().diff('h', date0);
+    $e('p0').innerHTML = _format('Now the time is {0}hours later...', n);
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Date.fromString">
+<h2>Date.fromString(str, format)</h2>
+<div class="card">
+    <p>Convert from a date time string in a given format to a Date type. Update the original Date object and return it.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:40em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Convert from a date time string in a given format to a Date type. Update the original Date object and return it.</td>
+            <td>Type Date</td>
+            <td><ul class="code"><li>date0.fromString('2014-02-11 09:32:08.759', 'yyyy-MM-dd hh:min:ss.fff')</li>
+                <li>date1.fromString('May 9 2016 Mo 23:26', 'month D yyyy we h:min')</li>
+                <li>date2.fromString('2016年5月9日 23时28分', 'YYYY年M月D日 H时m分')</li>
+                </ul></td>
+            <td>
+                <p><b>str：</b>Date-time string. The format must fully match the second parameter, format, otherwise it goes wrong.</p>
+                <p><b>format：</b>Date-time format string. Consists of placeholders and common characters. Converted by 'Date.parse()' when not specified. See below for details.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>Parameter format details</h3>
+    <p>The placeholder is eventually replaced with the corresponding date-time value or character. The following is a valid placeholder (the vertical symbol '|' means "or"), which is judged and replaced in the following priority order:</p>
+    <p>In the following list, 'The head is connected at a word boundary' will be represented with '<b>[HB]</b>', and 'The tail is connected at a word boundary' will be represented with '<b>[TB]</b>'.</p>
+    <ul><li><b>yyyy|YYYY:</b> Four-digit year values for the local time.</li>
+        <li><b>yy|YY:</b> Two-digit year value for the local time.</li>
+        <li><b>month|Month|MONTH:</b> English month string for local time.</li>
+        <li><b>mon|Mon|MON, [TB]:</b> First 3 characters of the English month string for local time.</li>
+        <li><b>mo|Mo|MO, [TB]:</b> First 2 characters of the English month string for local time.</li>
+        <li><b>MM:</b> The 2-digit month number of the local time, the previous complement character '0' of less than 2 digit. Month number count from 0, with a maximum of 11.</li>
+        <li><b>M, [HB][TB]:</b> The month number of the local time. Month number count from 0, with a maximum of 11.</li>
+        <li><b>week|Week|WEEK:</b> English week string for local time.</li>
+        <li><b>wee|Wee|WEE, [TB]:</b> First 3 characters of the English week string for local time.</li>
+        <li><b>we|We|WE, [TB]:</b> First 2 characters of the English week string for local time.</li>
+        <li><b>w|W, [HB][TB]:</b> The week number of the local time. week number count from 0, with a maximum of 6.</li>
+        <li><b>dd|DD:</b> The 2-digit date number in the month of the local time, the previous complement character '0' of less than 2 digit. Month number count from 1, with a maximum of 31.</li>
+        <li><b>d|D, [HB][TB]:</b> The date number in the month of the local time. Month number count from 1, with a maximum of 31.</li>
+        <li><b>am|AM|pm|PM:</b> Local time in the 12-hour system, indicating the first 12 or last 12 hours, First 12 hours for "AM", after 12 hours for "PM". This symbol indicates that the number of hours will be 12 hours.</li>
+        <li><b>hh|HH:</b> Two-digit hour number for the local time, the previous complement character '0' of less than 2 digit. Values range is 0-23, and 0-11 in the 12-hour system.</li>
+        <li><b>h|H, [HB][TB]:</b> The hour number for the local time, Values range is 0-23, and 0-11 in the 12-hour system.</li>
+        <li><b>mm|min|Min|MIN|mi|Mi|MI:</b> Two-digit minute number for the local time, the previous complement character '0' of less than 2 digit. Values range is 0-59.</li>
+        <li><b>m, [HB][TB]:</b> The minute number for the local time, Values range is 0-59.</li>
+        <li><b>ss|SS:</b> Two-digit second number for the local time, the previous complement character '0' of less than 2 digit. Values range is 0-59.</li>
+        <li><b>s, [HB][TB]:</b> The second number for the local time, Values range is 0-59.</li>
+        <li><b>fff|FFF:</b> Three-digit Milliseconds number for the local time, the previous complement character '0' of less than 3 digit. Values range is 0-999.</li>
+        <li><b>ff|FF:</b> First 2 characters of the Milliseconds number string for local time. Values range is 0-99.</li>
+        <li><b>f|F, [HB][TB]:</b> First character of the Milliseconds number string for local time. Values range is 0-9.</li>
+    </ul>
+    <br/>
+</div>
+<br/>
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var date0 = new Date().fromString($e('txtDate0').value, 'YYYY-MM-DD hh:min:ss.fff'),
+        date1 = new Date().fromString($e('txtDate1').value, 'mon D yyyy we h:min:ss.fff');
+    $e('p0').innerHTML = date0.toString('yyyy-M-D h:m');
+    $e('p1').innerHTML = date1.toString('yyyy-MM-DD hh:mm');
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Date.toObject">
+<h2>Date.toObject()</h2>
+<div class="card">
+    <p>Gets a custom JSON object from a Date type.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:15em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Gets a custom JSON object from a Date type.</td>
+            <td>A JSON object, Such as <i class="code">{ Y: 0, M: 0, D: 0, W: 0, h: 0, m: 0, s: 0, f: 0, month: '', week: '', value: 0 }</i></td>
+            <td><ul class="code"><li>var d = data0.toObject()</li>
+                </ul></td>
+            <td>
+                <p>None</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>Return Value Details</h3>
+    <p>The return value object including the properties as following:</p>
+    <ol>
+        <li><b>Y：</b>Type Integer, The year number.</li>
+        <li><b>M：</b>Type Integer, The month number, count from 0, with a maximum of 11.</li>
+        <li><b>D：</b>Type Integer, The day number of the month, count from 1, with a maximum of 31.</li>
+        <li><b>W：</b>Type Integer, The day number of the week, count from 0, with a maximum of 6.</li>
+        <li><b>h：</b>Type Integer, The hour number, Values range is 0-59.</li>
+        <li><b>m：</b>Type Integer, The minute number, Values range is 0-59.</li>
+        <li><b>s：</b>Type Integer, The second number, Values range is 0-59.</li>
+        <li><b>f：</b>Type Integer, The millisecond number, Values range is 0-999.</li>
+        <li><b>month：</b>English month string.</li>
+        <li><b>week：</b>English week string </li>
+        <li><b>value：</b>Type Integer, The original value of type Date. Number of milliseconds calculated from 0:00 on January 1,1970.</li>
+    </ol>
+</div>
+<br/>
+</script>
+    
+<script type="text/text" id="Date.toString">
+<h2>Date.toString(format)</h2>
+<div class="card">
+    <p>Convert the value of type Date to a string in the specified format.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:15em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameter</th>
+        </tr>
+        <tr>
+            <td>Convert the value of type Date to a string in the specified format.</td>
+            <td>Type string</td>
+            <td>
+                <ul class="code">
+                    <li>date0.toString()</li>
+                    <li>date1.toString('YYYY-MM-DD hh:min:ss.fff')</li>
+                    <li>date2.toString('mon dd yyyy wee h:min:ss.fff')</li>
+                    <li>date3.toString('yyyy年M月D日 h时m分')</li>
+                </ul>
+            </td>
+            <td>
+                <p><b>format：</b>Date-time format string. Consists of placeholders and common characters. Converted by 'Date.parse()' when not specified. See below for details.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3>Parameter format details</h3>
+    <p>The placeholder is eventually replaced with the corresponding date-time value or character. The following is a valid placeholder (the vertical symbol '|' means "or"), which is judged and replaced in the following priority order:</p>
+    <p>In the following list, 'The head is connected at a word boundary' will be represented with '<b>[HB]</b>', and 'The tail is connected at a word boundary' will be represented with '<b>[TB]</b>'.</p>
+    <ul><li><b>yyyy|YYYY:</b> Four-digit year values for the local time.</li>
+        <li><b>yy|YY:</b> Two-digit year value for the local time.</li>
+        <li><b>month|Month|MONTH:</b> English month string for local time.</li>
+        <li><b>mon|Mon|MON, [TB]:</b> First 3 characters of the English month string for local time.</li>
+        <li><b>mo|Mo|MO, [TB]:</b> First 2 characters of the English month string for local time.</li>
+        <li><b>MM:</b> The 2-digit month number of the local time, the previous complement character '0' of less than 2 digit. Month number count from 0, with a maximum of 11.</li>
+        <li><b>M, [HB][TB]:</b> The month number of the local time. Month number count from 0, with a maximum of 11.</li>
+        <li><b>week|Week|WEEK:</b> English week string for local time.</li>
+        <li><b>wee|Wee|WEE, [TB]:</b> First 3 characters of the English week string for local time.</li>
+        <li><b>we|We|WE, [TB]:</b> First 2 characters of the English week string for local time.</li>
+        <li><b>w|W, [HB][TB]:</b> The week number of the local time. week number count from 0, with a maximum of 6.</li>
+        <li><b>dd|DD:</b> The 2-digit date number in the month of the local time, the previous complement character '0' of less than 2 digit. Month number count from 1, with a maximum of 31.</li>
+        <li><b>d|D, [HB][TB]:</b> The date number in the month of the local time. Month number count from 1, with a maximum of 31.</li>
+        <li><b>am|AM|pm|PM:</b> Local time in the 12-hour system, indicating the first 12 or last 12 hours, First 12 hours for "AM", after 12 hours for "PM". This symbol indicates that the number of hours will be 12 hours.</li>
+        <li><b>hh|HH:</b> Two-digit hour number for the local time, the previous complement character '0' of less than 2 digit. Values range is 0-23, and 0-11 in the 12-hour system.</li>
+        <li><b>h|H, [HB][TB]:</b> The hour number for the local time, Values range is 0-23, and 0-11 in the 12-hour system.</li>
+        <li><b>mm|min|Min|MIN|mi|Mi|MI:</b> Two-digit minute number for the local time, the previous complement character '0' of less than 2 digit. Values range is 0-59.</li>
+        <li><b>m, [HB][TB]:</b> The minute number for the local time, Values range is 0-59.</li>
+        <li><b>ss|SS:</b> Two-digit second number for the local time, the previous complement character '0' of less than 2 digit. Values range is 0-59.</li>
+        <li><b>s, [HB][TB]:</b> The second number for the local time, Values range is 0-59.</li>
+        <li><b>fff|FFF:</b> Three-digit Milliseconds number for the local time, the previous complement character '0' of less than 3 digit. Values range is 0-999.</li>
+        <li><b>ff|FF:</b> First 2 characters of the Milliseconds number string for local time. Values range is 0-99.</li>
+        <li><b>f|F, [HB][TB]:</b> First character of the Milliseconds number string for local time. Values range is 0-9.</li>
+    </ul>
+    <br/>
+</div>
+<br />
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    $e('p0').innerHTML = new Date().toString('YYYY-MM-DD hh:min:ss.fff');
+    $e('p1').innerHTML = new Date().toString('mon dd yyyy wee hh:min:ss');
+    $e('p2').innerHTML = new Date().toString('yyyy年M月D日 h时m分');
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="String.format">
+<h2>String.format(...)</h2>
+<div class="card">
+    <p>Fill in a string template with a set of input values to get a new string. Similar to _format() but simpler.</p>
+    <p>The string template takes '{n}' as a placeholder.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameters</th>
+        </tr>
+        <tr>
+            <td>Format itself</td>
+            <td>Type string</td>
+            <td><ul class="code"><li>'name={0},value={1}'.format('Color', 'Red')</li>
+                </ul></td>
+            <td>
+                <p><b>arg0-argN：</b>The parameter value used in the template with unlimited type, the non-string type is automatically implicitly converted to a string.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>Format a given string</td>
+            <td>Type string</td>
+            <td><ul class="code"><li>''.format('name={0},value={1}', 'Color', 'Red')</li></ul></td>
+            <td>
+                <p><b>arg0</b>A template string, Use '{0}', '{1}',..., '{n}' separately represents the first parameter, the second parameter,..., the n th parameter.</p>
+                <p><b>arg1-argN：</b>The parameter value used in the template with unlimited type, the non-string type is automatically implicitly converted to a string.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3>Example</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    $e('txtMsg').value = 'name={0},value={1}'.format('Color', 'Red');
+}
+    </pre>
+</div>
+</script>
+    
+<script type="text/text" id="String.trim">
+<h2>String.trim()</h2>
+<div class="card">
+    <p>Remove the blank characters at the beginning and end of the string. All blank characters, including spaces, tabs, page changer, returns, line changer, etc., will be removed.</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>Function</th>
+            <th>Return Value</th>
+            <th>Example</th>
+            <th>Parameters</th>
+        </tr>
+        <tr>
+            <td>Remove the blank characters at the beginning and end of the string. </td>
+            <td>Type string</td>
+            <td><ul class="code"><li>$e('txtEMail').trim()</li>
+                <li>" abcde ".trim()</li>
+                </ul></td>
+            <td>
+                None
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+</body>
+</html>
+
