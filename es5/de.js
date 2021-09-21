@@ -728,7 +728,7 @@ Date.prototype.diff = function (part, date) {
                 return e;
             };
             e.parent = function (specifies) {
-                var node = e,
+                var node = e.tagName === 'HTML' ? null : (e.parentNode || e.parentElement),
                     examor = new _examor(specifies),
                     examOne = function (e, spec) {
                         if (/^(\\?\w+)(\.\w+)?(\[[^\]]+\])?$/ig.test(trim(spec))) {
