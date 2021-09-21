@@ -359,7 +359,8 @@
         const t1 = () => $e('txt0').parent('tr[id=tr3]') !== undefined && $e('txt0').parent('tr[id=tr2]') == undefined;
         const t2 = () => $t('script')[0].parent('head').tagName == 'HEAD';
         const t3 = () => $e('btnSubmit', idoc).parent('p[id=p2]') !== undefined && $e('btnSubmit', idoc).parent('p[id=p2]').id == 'p2';
-        return this.Test([t0, t1, t2, t3]);
+        const t4 = () => $e('sp0').parent('span').className == 'test_parent';
+        return this.Test([t0, t1, t2, t3, t4]);
     }
 
     pos(idoc, divOut) {

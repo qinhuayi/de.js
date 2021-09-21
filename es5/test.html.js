@@ -545,7 +545,10 @@
         var t3 = function () {
             return $e('btnSubmit', idoc).parent('p[id=p2]') !== undefined && $e('btnSubmit', idoc).parent('p[id=p2]').id == 'p2';
         };
-        return this.Test([t0, t1, t2, t3]);
+        var t4 = function () {
+            return $e('sp0').parent('span').className == 'test_parent';
+        };
+        return this.Test([t0, t1, t2, t3, t4]);
     },
     "pos": function (idoc, divOut) {
         var t0 = function () {

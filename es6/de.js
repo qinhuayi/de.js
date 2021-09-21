@@ -750,7 +750,7 @@ Date.prototype.diff = function(part, date) {
                         }
                         return false;
                     };
-                let node = e;
+                let node = e.tagName === 'HTML' ? null : (e.parentNode || e.parentElement);
                 while (!!node && !!node.tagName && !exam(node, examor.safeSpecifies)) {
                     node = node.tagName === 'HTML' ? null : (node.parentNode || node.parentElement);
                 }

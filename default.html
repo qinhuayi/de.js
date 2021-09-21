@@ -10,6 +10,14 @@
         p { line-height:1.4em; text-indent:2em; }
         a, a:link { margin:0.1em 0.4em; padding:0.1em; }
     </style>
+    <script>
+        window.onload = evt => {
+            const now = new Date(),
+                str = `&v${now.getMonth()+1}${now.getDate()}${now.getHours()}${now.getMinutes()}${now.getSeconds()}`;
+            document.getElementById('a0').href += str;
+            document.getElementById('a1').href += str;
+        };
+    </script>
 </head>
 <body>
     <p>de.js is a lightweight extension library of Javascript that helps web front-end developers achieve easier and more efficient programming by extending the methods and properties of HTML page elements and extending the built-in types of Javascript. The following are the main features:</p>
@@ -29,7 +37,7 @@
     </ul>
     <p>de.js遵循LPGL开源协议。</p>
     <br />
-    <p><a href="es5/test.html?id=5">test ES5/de.js</a><a href="es6/test.html?id=6">test ES6/de.js</a></p>
+    <p><a id="a0" href="es5/test.html?id=5">test ES5/de.js</a><a id="a1" href="es6/test.html?id=6">test ES6/de.js</a></p>
     <p><a href="www.de-js.net" target="_blank">www.de-js.net</a> <a href="mailto:qinhuayi@qq.com">mailto:qinhuayi@qq.com</a> <a href="https://github.com/qinhuayi/de.js" target="_blank">https://github.com/qinhuayi/de.js</a></p>
 </body>
 </html>
