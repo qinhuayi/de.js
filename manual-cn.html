@@ -1,1 +1,1927 @@
-error!
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>de.js Manual</title>
+    
+<style type="text/css">
+* { margin: 0px; padding: 0px; border-width: 0px; }
+body { font-size: 14px; font-family: '宋体' Arial; }
+h1, h2, h3, h4 { font-weight: bold; font-family: 'Arial Unicode MS', STSong; letter-spacing: 1px; }
+p { text-indent: 2em; line-height: 1.5em; margin: 0.6em 1em; letter-spacing: 0.5px; }
+li { list-style-type: none; }
+.center { text-align: center; }
+.right { text-align: right; float: right; }
+.gold { color: #b04f17; }
+.red { color: red; }
+.hidden { display: none; }
+
+a.a0, .a0 a { font-family: 'Courier New'; margin: 0.1em 0.3em; }
+a.a0:link, a.a0:visited, .a0 a:link, .a0 a:visited { color: blue; text-decoration: none; }
+a.a0:hover, a.a0:active, .a0 a:hover, .a0 a:active { color: #ff3300; text-decoration: underline; }
+
+a.a1, .a1 a { margin: 0.1em 0.3em; }
+a.a1:link, a.a1:visited, .a1 a:link, .a1 a:visited { color: #fff; text-decoration: none; }
+a.a1:hover, a.a1:active, .a1 a:hover, .a1 a:active { color: #ff3300; text-decoration: none; }
+
+</style>
+    
+<style type="text/css">
+html {overflow-x: hidden; }
+body, .head, .foot { background-color: #99BF60; }
+.head, .body, .foot {width: 100%; display: block; clear: both; }
+.head { height: 3.8em; }
+h1 { margin-top: 0.2em; padding: 0.2em; color: #fff; display: inline-block; }
+h1 i {font-size: 12px; margin: 0px 0.4em; }
+.body { display: inline-block; min-height: 60%; background-color: #C9DFA7;}
+.menu { width: 19%; min-height: 15em; font-size: 12px;  background-color: #E3EFD1;}
+.menu h2 { font-size: 14px; text-align: center; padding: 0.3em; color: #99BF60; background-color: #fff; }
+.menu ul {  }
+.menu li { list-style-position: inside; text-indent: 0px; line-height: 1.2em; }
+.menu li a:before { content: '◆'; color: #99BF60; margin-right: 0.5em; padding-left: 0.5em; }
+.menu a { width: 100%; margin: 0.1em 0px; font-family: 'Arial'; display: inline-block; font-size: 8px; color: #3E551C; }
+.menu a:link, .menu a:visited { text-decoration: none; color: #3E551C; background-color: transparent; }
+.menu a:hover, .menu a:active { text-decoration: none; background-color: #fff; }
+.menu a i, .content a i {font-size: 7px; color: red; margin: -0.1em 0.3em 0.1em 0.3em;}
+sup { font-size: 7px; color: red; }
+.content { padding: 1em;  }
+.content h2, .content h3 { padding-left: 0.5em; text-align: left; font-family: 'Arial'; color: #fff;}
+.content ul { margin: 0.5em 1em;}
+.content ul li { list-style: decimal inside; }
+.content li, .content p { font-family: 'Arial Narrow';}
+.content table.tab { border-width: 1px; border-color: #7DAA39; border-collapse: collapse; border-top-style: solid; border-left-style: solid; border-right-style: none; border-bottom-style: none; }
+.content table.tab tr th, .content table.tab tr td { border-width: 1px; border-color: #7DAA39; border-top-style: none; border-left-style: none; border-right-style: solid; border-bottom-style: solid; padding: 0.2em 0.3em; }
+.content table.tab tr th { height: 2em; background-color: #99BF60; }
+.content .card { margin: 0.5em; }
+.content .code { line-height: 1.6em; font-family: 'Courier New'; background-color: #e0e0e0; padding: 0.6em; text-indent: 0px; margin: 0px; }
+.content i.code { padding: 0.1em 0.4em;}
+.content .notice { margin: 1em 1.2em; padding: 0.2em; text-indent: 1em; color: #666; }        
+.content ul.code li { line-height: 1.5em; padding: 0.1em 0.3em; text-indent: 0px; margin: 0.1em 0px; list-style-type: none; background-color: #e0e0e0; }
+#divMenu { display: inline-block; clear: left;}
+.foot { height: 2em; }
+.foot a, .foot span { line-height: 1.4em; padding: 0.2em; margin: 0.1em 0.5em;}
+#divMain { display: inline-block; vertical-align:top; font-size: 12px; width: 79%; min-width: 720px; min-height: 600px; height: 99%; clear: right;}
+</style>
+    <script type="text/javascript">
+        window.onload = function(){
+            var n = document.location.href.indexOf('?'),
+                id = n > 0 ? document.location.href.substr(n + 1) : 'intro',
+                el = document.getElementById(id),
+                divMain = document.getElementById('divMain');
+            divMain.innerHTML = el ? el.innerHTML : '';
+            if ('DEBUG' && document.location.href.includes('-src.htm')) {
+                divMain.innerHTML = document.getElementById('_default').innerHTML;
+            }
+        };
+    </script>
+<body>
+    <div class="head">
+        <h1>de.js<i>(v2.0)</i></h1>
+    </div>
+    <div class="body">
+        <div id="divMenu" class="menu">
+            <h2>MENU</h2>
+            <ul>
+                <li><a href="?intro">简介</a></li>
+                <li><a href="?index">索引</a></li>
+                <li><a href="?$e">$e(e, doc)</a></li>
+                <li><a href="?$t">$t(specifies, doc)</a></li>
+                <li><a href="?_ajax">_ajax(conf)</a></li>
+                <li><a href="?_format">_format(format, ...)<i>es5</i></a></li>
+                <li><a href="?_htmlEncode">_htmlEncode(str, mode)</a></li>
+                <li><a href="?_htmlDecode">_htmlDecode(str, mode)</a></li>
+                <li><a href="?_url2Object">_url2Object(url)</a></li>
+                <li><a href="?_new">_new(tag)</a></li>
+                <li><a href="?_merge">_merge(a0, a1, ..., an)</a></li>
+                <li><a href="?document.path">document.path</a></li>
+                <li><a href="?document.ready">document.ready(fn)</a></li>
+                <li><a href="?de.addClass">de.addClass(name)</a></li>
+                <li><a href="?de.append">de.append(el)</a></li>
+                <li><a href="?de.attr">de.attr(name, value)</a></li>
+                <li><a href="?de.bind">de.bind(name, fn)</a></li>
+                <li><a href="?de.css">de.css(name, value)</a></li>
+                <li><a href="?de.hide">de.hide()</a></li>
+                <li><a href="?de.html">de.html(str)</a></li>
+                <li><a href="?de.insert">de.insert(node, n)</a></li>
+                <li><a href="?de.parent">de.parent(specifies)<i>de</i></a></li>
+                <li><a href="?de.pos">de.pos()<i>de</i></a></li>
+                <li><a href="?de.removeAttr">de.removeAttr(name)</a></li>
+                <li><a href="?de.removeClass">de.removeClass(name)</a></li>
+                <li><a href="?de.show">de.show()</a></li>
+                <li><a href="?de.tags">de.tags(specifies)<i>de</i></a></li>
+                <li><a href="?de.text">de.text(str)</a></li>
+                <li><a href="?de.unbind">de.unbind(name, fn)</a></li>
+                <li><a href="?de.val">de.val(value)</a></li>
+                <li><a href="?de.value">de.value<i>de array</i></a></li>
+                <li><a href="?Array.each">Array.each(fn)<i>es5</i></a></li>
+                <li><a href="?Array.includes">Array.includes(e)<i>es5</i></a></li>
+                <li><a href="?Array.indexOf">Array.indexOf(e)<i>es5</i></a></li>
+                <li><a href="?Array.remove">Array.remove(i)</a></li>
+                <li><a href="?Date.add">Date.add(part, n)</a></li>
+                <li><a href="?Date.diff">Date.diff(part, date)</a></li>
+                <li><a href="?Date.fromString">Date.fromString(str, format)</a></li>
+                <li><a href="?Date.toObject">Date.toObject()</a></li>
+                <li><a href="?Date.toString">Date.toString(format)</a></li>
+                <li><a href="?String.format">String.format(...)<i>es5</i></a></li>
+                <li><a href="?String.trim">String.trim()<i>es5</i></a></li>
+            </ul>
+        </div>
+        <div id="divMain" class="content">
+            
+        </div>
+    </div>
+    <div class="foot">
+        <span id="spMsg"></span><span class="right"><a class='a1' href='http://de-js.net'>www.de-js.net</a></span>
+    </div>
+    <br />
+
+    
+<script type="text/text" id="index">
+<h2>de函数索引</h2>
+<p>许多de函数都有多种用法，点击链接可以查看更详细的说明。</p>
+<h3>1. 基本函数</h3>
+<ul class="a0">
+    <li><a href="?$e">$e(e, doc)</a><span class="comment">选择一个或一组元素，或创建一个新元素，并将其包装为de对象。</span></li>
+    <li><a href="?$t">$t(specifies, doc)</a>, <a href="?$t">$tags(specifies, doc)</a><span class="comment">在HTML文档内部按标签特征选择选择一组元素，并将其包装为de对象数组。</span></li>
+    <li><a href="?_ajax">_ajax(conf)</a><span class="comment">以AJAX方式请求一个远程页面。</span></li>
+    <li><a href="?_format">_format(format, ...)<i>es5</i></a><span class="comment">用一组值填充一个字符串模板，得到一个新的字符串。</span></li>
+    <li><a href="?_htmlEncode">_htmlEncode(str, mode)</a><span class="comment">编码用于HTML源文档的文本。</span></li>
+    <li><a href="?_htmlDecode">_htmlDecode(str, mode)</a><span class="comment">解码用于HTML源文档的文本。</span></li>
+    <li><a href="?_url2Object">_url2Object(url)</a><span class="comment">将一个URL路径字符串转换为一个自定义的Object类型的对象。</span></li>
+    <li><a href="?_new">_new(tag)</a><span class="comment">创建一个文档元素并且包装为de对象。</span></li>
+    <li><a href="?_merge">_merge(a0, a1, ..., an)</a><span class="comment">读取所有对象的属性和值并且合并为一个新对象。</span></li>
+</ul>
+<h3>2. 文档元素扩展</h3>
+<ul class="a0">
+    <li><a href="?document.path">document.path</a><span class="comment">使用转换而来的一个Object对象。</span></li>
+    <li><a href="?document.ready">document.ready(fn)</a><span class="comment">在文档加载完成时调用指定的函数。</span></li>
+</ul>
+<h3>3. de对象(或de数组)方法与属性</h3>
+<ul class="a0">
+    <li><a href="?de.addClass">de.addClass(name)</a><span class="comment">给元素添加一个样式类名。</span></li>
+    <li><a href="?de.append">de.append(el)</a><span class="comment">在元素的子节点尾部中追加一个新元素。</span></li>
+    <li><a href="?de.attr">de.attr(name, value)</a><span class="comment">获取特性值，或者给特性赋值。</span></li>
+    <li><a href="?de.bind">de.bind(name, fn)</a><span class="comment">将指定的函数绑定为文档元素的一个事件，使得该元素触发此事件时能调用指定的函数。</span></li>
+    <li><a href="?de.css">de.css(name, value)</a><span class="comment">给元素的某个样式赋值，或者获取元素的某个当前样式的值。</span></li>
+    <li><a href="?de.hide">de.hide()</a><span class="comment">隐藏元素。效果等同于设置style.display的值。</span></li>
+    <li><a href="?de.html">de.html(str)</a><span class="comment">获取或设置文档元素的起始和结束标签内的 HTML字符串。</span></li>
+    <li><a href="?de.insert">de.insert(node, n)</a><span class="comment">在元素的子节点(即子元素)中插入一个新节点。</span></li>
+    <li><a href="?de.parent">de.parent(specifies)<i>de</i></a><span class="comment">获取符合特征的第一个父元素。</span></li>
+    <li><a href="?de.pos">de.pos()<i>de</i></a><span class="comment">获取元素在文档显示区中的绝对位置。需要该元素和它的祖先都有明确的位置。</span></li>
+    <li><a href="?de.removeAttr">de.removeAttr(name)</a><span class="comment">从一个HTML元素中移除一个特性，包括其名称和值。</span></li>
+    <li><a href="?de.removeClass">de.removeClass(name)</a><span class="comment">移除元素的一个样式名。效果等同于设置className的值。</span></li>
+    <li><a href="?de.show">de.show()</a><span class="comment">显示元素。效果等同于设置style.display的值。</span></li>
+    <li><a href="?de.tags">de.tags(specifies)<i>de</i></a><span class="comment">在元素的HTML标签内部按标签特征选择一组元素，并将其包装为de文档元素数组。</span></li>
+    <li><a href="?de.text">de.text(str)</a><span class="comment">获取元素的起始和结束标签内的纯文本值，或者设置元素的起始和结束标签内的文本。</span></li>
+    <li><a href="?de.unbind">de.unbind(name, fn)</a><span class="comment">将指定的函数从文档元素的事件绑定中解除。</span></li>
+    <li><a href="?de.val">de.val(value)</a><span class="comment">获取或设置元素的value值。</span></li>
+    <li><a href="?de.value">de.value<i>de array</i></a><span class="comment">用于获取一组具备value属性的元素的value值，假如元素有checked属性（如checkbox或者radio），则仅获取checked='True'的元素的值。</span></li>
+</ul>
+<p class="notice">有<sup>de</sup>标记的方法仅可用于de对象不可用于de数组，有<sup>de array</sup>标记的方法则刚好相反，其余则两者皆可用。</p>
+<h3>4. 原始类型扩展</h3>
+<ul class="a0">
+    <li><a><del>Array.forEach(fn)</del><i>removed</i></a>支持ES5标准的JS引擎均已默认支持此方法。</li>
+    <li><a href="?Array.each">Array.each(fn)<i>es5</i></a><span class="comment">循环数组中的每一个元素，并用顺序号与元素作为参数来调用一个函数。</span></li>
+    <li><a href="?Array.includes">Array.includes(e)<i>es5</i></a><span class="comment">判断数组中是否存在一个对象。</span></li>
+    <li><a href="?Array.indexOf">Array.indexOf(e)<i>es5</i></a><span class="comment">获取一个对象在数组中首次出现的位置。</span></li>
+    <li><a href="?Array.remove">Array.remove(i)</a><span class="comment">移除数组中的第i个元素。</span></li>
+    <li><a href="?Date.add">Date.add(part, n)</a><span class="comment">给Date值添加一个时间间隔，得到一个Date类型的新值。</span></li>
+    <li><a href="?Date.diff">Date.diff(part, date)</a><span class="comment">判断两个Date的时间间隔。</span></li>
+    <li><a href="?Date.fromString">Date.fromString(str, format)</a><span class="comment">从一个日期时间字符串按格式转换为一个Date类型的值，并设置原Date对象的值。</span></li>
+    <li><a href="?Date.toObject">Date.toObject()</a><span class="comment">Date类型的值转换为一个自定义的Object对象。</span></li>
+    <li><a href="?Date.toString">Date.toString(format)</a><span class="comment">Date类型的值按格式转换为一个字符串。</span></li>
+    <li><a href="?String.format">String.format(...)<i>es5</i></a><span class="comment">用一组输入值填充一个字符串模板，得到一个新字符串。</span></li>
+    <li><a href="?String.trim">String.trim()<i>es5</i></a><span class="comment">移除字符串首尾的空白字符。</span></li>
+</ul>
+<p class="notice">有<sup>es5</sup>标记的方法仅在ES5版本中可用，理由是在ES6中它们都已经有相似的其它方法。详细内容请自行参阅ES6标准文档。</p>
+<p id="msg" class="red"></p>
+<br />
+</script>
+    
+<script type="text/text" id="intro">
+<h2>概述</h2>
+<div class="card">
+    <p>de.js是一个轻量级的Javascript扩展函数库。de.js把一些最常用的方法集成到文档对象、包装有HTML元素的de对象和de对象数组、和JS原始类型中来实现更便捷的编程。以下是主要特点：</p>
+    <ul>
+        <li>允许按标签specifies来选择一组页面元素，类似jquery的selector。</li>
+        <li>支持基本的Ajax。</li>
+        <li>扩展了Date、Array、string类型的方法。</li>
+        <li>扩展了document对象的方法和属性等。</li>
+    </ul>
+    <p>本文档面向有一定基础的Javascript程序员。建议所有读者同时下载或查阅以下其他文档作为参考：</p>
+    <ul>
+        <li>W3C的DHTML4.01与HTML5的帮助手册。</li>
+        <li>CSS2.0与CSS3.0的帮助手册。</li>
+        <li>Javascript帮助手册，ES5与ES6+官方文档。</li>
+        <li>自行查阅有关Ajax和XMLHttpRequest的基础知识。</li>
+    </ul>
+</div>
+<br/>
+<div class="card">
+    <h2>de函数速查表</h2>
+    <p>点击此处查看<a href="?index">de函数速查表</a>。</p>
+</div>
+<br/>
+<div class="card">
+    <h2>de的诞生与理念</h2>
+    <p>de名字的含义取自Document Elements的首字母。de诞生的目的最初是为了摆脱对JQuery编程方式的依赖，使得喜欢常规编程方式、并且经常使用DHTML原生方法的开发人员多了一个轻量级的选择。为了使原先使用过JQuery的开发人员顺利转移到de来，de兼容JQuery并且效仿JQuery的许多特性。例如de的许多方法名与JQuery的方法名一样或相似等。</p>
+    <p>de的理念与JQuery有本质区别，并不追求大而全，也不追求最大化浏览器兼容性。de采用查找文档标签的方式选择元素，与JQuery使用正则表达式查找全文字符的方式有本质区别，效率和性能开销上则不相上下。</p>    
+</div>
+<br />
+<div class="card a0">
+    <h2>帮助改进de</h2>
+    <p>发现Bug或者有意见或建议的请发邮件至<a href="mailto:qinhuayi@qq.com">qinhuayi@qq.com</a>。</p>
+    <p>本项目源代码可在Github上被找到：<a href="https://github.com/qinhuayi/de.js">https://github.com/qinhuayi/de.js</a>。</p>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="$e">
+<h2>$e(e, doc)</h2>
+<div class="card">
+    <p>选择一个或一组元素，或创建一个新元素，并将其包装为de对象。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:18em;" /><col/></colgroup>
+        <tr>
+            <th>序号</Th>
+            <th>功能</Th>
+            <th>返回值</Th>
+            <th>例子</Th>
+            <th>参数</Th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>在文档中选择一个元素，并将其包装为de对象。</td>
+            <td>de对象</td>
+            <td><ul class="code"><li>$e('div1')</li><li>$e(document.body)</li><li>$e('div1', top.document)</li></ul></td>
+            <td>
+                <p><b>e：</b>元素id值或者元素本身。</p>
+                <p><b>doc：</b>document对象，缺省为当前的window.document。可用于指定非当前文档如iframe或者window.parent中的document对象。</p>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>在文档中选择一组元素，并将其包装为de对象。</td>
+            <td>de对象数组</td>
+            <td><ul class="code"><li>$e('*frame')</li><li>$e('*radio', top.document)</li></ul></td>
+            <td>
+                <p><b>e：</b>字符'*'接一个元素的name值。</p>
+                <p><b>doc：</b>含义同上，略。</p>        
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>在文档中创建一个新元素，并将其包装为de对象。</td>
+            <td>de对象</td>
+            <td><ul class="code"><li>$e("&lt;p class='bd1'&gt;")</li><li>$e("&lt;div&gt;", top.document)</li></ul></td>
+            <td>
+                <p><b>e：</b>元素的开始标签的html字符串。</p>
+                <p><b>doc：</b>同上，略。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var div2 = $e('div2'),
+        p1 = $e("&lt;p id='p1' style='background-color:#ccc;'&gt;");
+    $e('div1').innerHTML = '这是div1内的文本';
+    $e(div2).innerHTML = '这是div2内的文本';
+    p1.innerHTML = '这是新的p1文本:' + $e('*cbColor').value;
+    div2.appendChild(p1);
+}        
+</pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="$t">
+<h2 id="h2-0">$t(specifies, doc)</h2>
+<div class="card">
+    <p>在HTML文档内部按标签特征选择一组元素，并将其包装为de文档元素数组。</p>
+    <p>等同于<b>$tags(specifies, doc)</b>。</p>
+    <table class="tab">
+        <colgroup>
+            <col />
+            <col />
+            <col style="min-width: 38em;" />
+            <col />
+        </colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>在元素的HTML标签内部按标签特征选择一组元素，并将其包装为de文档元素数组。</td>
+            <td>de文档元素数组。</td>
+            <td>
+                <ul class="code">
+                    <li>$t('p,li,td,th')</li>
+                    <li>$tags('div.block')</li>
+                    <li>$t('div.block/p//strong', doc)</li>
+                    <li>$t("img[src*='/upload/']")</li>
+                    <li>$t('input.txt0[type=password]')</li>
+                    <li>$t("input[type=radio, name='radioGroup1']")</li>
+                    <li>$t("input[id^=txt], textarea[id^=txt]")</li>
+                    <li>$t("table.form//td:first")</li>
+                    <li>$t("tr:even")</li>
+                    <li>$t("div.ctx//li:eq(2)")</li>
+                    <li>$t("(a|button).btn")</li>
+                    <li>$t("(a|button|input.btn)[name]")</li>
+                    <li>$t("(a|button).btn, input.btn[name]:gt(1)")</li>
+                </ul>
+            </td>
+            <td>
+                <p><b>参数specifies：</b>标签特征字符串组合，string类型。由一个或多个<b>标签特征字符串</b>组成，多个标签特征字符串用逗号“<span>,</span>”隔开，满足其中一个特征即可被选中。详细见下文。</p>
+                <p><b>参数doc：</b>文档对象，即document对象，缺省为当前文档window.document，通常用于指定非当前文档如iframe或者window.parent中的document对象。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3 id="h3-0">参数specifies</h3>
+    <p>标签specifies组合，string类型。由一个或多个<b>标签specifies</b>组成。多个标签specifies用逗号“<span>,</span>”隔开。多个标签特征字符串时，满足其中一个特征即可被选中。</p>
+    <p>一个包含所有部分的specifies格式（所有实例都是它的简化版本）可用以下范式来描述：</p>
+    <p class="code">tag0.class0[expr01, ..., expr0N]:pseudoClass0/tag1.class1[expr11, ..., expr1N]:pseudoClass1/.../tagM.classM[exprM1, ..., exprMN]:pseudoClassM, ...</p>
+    <p>表示多个标签有相同特征时可使用竖线分隔符和一对括号：</p>
+    <p class="code">.../(tag0|tag1|tag2).class0[expr0, ..., exprN]:pseudoClass0, ...</p>
+</div>
+<div class="card">
+    <h3 id="h3-1">分层符</h3>
+    <p><b>分层符</b>共有4个：“/”、“//”、“\”、“\\”，用于表示标签间的层次关系。用于多层specifies。其中“/”、“\”表示左右两个标签间隔一层，即互为直接父子节点，“//”、“\\”表示两个标签间隔一层或多层，即为高低级关系即可。以下为例子：</p>
+    <ul class="code">
+        <li>div/p/span</li>
+        <li>form/div.group1/input[type=submit]</li>
+        <li>div.content//table.tab0</li>
+    </ul>
+    <p>这里建议<span class="red">使用反斜杠取代斜杠</span>以免出现javascript转义字符问题。</p>
+</div>
+<div class="card">
+    <h3 id="h3-2">单层标签specifies</h3>
+    <p>一个完整的单层标签specifies由4部分连接而成：标签名、类名、<b>特性表达式组</b>、伪类选择器。</p>
+    <p class="code">tag.class[expr0, ..., exprN]:pseudoClass</p>
+    <p>表示多个标签有相同特征时可使用竖线分隔符和一对括号（不支持嵌套）：</p>
+    <p class="code">(tag0|tag1|...).class0[expr0, ..., exprN]:pseudoClass0</p>
+    <p class="code">(tag0|tag1.class0|...).class1[expr0, ..., exprN]:pseudoClass0</p>
+    <p>特性表达式组可由一个或多个<b>特性表达式</b>组成，多个表达式由逗号“，”分隔。</p>
+    <ul class="rules">
+        <li>标签名不分大小写。</li>
+        <li>类名大小写敏感，须精确书写。</li>
+        <li>标签名必须给出，其他部分可省略。</li>
+        <li>类名前面须带点号“.”。</li>
+        <li>特性表达式组用中括号包裹。</li>
+        <li>伪类选择器作用于最后得到的数组。</li>
+        <li>多个特性表达式时，每一个表达式都成立才能选中。</li>
+    </ul>
+    <p>例子：</p>
+    <ul class="code">
+        <li>table</li>
+        <li>table.tab0</li>
+        <li>input.btn[type='button']</li>
+        <li>input.cb[type='checkbox',id*='color']</li>
+        <li>ul.lst/li:last</li>
+    </ul>
+</div>
+<div class="card">
+    <h3 id="h3-3">特性表达式</h3>
+    <p>特性表达式分3部分：特性名，<b>关系运算符</b>，字符串常量。3部分首尾连接组成一个完整表达式，用于判断特性是否存在，并且特性值与字符串常量之间的关系是否正确。</p>
+    <p class="code">AttributeName &lt;Operator&gt; StringValue</p>
+    <ul class="rules">
+        <li>特性名不分大小写。</li>
+        <li>表达式可以仅包含特性名部分，此时用于判断特性名是否存在。</li>
+        <li>关系运算符左右两边可以留空格也可以不留。</li>
+        <li>字符串常量可以用单引号或者双引号包裹。当字符串常量中出现空格、逗号、关系运算符符号等保留字符时则必须要用引号包裹。</li>
+        <li>特性名className等同于class，可互相代替使用。</li>
+    </ul>
+    <p>例子：</p>
+    <ul class="code">
+        <li>input[type=button]</li>
+        <li>a[src $= '.gif']</li>
+        <li>(input, textarea)[id ^= 'txt']</li>
+        <li>select[name *= "color"]</li>
+        <li>a[className ~= 'focus']</li>
+        <li>a[href]</li>
+    </ul>
+</div>
+<div class="card">
+    <h3 id="h3-4">关系运算符</h3>
+    <p>特性表达式接受以下6种关系运算符，表格说明如下：</p>
+    <table class="tab">
+        <tr>
+            <th>符号</th>
+            <th>含义</th>
+            <th>例子</th>
+        </tr>
+        <tr>
+            <td>=</td>
+            <td rowspan="2">等于</td>
+            <td rowspan="2">
+                <ul class="code">
+                    <li>[type = radio]</li>
+                    <li>[type == radio]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>==</td>
+        </tr>
+        <tr>
+            <td>*=</td>
+            <td>包含有</td>
+            <td>
+                <ul class="code">
+                    <li>[src *= &#39;upload&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>~=</td>
+            <td>不包含有</td>
+            <td>
+                <ul class="code">
+                    <li>[id ~= &#39;code&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>$=</td>
+            <td>尾部字符等于</td>
+            <td>
+                <ul class="code">
+                    <li>[name $= &#39;email&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>^=</td>
+            <td>头部字符等于</td>
+            <td>
+                <ul class="code">
+                    <li>[id ^= &#39;txt&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>!=</td>
+            <td>不等于</td>
+            <td>
+                <ul class="code">
+                    <li>[name != &#39;email&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <br />
+</div>
+<div class="card">
+    <h3 id="h3-5">伪类选择器</h3>
+    <p>共有以下几个伪类，表格说明如下：</p>
+    <table class="tab">
+        <tr>
+            <th>名称</th>
+            <th>含义</th>
+            <th>例子</th>
+        </tr>
+        <tr>
+            <td>:first</td>
+            <td>选中首个元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("input:first")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:last</td>
+            <td>选中最后一个元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("input:first")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:even</td>
+            <td>选中序号为偶数的元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:even")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:odd</td>
+            <td>选中序号为奇数的元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:odd")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:eq(i)</td>
+            <td>选中第i个元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:eq(2)")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:gt(i)</td>
+            <td>选中第i个之后元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:gt(2)")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:lt(i)</td>
+            <td>选中第i个之前元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:lt(2)")</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <br />
+</div>
+<div class="card">
+    <h3 id="h3-6">例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    $tags('p,span,li').addClass('font1');
+    $t('input[type=checkbox]').attr('checked', false);
+    $t('table.tab1//p.tips').hide();
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_ajax">
+<h2>_ajax(conf)</h2>
+<div class="card">
+    <p>以<b>AJAX</b>方式请求一个远程页面。请求按指定配置进行。关于AJAX的知识请自行参考W3C文档。</p>
+    <table class="tab">
+        <colgroup>
+            <col />
+            <col />
+            <col style="min-width: 30em;" />
+            <col />
+        </colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>以AJAX方式请求一个远程页面。</td>
+            <td>无</td>
+            <td>
+                <ul class="code">
+                    <li>_ajax({url: 'service.asp'})</li>
+                    <li>_ajax({url: 'data.xml', onsuccess: bindData })</li>
+                    <li>_ajax({url: 'service.php', method:'POST', data: 'number=3&color=red', onsuccess: showResult, onerror: showError })</li>
+                </ul>
+            </td>
+            <td>
+                <p>
+                    <span><b>conf：</b>http请求的各项参数配置，默认值为：</span>
+                    { url: '#',
+                    <br />
+                    method: 'GET',
+                    <br />
+                    data: '',
+                    <br />
+                    async: true,
+                    <br />
+                    timeout: 15000,
+                    <br />
+                    ontimeout: noop, 
+                    <br />
+                    headers: [{ name: 'Content-Type', value: 'application/x-www-form-urlencoded' }], 
+                    <br />
+                    onsuccess: noop,
+                    <br />
+                    onerror: noop }。<br />
+                    <span>指定的conf值将会与默认值合并后再使用。</span>
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3>参数conf详细说明</h3>
+    <ol>
+        <li><b>url：</b><span>请求页面的url路径。类型为String。</span></li>
+        <li><b>method：</b><span>http请求方式。类型为String。通常取值为'GET'、'POST'、'HEAD'、...，缺省值为'GET'。</span></li>
+        <li><b>data：</b><span>请求页面时提交的数据。通常赋值为string类型的HTML表单数据，格式为编码过的url路径的页面参数部分（即查询字符串部分）。</span></li>
+        <li><b>async：</b><span>指定请求是否以异步方式进行。类型为boolean。缺省值为true。</span></li>
+        <li><b>timeout：</b><span>请求页面的响应超时时间（毫秒）。类型为number。缺省值为15000。</span></li>
+        <li><b>ontimeout：</b><span>超时后触发的方法。用于绑定XMLHttpRequest（以下简称xhr对象）的ontimeout事件监听器。</span></li>
+        <li><b>headers：</b><span>http请求的header。类型为Array。缺省值为<i class="code">[{ name: 'Content-Type', value: 'application/x-www-form-urlencoded' }]</i>。修改此处（或添加新header值）可能需要同时修改上文中参数data的值，以便匹配POST数据的类型。</span></li>
+        <li><b>onsuccess：</b><span>成功得到响应后触发的方法。类型为function。此函数用在xhr的onreadystatechange事件中处理readyState==4的状态（即“请求已完成，且响应已就绪”状态）。调用此function时传递一个参数如：<i class="code">{ status: xhr.status, response: xhr.response, type: xhr.responseType, xml: xhr.responseXML, text: xhr.responseText, body: xhr.responseBody }</i>。您可以自己实现此function来处理页面响应结果。</span></li>
+        <li><b>onerror：</b><span>出现网络层级的错误时触发的方法。类型为function。用于绑定xhr对象的onerror事件监听器。</span></li>
+    </ol>
+    <br />
+</div>
+<br />
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+var getUrl = '/data/201601.xml',
+    postUrl = '/service/action.xml?method=1',
+    data = _format('id={0}&data={1}', 1, encodeURIComponent('这是提交的数据内容XXX。')),
+    success = function (xhr) {
+        switch(xhr.status) {
+            case 200:
+                return $e('div1').innerHTML = _format('页面请求成功，页面内容：{0}。', xhr.responseText);
+            case 404:
+                return $e('div1').innerHTML = '页面未找到。';
+            case 500:
+                return $e('div1').innerHTML = '服务器端内部服务错误。';
+            default:
+                return $e('div1').innerHTML = _format('页面请求失败。状态码：{0}，返回文本：{1}。', xhr.status, xhr.responseText);
+        }
+    },
+    timeout = function () {
+        $e('div1').innerHTML = '页面请求超时！';
+    },
+    error = function () {
+        $e('div1').innerHTML = '网络错误！';
+    },
+    btnGet_click = function (evt) {
+        $e('div1').innerHTML = _format('正在加载页面{0}...', getUrl);
+        _ajax({url: getUrl, ontimeout: timeout, onerror: error, onsuccess: success });
+    },
+    btnPost_click = function (evt) {
+        $e('div1').innerHTML = _format('正在加载页面{0}...', postUrl);
+        _ajax({url: postUrl, method: 'POST', data: data, ontimeout: timeout, onerror: error, onsuccess: success });
+    };
+$e('btnGet').bind('click', btnGet_click);
+$e('btnPost').bind('click', btnPost_click);
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_format">
+<h2>_format(format, ...)</h2>
+<div class="card">
+    <p>用一组输入值填充一个字符串模板，得到一个新字符串。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>格式化一个字符串</td>
+            <td>字符串</td>
+            <td><ul class="code"><li>_format('Count:{0},Date:{1}.', count, now)</li></ul></td>
+            <td>
+                <p><b>format：</b>字符串模板，使用'{0}'，'{1}'，...，'{n}'分别表示第一个参数，第二个参数，...，第n个参数。</p>
+                <p><b>...：</b>填入模板用到的参数值，类型不限，非string类型会自动隐式转换为字符串。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var format = '这是{0}内的文本.现在时间是：{1}.',
+        id0 = 'div0', 
+        id1 = 'div1';
+    $e(id0).innerHTML = _format(format, id0, new Date());
+    $e(id1).innerHTML = _format(format, id1, new Date());
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_htmlDecode">
+<h2>_htmlDecode(str, mode)</h2>
+<div class="card">
+    <p>解码用于HTML源文档的纯文本。即将文本中被替换为<b>HTML实体</b>的保留字符还原回来。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:24em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>解码用于html源文档的纯文本</td>
+            <td>字符串</td>
+            <td><ul class="code">
+                <li>_htmlDecode('&amp;lt;script&amp;gt;')</li>
+                <li>_htmlDecode($e('txtArea1').value)</li>
+                <li>_htmlEncode($e('p1').innerHTML, 1)</li>
+                </ul></td>
+            <td>
+                <p><b>参数str：</b>将被解码的纯文本。</p>
+                <p><b>参数mode：</b>数值类型，接受0，1，2，3四种模式。缺省值为0。
+                    <p>模式0将还原5个名称码<i class="code">&amp;amp; &amp;quot; &amp;apos; &amp;lt; &amp;gt;</i>为5个保留字符<i class="code">& " ' &lt; &gt;</i>。</p>
+                    <p>模式1将采用HTML纯文本节点进行转换。</p>
+                    <p>模式2还原3个名称码<i class="code">&amp;amp; &amp;quot; &amp;lt; </i>为3个保留字符<i class="code">& " &lt; </i>。</p>
+                    <p>模式3将还原5个编号码<i class="code">&amp;amp; &amp;quot; &amp;apos; &amp;lt; &amp;gt;</i>为5个保留字符<i class="code">& " ' &lt; &gt;</i>。</p>
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnHtmlDecode_click(evt) {
+    var mode = parseInt($e('*rbMode').value);
+    $e('txtArea').value = _htmlDecode($e('txtArea').value, mode);
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_htmlEncode">
+<h2>_htmlEncode(str, mode)</h2>
+<div class="card">
+    <p>编码用于HTML源文档的纯文本。HTML保留字符将会替换为可被浏览器解析的代码。</p>
+    <table class="tab">
+        <colgroup><col style="width:6em;"/><col style="width:4em;"/><col style="min-width:23em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>编码用于html源文档的纯文本</td>
+            <td>字符串</td>
+            <td><ul class="code">
+                <li>_htmlEncode('if a &gt; b or a &lt; c...')</li>
+                <li>_htmlEncode($e('txtArea1').value)</li>
+                <li>_htmlEncode($e('div1').innerHTML, 1)</li>
+                </ul></td>
+            <td>
+                <p><b>参数str：</b>将被编码的纯文本。</p>
+                <p><b>参数mode：</b>数值类型，接受0，1，2，3四种模式。缺省值为0。
+                    <p>模式0将替换5个保留字符 <i class="code">& " ' &lt; &gt;</i>为实体名<i class="code">&amp;amp; &amp;quot; &amp;apos; &amp;lt; &amp;gt;</i>。</p>
+                    <p>模式1将采用HTML纯文本节点进行转换。</p>
+                    <p>模式2将替换3个保留字符 <i class="code">&lt; & "</i>为实体名<i class="code">&amp;amp; &amp;quot; &amp;lt; </i>。</p>
+                    <p>模式3将替换5个保留字符 <i class="code">& " ' &lt; &gt;</i>为实体编号<i class="code">&amp;#38; &amp;#34; &amp;#39; &amp;#60; &amp;#62;</i>。</p>
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnHtmlEncode_click(evt) {
+    var mode = parseInt($e('*rbMode').value);
+    $e('txtArea').value = _htmlEncode($e('txtArea').value, mode);
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_merge">
+<h2>_merge(obj0, obj1, ..., objN)</h2>
+<div class="card">
+    <p>创建一个新对象，并且复制所有参数对象的属性到这个对象中。复制规则如下：</p>
+    <ul class="rules">
+        <li>仅object类型可复制，其它类型将被忽略；</li>
+        <li>复制将按顺序进行，有同名的属性时，后一个参数会覆盖前一个；</li>
+        <li>原有对象不会被改变；</li>
+        <li>仅复制属性名和值，忽略方法。</li>
+    </ul>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:18em;" /><col/></colgroup>
+        <tr>
+            <th>功能</Th>
+            <th>返回值</Th>
+            <th>例子</Th>
+            <th>参数</Th>
+        </tr>
+        <tr>
+            <td>创建一个新对象，并且合并所有参数对象的属性到这个对象中。</td>
+            <td>object</td>
+            <td><ul class="code">
+                <li>var d = _merge(a, b, c);</li>
+                <li>var d = _merge(a, b, c);</li></ul></td>
+            <td>
+                <p><b>a0, a1, ..., aN</b>用于合并属性的对象.</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+        function btnTest_click(evt) {
+            var a = {a: 'a0', b: 'b0'},
+                b = {b: 'b1'},
+                c = {b: 'b2', c: 'c2'}
+            var d = _merge(a, null, b, c);
+            console.info(JSON.stringify(d));
+        }          
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_new">
+<h2>_new(html)</h2>
+<div class="card">
+    <p>在文档中创建一个新元素，并将其包装为de对象。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:23em;" /><col/></colgroup>
+        <tr>
+            <th>功能</Th>
+            <th>返回值</Th>
+            <th>例子</Th>
+            <th>参数</Th>
+        </tr>
+        <tr>
+            <td>在文档中创建一个新元素，并将其包装为de对象。</td>
+            <td>de对象</td>
+            <td><ul class="code"><li>$e("&lt;p class='bd1'&gt;")</li><li>$e("&lt;div&gt;", top.document)</li></ul></td>
+            <td>
+                <p><b>html：</b>元素的开始标签的HTML字符串。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var p1 = _new("&lt;p id='p1' style='background-color:#ccc;'&gt;");
+    $e('div1').appendChild(p1);
+}        
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="_url2Object">
+<h2>_url2Object(url)</h2>
+<div class="card">
+    <p>将一个URL路径字符串转换为一个自定义的Object类型的对象。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>将一个URL路径字符串转换为一个自定义的Object类型的对象</td>
+            <td>Object对象，形如{ url: '', filePath: '', fileDir: '', fileName: '', fileShortName: '', fileExt: '', query: '', queryValue: fn, params: null, hasParam: fn };
+            </td>
+            <td><ul class="code"><li>_url2Object(document.location.href)</li><li>_url2Object($e('img0').src)</li></ul></td>
+            <td>
+                <p><b>参数url：</b>url字符串。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>返回值详细说明</h3>
+    <p>返回值对象定义有以下属性与方法：</p>
+    <ol>
+        <li><b>url：</b>string类型，源URL，通常是完整的路径。</li>
+        <li><b>filePath：</b>string类型，URL的文件路径部分。</li>
+        <li><b>fileDir：</b>string类型，URL的目录部分。</li>
+        <li><b>fileName：</b>string类型，URL的文件名部分，含扩展名。</li>
+        <li><b>fileShortName：</b>string类型，URL的文件名部分，不含扩展名。</li>
+        <li><b>fileExt：</b>string类型，URL的文件名的扩展名。含点号"."。</li>
+        <li><b>query：</b>string类型，URL的查询字符串（也称为页面参数）部分。</li>
+        <li><b>queryValue：</b>function类型，返回值为字符串，定义为 function queryValue(name){...}，功能是：根据页面参数名，取得页面参数值。如果参数名不存在则返回undefined.</li>
+        <li><b>params：</b>Array类型，保存了一组与查询参数一致的name-value对象。</li>
+        <li><b>hasParam：</b>function类型，返回值为 boolean类型，定义为 function hasParam(name){...}，功能是：判断页面参数名是否存在。</li>
+    </ol>
+</div>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var path = _url2Object(document.location.href);
+    $e(&#39;p0&#39;).innerHTML = _format(&#39;filePath = {0}&#39;, path.filePath);
+    $e('p0').innerHTML += _format(&#39;fileDir = {0}&#39;, path.fileDir); 
+    $e('p0').innerHTML += _format(&#39;fileName = {0}&#39;, path.fileName); 
+    $e('p0').innerHTML += _format(&#39;fileShortName = {0}&#39;, path.fileShortName); 
+    $e('p0').innerHTML += _format(&#39;fileExt = {0}&#39;, path.fileExt); 
+    $e('p0').innerHTML += _format(&#39;query = {0}&#39;, path.query); 
+    $e('p0').innerHTML += _format(&#39;&amp;id = {0}&#39;, path.queryValue(&#39;id&#39;)); 
+    $e('p0').innerHTML += _format(&#39;hasParam(&#39;name&#39;) = {0}&#39;, path.hasParam(&#39;name&#39;)); 
+}
+</pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="document.path">
+<h2>document.path</h2>
+<div class="card">
+    <p>使用_url2Object(document.location.href)转换而来的一个Object对象。对象说明见下文：</p>
+    <h3>path对象详细说明</h3>
+    <ol>
+        <li><b>url：</b>string类型，源URL，通常是完整的路径。</li>
+        <li><b>filePath：</b>string类型，URL的文件路径部分。</li>
+        <li><b>fileDir：</b>string类型，URL的目录部分。</li>
+        <li><b>fileName：</b>string类型，URL的文件名部分，含扩展名。</li>
+        <li><b>fileShortName：</b>string类型，URL的文件名部分，不含扩展名。</li>
+        <li><b>fileExt：</b>string类型，URL的文件名的扩展名。</li>
+        <li><b>query：</b>string类型，URL的文件名的查询字符串（也称为页面参数）部分。</li>
+        <li><b>queryValue：</b>function类型，返回值为字符串，定义为 function queryValue(name){}，参数name是string类型，指定页面参数名。功能是：根据页面参数名，取得页面参数值。如果参数名不存在则返回undefined.</li>
+        <li><b>params：</b>Array类型，保存了一组与查询参数一致的name-value对象。</li>
+        <li><b>hasParam：</b>function类型，返回值为 boolean类型，定义为 function hasParam(name){}，参数name是string类型，指定页面参数名。功能是：判断页面参数名是否存在。</li>
+    </ol>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    $e(&#39;p0&#39;).innerHTML = _format(&#39;filePath = {0}&#39;, document.path.filePath);
+    $e('p0').innerHTML += _format(&#39;fileDir = {0}&#39;, document.path.fileDir); 
+    $e('p0').innerHTML += _format(&#39;fileName = {0}&#39;, document.path.fileName); 
+    $e('p0').innerHTML += _format(&#39;fileShortName = {0}&#39;, document.path.fileShortName); 
+    $e('p0').innerHTML += _format(&#39;fileExt = {0}&#39;, document.path.fileExt); 
+    $e('p0').innerHTML += _format(&#39;query = {0}&#39;, document.path.query); 
+    $e('p0').innerHTML += _format(&#39;&amp;id = {0}&#39;, document.path.queryValue(&#39;id&#39;)); 
+    $e('p0').innerHTML += _format(&#39;hasParam(&#39;name&#39;) = {0}&#39;, document.path.hasParam(&#39;name&#39;)); 
+}
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="document.ready">
+<h2>document.ready(fn)</h2>
+<div class="card">
+    <p>在文档加载完成时调用指定的函数。</p>
+    <p>多次使用此方法指定不同的函数时可以按顺序调用这些函数。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:32em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>在文档加载完成时调用指定的函数。</td>
+            <td>无</td>
+            <td><ul class="code"><li>document.ready(onload)</li><li>document.ready(function() { alert('Ready!') })</li></ul></td>
+            <td>
+                <p><b>参数fn：</b>function类型，被调用的函数，无参数。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function onLoaded() {
+    $e('div1').innerHTML = '这是div1内的文本';
+}
+document.ready(onLoaded);
+</pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.addClass">
+<h2>de.addClass(name)</h2>
+<div class="card">
+    <p>给元素添加一个样式类。效果等同于修改特性<b>class</b>的值或者属性className的值。已有的类名不会重复添加。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>给元素添加一个样式类</td>
+            <td>de对象自身。</td>
+            <td><ul class="code"><li>$e('div1').addClass('effect1')</li>
+                <li>$e('button1').addClass('highlight1')</li>
+                </ul></td>
+            <td>
+                <p><b>参数name：</b>样式类的名称，string类型。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.append">
+<h2>de.append(el)</h2>
+<div class="card">
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>给元素添加一个子节点(即子元素)。</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code">
+                <li>$e('div1').append(p1)</li>
+                <li>$e('div1').append($e('p2'))</li>
+                <li>$e('div1').append($e("&lt;p id='p3'&gt;"))</li>                    
+                </ul></td>
+            <td>
+                <p><b>el：</b>一个HTML文档元素。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<p>给元素添加一个子元素。即在元素的childNodes数组尾部追加一个新节点。</p>
+<br />
+</script>
+    
+<script type="text/text" id="de.attr">
+<h2>de.attr(name, value) </h2>
+<div class="card">
+    <p>获取<b>特性</b>值，或者给特性赋值。</p>
+    <p><b>特性：</b>本文档中“特性”（英文Attribute）有别于“属性”（英文Property），前者对应元素的HTML标签，后者指javascript对象中的属性。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>序号</th>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>获取特性值</td>
+            <td>string, number, 或者 boolean。</td>
+            <td><ul class="code"><li>$e('button1').attr('title')</li>
+                <li>$e('checkbox1').attr('checked')</li>
+                <li>$e('div1').attr('custom_data')</li>
+                </ul></td>
+            <td>
+                <p><b>参数name：</b>特性名称，string类型。</p>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>给特性赋值</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('button1').attr('title', '点击执行x方法')</li>
+                <li>$e('checkbox1').attr('checked', false)</li>
+                <li>$e('div1').attr('custom_data', custom_data)</li>
+                </ul></td>
+            <td>
+                <p><b>参数name：</b>特性名称，string类型。</p>
+                <p><b>参数value：</b>特性值，string, number, 或者 boolean类型。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.bind">
+<h2>de.bind(name, fn)</h2>
+<div class="card">
+    <p>将指定的函数绑定为文档元素的一个事件，使得该元素触发此事件时能调用指定的函数。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>将指定的函数绑定为文档元素的一个事件</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('button1').bind('click', btn_click)</li></ul></td>
+            <td>
+                <p><b>name：</b>事件名称。string类型。注意没有'on'作为前缀。</p>
+                <p><b>fn：</b>触发事件时调用的函数。function类型。函数传递一个window.event对象作为参数。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    alert('event.type=' + evt.type);
+}
+$e('btnTest').unbind('click', btnTest_click);
+</pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.css">
+<h2>de.css(name, value)</h2>
+<div class="card">
+    <p>给元素的某个样式赋值，或者获取元素的某个当前样式的值。即给style特性添加一个值，或者获取currentStyle的某个值。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>序号</th>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>给元素的某个样式赋值</td>
+            <td>object类型</td>
+            <td><ul class="code"><li>$e('div1').css('color')</li>
+                <li>$e('div1').css('width')</li>
+                </ul></td>
+            <td>
+                <p><b>name：</b>样式名，string类型。</p>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>获取元素的某个当前样式的值</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('div1').css('color', 'red')</li>
+                <li>$e('div1').css('backgroundColor', '#ccc')</li>
+                </ul></td>
+            <td>
+                <p><b>参数name：</b>样式名，string类型。</p>
+                <p><b>参数value：</b>string类型。样式值。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.hide">
+<h2>de.hide()</h2>
+<div class="card">
+    <p>隐藏元素。效果等同于设置style.display的值为'none'。即可以用de.css('display', 'none')或者de.style.display = 'none'代替。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:24em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>隐藏元素</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('div1').hide()</li>
+                </ul></td>
+            <td>
+                无
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.html">
+<h2>de.html(str)</h2>
+<div class="card">
+    <p>获取或设置文档元素的起始和结束标签内的 HTML字符串。等同于获取或设置文档元素的innerHTML值。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>序号</th>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>获取innerHTML属性值</td>
+            <td>一个HTML格式的字符串</td>
+            <td><ul class="code"><li>$e('div1').html()</li>
+                </ul></td>
+            <td>
+                无
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>给innerHTML属性赋值</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('div1').html('&lt;p&gt;这是div1的文本。&lt;/p&gt;')</li>
+                </ul></td>
+            <td>
+                <p><b>参数str：</b>string类型。一个HTML格式的字符串。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.insert">
+<h2>de.insert(node, n)</h2>
+<div class="card">
+    <p>在元素的第n个子元素之前插入一个新元素。注意：许多元素有隐式的文本节点子元素。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>在元素的子节点(即子元素)中插入一个新节点</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code">
+                <li>$e('div1').insert($e('p2'), 0)</li>
+                <li>$e('div1').insert($e("&lt;p id='p3'&gt;"), 1)</li>                    
+                </ul></td>
+            <td>
+                <p><b>参数node：</b>新元素，element（文档元素）类型。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.parent">
+<h2>de.parent(specifies)</h2>
+<div class="card">
+    <p>获取符合特征的第一个父元素。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:24em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>获取符合特征的第一个父元素。</td>
+            <td>de文档元素</td>
+            <td><ul class="code"><li>$e('a1').parent('div.menu')</li>
+                </ul></td>
+            <td>
+                <p><b>参数specifies：</b>标签特征字符串组合，string类型。由一个或多个<b>标签特征字符串</b>组成，多个标签特征字符串用逗号“<span>,</span>”隔开，满足其中一个特征即可被选中。详细可参阅<a href="?de.tags">tags(specifies)</a>中的部分章节。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var form = $e('txtName').parent('form.form1');
+    form.submit();
+    //...
+}
+    </pre>
+</div>
+</script>
+    
+<script type="text/text" id="de.pos">
+<h2>de.pos()</h2>
+<div class="card">
+    <p>获取元素在文档显示区中的绝对位置。需要该元素和它的祖先都有明确的位置。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:24em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>获取元素在文档显示区中的绝对位置</td>
+            <td>一个形如{ x: 0, y: 0 }的Object。</td>
+            <td><ul class="code"><li>$e('div1').pos('title')</li>
+                </ul></td>
+            <td>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    var pos = $e('button1').pos();
+    $e('div1').style.left = pos.x + 'px';
+    $e('div1').style.top = pos.y + 'px';
+    $e('div1').show();
+}
+    </pre>
+</div>
+</script>
+    
+<script type="text/text" id="de.removeAttr">
+<h2>de.removeAttr(name)</h2>
+<div class="card">
+    <p>移除特性，包括名称和值。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>移除特性</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('button1').removeAttr('title')</li>
+                <li>$e('checkbox1').removeAttr('checked')</li>
+                <li>$e('div1').removeAttr('custom_name')</li>
+                </ul></td>
+            <td>
+                <p><b>参数name：</b>特性名称。string类型。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+</script>
+    
+<script type="text/text" id="de.removeClass">
+<h2>de.removeClass(name)</h2>
+<div class="card">
+    <p>移除元素的一个样式类。效果等同于修改属性<b>className</b>的值。重复的类名将仅移除第一个。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>移除元素的一个样式类</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('div1').removeClass('effect1')</li>
+                <li>$e('button1').removeClass('highlight1')</li>
+                </ul></td>
+            <td>
+                <p><b>参数name：</b>样式类名，string类型。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.show">
+<h2>de.show()</h2>
+<div class="card">
+    <p>显示元素。效果等同于修改style.display的值。根据默认元素类型，会设置为'block','inline-block','inline','TABLE'..等值。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:24em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>显示元素</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('div1').show()</li>
+                </ul></td>
+            <td>
+                无
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.tags">
+<h2>de.tags(specifies)</h2>
+<div class="card">
+    <p>在元素的HTML标签内部按标签特征选择一组元素，并将其包装为de文档元素数组。</p>
+    <p><b>注意：</b> 不支持de数组的tags方法。如$t('div').tags('p')，$e('div1').tags('p').tags('span')都会出错。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:24em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>在元素的HTML标签内部按标签特征选择一组元素，并将其包装为de文档元素数组。</td>
+            <td>de文档元素数组。</td>
+            <td>
+                <ul class="code">
+                    <li>$e(document.body).tags('p,li,td,th')</li>
+                    <li>$e('div1').tags('div.block')</li>
+                    <li>$e('div1').tags('div.block/p//strong')</li>
+                    <li>$e('div1').tags("img[src*='/upload/']")</li>
+                    <li>$e('form1').tags('input.txt0[type=password]')</li>
+                    <li>$e('form1').tags('input[type=radio,name='radioGroup1']')</li>
+                    <li>$e('form1').tags("input[id^=txt],textarea[id^=txt]")</li>
+                    <li>$e('form1').tags("input[type=hidden]:eq(2)")</li>
+                    <li>$e('form1').tags("(a|button).btn")</li>
+                    <li>$e('form1').tags("(a|button|input.btn)[name]")</li>
+                </ul>
+            </td>
+            <td>
+                <p><b>参数specifies：</b>标签特征字符串组合，string类型。由一个或多个<b>标签特征字符串</b>组成，多个标签特征字符串用逗号“<span>,</span>”隔开，满足其中一个特征即可被选中。详细见下文。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<div class="card">
+    <h3 id="h3-0">参数specifies</h3>
+    <p>标签specifies组合，string类型。由一个或多个<b>标签specifies</b>组成。多个标签specifies用逗号“<span>,</span>”隔开。多个标签特征字符串时，满足其中一个特征即可被选中。</p>
+    <p>一个包含所有部分的specifies格式（所有实例都是它的简化版本）可用以下范式来描述：</p>
+    <p class="code">tag0.class0[expr01, ..., expr0N]:pseudoClass0/tag1.class1[expr11, ..., expr1N]:pseudoClass1/.../tagM.classM[exprM1, ..., exprMN]:pseudoClassM, ...</p>
+    <p>表示多个标签有相同特征时可使用竖线分隔符'|'和一对括号：</p>
+    <p class="code">.../(tag0|tag1|tag2).class0[expr0, ..., exprN]:pseudoClass0, ...</p>
+</div>
+<div class="card">
+    <h3 id="h3-1">分层符</h3>
+    <p><b>分层符</b>共有4个：“/”、“//”、“\”、“\\”，用于表示标签间的层次关系。用于多层specifies。其中“/”、“\”表示左右两个标签间隔一层，即互为直接父子节点，“//”、“\\”表示两个标签间隔一层或多层，即为高低级关系即可。以下为例子：</p>
+    <ul class="code">
+        <li>div/p/span</li>
+        <li>form/div.group1/input[type=submit]</li>
+        <li>div.content//table.tab0</li>
+    </ul>
+    <p>这里建议<span class="red">使用反斜杠取代斜杠</span>以免出现javascript转义字符问题。</p>
+</div>
+<div class="card">
+    <h3 id="h3-2">单层标签specifies</h3>
+    <p>一个完整的单层标签specifies由4部分连接而成：标签名、类名、<b>特性表达式组</b>、伪类选择器。</p>
+    <p class="code">tag.class[expr0, ..., exprN]:pseudoClass</p>
+    <p>表示多个标签有相同特征时可使用竖线分隔符'|'和一对括号（不支持嵌套）：</p>
+    <p class="code">(tag0|tag1|...).class0[expr0, ..., exprN]:pseudoClass0</p>
+    <p class="code">(tag0|tag1.class0| ...).class1[expr0, ..., exprN]:pseudoClass0</p>
+    <p>特性表达式组可由一个或多个<b>特性表达式</b>组成，多个表达式由逗号“，”分隔。</p>
+    <ul class="rules">
+        <li>标签名不分大小写。</li>
+        <li>类名大小写敏感，须精确书写。</li>
+        <li>标签名必须给出，其他部分可省略。</li>
+        <li>类名前面须带点号“.”。</li>
+        <li>特性表达式组用中括号包裹。</li>
+        <li>伪类选择器作用于最后得到的数组。</li>
+        <li>多个特性表达式时，每一个表达式都成立才能选中。</li>
+    </ul>
+    <p>例子：</p>
+    <ul class="code">
+        <li>table</li>
+        <li>table.tab0</li>
+        <li>input.btn[type='button']</li>
+        <li>input.cb[type='checkbox',id*='color']</li>
+        <li>ul.lst/li:last</li>
+    </ul>
+</div>
+<div class="card">
+    <h3 id="h3-3">特性表达式</h3>
+    <p>特性表达式分3部分：特性名，<b>关系运算符</b>，字符串常量。3部分首尾连接组成一个完整表达式，用于判断特性是否存在，并且特性值与字符串常量之间的关系是否正确。</p>
+    <p class="code">AttributeName &lt;Operator&gt; StringValue</p>
+    <ul class="rules">
+        <li>特性名不分大小写。</li>
+        <li>表达式可以仅包含特性名部分，此时用于判断特性名是否存在。</li>
+        <li>关系运算符左右两边可以留空格也可以不留。</li>
+        <li>字符串常量可以用单引号或者双引号包裹。当字符串常量中出现空格、逗号、关系运算符符号等保留字符时则必须要用引号包裹。</li>
+        <li>特性名className等同于class，可互相代替使用。</li>
+    </ul>
+    <p>例子：</p>
+    <ul class="code">
+        <li>input[type=button]</li>
+        <li>a[src $= '.gif']</li>
+        <li>(input, textarea)[id ^= 'txt']</li>
+        <li>select[name *= "color"]</li>
+        <li>a[className ~= 'focus']</li>
+        <li>a[href]</li>
+    </ul>
+</div>
+<div class="card">
+    <h3 id="h3-4">关系运算符</h3>
+    <p>特性表达式接受以下6种关系运算符，表格说明如下：</p>
+    <table class="tab">
+        <tr>
+            <th>符号</th>
+            <th>含义</th>
+            <th>例子</th>
+        </tr>
+        <tr>
+            <td>=</td>
+            <td rowspan="2">等于</td>
+            <td rowspan="2">
+                <ul class="code">
+                    <li>[type = radio]</li>
+                    <li>[type == radio]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>==</td>
+        </tr>
+        <tr>
+            <td>*=</td>
+            <td>包含有</td>
+            <td>
+                <ul class="code">
+                    <li>[src *= &#39;upload&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>~=</td>
+            <td>不包含有</td>
+            <td>
+                <ul class="code">
+                    <li>[id ~= &#39;code&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>$=</td>
+            <td>尾部字符等于</td>
+            <td>
+                <ul class="code">
+                    <li>[name $= &#39;email&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>^=</td>
+            <td>头部字符等于</td>
+            <td>
+                <ul class="code">
+                    <li>[id ^= &#39;txt&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>!=</td>
+            <td>不等于</td>
+            <td>
+                <ul class="code">
+                    <li>[name != &#39;email&#39;]</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <br />
+</div>
+<div class="card">
+    <h3 id="h3-5">伪类选择器</h3>
+    <p>共有以下几个伪类，表格说明如下：</p>
+    <table class="tab">
+        <tr>
+            <th>名称</th>
+            <th>含义</th>
+            <th>例子</th>
+        </tr>
+        <tr>
+            <td>:first</td>
+            <td>选中首个元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("input:first")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:last</td>
+            <td>选中最后一个元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("input:first")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:even</td>
+            <td>选中序号为偶数的元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:even")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:odd</td>
+            <td>选中序号为奇数的元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:odd")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:eq(i)</td>
+            <td>选中第i个元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:eq(2)")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:gt(i)</td>
+            <td>选中第i个之后元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:gt(2)")</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>:lt(i)</td>
+            <td>选中第i个之前元素</td>
+            <td>
+                <ul class="code">
+                    <li>$t("tr:lt(2)")</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <br />
+</div>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    $e(document.body).tags('p,span,li').addClass('font1');
+    $e('form1').tags('input[type=checkbox]').attr('checked', false);
+    $e('div1').tags('table.tab1//p.tips:last').hide();
+};
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.text">
+<h2>de.text(str)</h2>
+<div class="card">
+    <p>获取文档元素起始和结束标签内纯文本值，或者设置文档元素的起始和结束标签内文本。</p>
+    <p>在一些浏览器中等同于获取或设置innerText值，另一些浏览器中等同于获取或设置textContent值。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>序号</th>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>获取元素起始和结束标签内纯文本值</td>
+            <td>string类型</td>
+            <td><ul class="code"><li>$e('div1').text()</li>
+                </ul></td>
+            <td>
+                无
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>设置元素的起始和结束标签内文本</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('div1').text('这是div1的文本。')</li>
+                </ul></td>
+            <td>
+                <p><b>参数str：</b>纯文本</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.unbind">
+<h2>de.unbind(name, fn)</h2>
+<div class="card">
+    <p>将指定的函数从文档元素的事件绑定中解除，使得此函数不再被该元素的事件触发并调用。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:26em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>将指定的函数从文档元素的事件绑定中解除</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('button1').unbind('click', btn_click)</li></ul></td>
+            <td>
+                <p><b>name：</b>事件名称，string类型，注意没有'on'作为前缀。</p>
+                <p><b>fn：</b>触发事件时调用的函数，function类型。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+function btnTest_click(evt) {
+    alert('event.type=' + evt.type);
+}
+$e('btnTest').bind('click', btnTest_click);
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.val">
+<h2>de.val(value)</h2>
+<div class="card">
+    <p>获取value属性值，或者给value属性赋值。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>序号</th>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>获取value属性值</td>
+            <td>string类型</td>
+            <td><ul class="code"><li>$e('input1').val()</li>
+                <li>$e('txtArea1').val()</li>
+                </ul></td>
+            <td>
+                无
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>给value属性赋值</td>
+            <td>de文档元素。即自身。</td>
+            <td><ul class="code"><li>$e('input1').val('这是一个字符串值abc.')</li>
+                <li>$e('checkbox1').val(1)</li>
+                </ul></td>
+            <td>
+                <p><b>参数value：</b>string, number, 或者 boolean类型。</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="de.value">
+<h2>deArray.value 属性</h2>
+<div class="card">
+    <p>获取de对象数组的"表单值"，即value属性的值。假如元素有checked属性（如checkbox或者radio），则仅获取checked='True'的元素的值。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:28em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>获取de对象数组的"表单值"，即value属性的值</td>
+            <td>string类型</td>
+            <td><ul class="code"><li>$e('*checkbox').value</li>
+                <li>$e('form1').tags('input[type=radio]').value</li>
+                </ul></td>
+            <td>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Array.each">
+<h2>Array.each(fn)</h2>
+<div class="card">
+    <p>循环访问数组中的每一个元素并且传递3个参数来运行一个指定的函数。这3个参数依次是索引号，元素，数组。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>循环数组中的每一个元素</td>
+            <td>无</td>
+            <td><ul class="code"><li>$e('*checkbox').each(function (i, cb) {...})</li>
+                <li>$e('form1').tags('input.cb').each(function (i, cb, arr) {...})</li>
+                </ul></td>
+            <td>
+                <p><b>fn：</b>调用的函数，function类型。函数传递三个参数，依次是索引号，元素，数组。</p>
+            </td>
+        </tr>
+    </table>
+</div><br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+'red blue yellow black white'.split(' ').each(function (i, e) {
+    $e('p0').innerHTML += _format('第{0}种颜色为{1}&lt;br&gt;', i, e);
+});
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Array.includes">
+<h2>Array.includes(e)</h2>
+<div class="card">
+    <p>判断数组中是否存在一个对象或值。如果数组中存在类型与值都相同的对象即返回true，否则返回false。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+        <tr>
+            <th>功能</th>
+            <th>返回值</th>
+            <th>例子</th>
+            <th>参数</th>
+        </tr>
+        <tr>
+            <td>判断数组中是否存在一个对象或值</td>
+            <td>boolean类型</td>
+            <td><ul class="code"><li>arr0.includes('red')</li>
+                <li>arr1.includes(7)</li>
+                <li>arr2.includes(false)</li>
+                <li>nodes.indexOf(node1)</li>
+                </ul></td>
+            <td>
+                <p><b>e：</b>任意类型</p>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<div class="card">
+    <h3>例子</h3>
+    <pre class="code">
+var colors = 'red blue yellow black white'.split(' ');
+$e(document.body).tags('div.color').each(function  (i, e) {
+    var color = e.id.replace('div_', '');
+    e.css('display', colors.includes(color) ? 'block' : 'none');
+});
+    </pre>
+</div>
+<br />
+</script>
+    
+<script type="text/text" id="Array.indexOf">
+<h2>Array.indexOf(e)</h2>
+<div class="card">
+    <p>获取一个对象或值在数组中的首次出现位置。类型与值都相同的两个对象将视为相等。</p>
+    <table class="tab">
+        <colgroup><col /><col /><col style="min-width:30em;" /><col/></colgroup>
+      
