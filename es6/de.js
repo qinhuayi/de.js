@@ -522,11 +522,7 @@ Date.prototype.diff = function(part, date) {
                 return values;
             };
             elements.value = getValue(arr);
-            elements.each = fn => {
-                for (let el of elements) {
-                    typeof fn === 'function' && fn(i, el);
-                }
-            };
+            elements.each = fn => elements.forEach((el, i) => typeof fn === 'function' && fn(i, el));
             return elements;
         },        
         _tags = (e, specifies) => {
