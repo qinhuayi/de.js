@@ -43,6 +43,9 @@
         var t2 = function () {
             return (arr = $t('div.doc')) && arr.length == 1 && arr[0].className == 'doc';
         };
+        var t2_1 = function () {
+            return (arr = $t('a.a-1-2')) && arr.length == 2 && arr[0].className.includes('a-1-2') && (arr = $t('a.#+-3')) && arr.length == 1 && arr[0].className.includes('#+-3');
+        };
         var t3 = function () {
             return (arr = $t('a[id]')) && arr.length == 3 && arr[0].id == 'a0';
         };
@@ -141,7 +144,7 @@
         var t31 = function () {
             return (arr = $t('(a.link1|img)[id]')) && arr.length == 5 && arr[0].id == 'a0' && arr[4].id == 'img1' && (arr = $t('div.doc//(a.link1|img)[id],textarea')) && arr.length == 6 && arr[0].id == 'a0' && arr[5].id == 'txtArea';
         };
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31]);
+        return this.Test([t0, t1, t2, t2_1, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31]);
     },
     "_ajax": function (idoc, divOut, span) {
         var t0 = function () {
@@ -318,7 +321,7 @@
             return typeof document.path.hasParam == 'function' && document.path.hasParam('id') == path.hasParam('id');
         };
         var t9 = function () {
-            return typeof document.path.params == typeof [] && document.path.params.length == 1 && document.path.params[0].name == 'id' && path.params[0].name == 'id' && path.params[0].value == 5;
+            return typeof document.path.params == typeof [] && document.path.params.length >= 1 && document.path.params[0].name == 'id' && path.params[0].name == 'id' && path.params[0].value == 5;
         };
         return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9]);
     },
