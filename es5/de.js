@@ -576,7 +576,7 @@ Date.prototype.diff = function (part, date) {
                                     return arr;
                             }
                         };
-                    if (/^(\\?\w+|\\?\(\w+(?:\.\w+)?(?:\|\w+(?:\.\w+)?)*\))(\.\w+)?(\[[^\]]+\])?(\:(?:first|last|even|odd|(?:eq|gt|lt)\(-?\d+\)))?$/ig.test(trim(lspec))) {
+                    if (/^(\\?\w+|\\?\(\w+(?:\.[\w#+-]+)?(?:\|\w+(?:\.[\w#+-]+)?)*\))(\.[\w#+-]+)?(\[[^\]]+\])?(\:(?:first|last|even|odd|(?:eq|gt|lt)\(-?\d+\)))?$/ig.test(trim(lspec))) {
                         var deep = RegExp.$1.charAt(0) == '\\',
                             tags = RegExp.$1.substr(deep ? 1 : 0).replace('(', '').replace(')', '').split('|'),
                             className = !!RegExp.$2 ? RegExp.$2.replace('.', '') : '',

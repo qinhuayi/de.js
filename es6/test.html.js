@@ -32,6 +32,7 @@
         };
         const t1 = () => (arr = $t('h1,h2')) && arr.length == 3;
         const t2 = () => (arr = $t('div.doc')) && arr.length == 1 && arr[0].className == 'doc';
+        const t2_1 = () => (arr = $t('a.a-1-2')) && arr.length == 2 && arr[0].className.includes('a-1-2') && (arr = $t('a.#+-3')) && arr.length == 1 && arr[0].className.includes('#+-3');
         const t3 = () => (arr = $t('a[id]')) && arr.length == 3 && arr[0].id == 'a0';
         const t4 = () => {
             let rs = (arr = $t('a[id=a1]')) && arr.length == 1 && arr[0].id == 'a1';
@@ -87,7 +88,7 @@
         const t30 = () => (arr = $t('(a|img).link1[id]')) && arr.length == 3 && arr[0].id == 'a0' && (arr = $t('div.doc//(a|img).link1[id],textarea')) && arr.length == 4 && arr[0].id == 'a0' && arr[3].id == 'txtArea';
         const t31 = () => (arr = $t('(a.link1|img)[id]')) && arr.length == 5 && arr[0].id == 'a0' && arr[4].id == 'img1' && (arr = $t('div.doc//(a.link1|img)[id],textarea')) && arr.length == 6 && arr[0].id == 'a0' && arr[5].id == 'txtArea';
 
-        return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31]);
+        return this.Test([t0, t1, t2, t2_1, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31]);
     }
 
     _ajax(idoc, divOut, span) {
@@ -204,7 +205,7 @@
         const t6 = () => document.path.query === path.query;
         const t7 = () => typeof document.path.queryValue == 'function' && document.path.queryValue('id') == path.queryValue('id');
         const t8 = () => typeof document.path.hasParam == 'function' && document.path.hasParam('id') == path.hasParam('id');
-        const t9 = () => typeof document.path.params == typeof [] && document.path.params.length == 1 && document.path.params[0].name == 'id' && path.params[0].name == 'id' && path.params[0].value == 6;
+        const t9 = () => typeof document.path.params == typeof [] && document.path.params.length >= 1 && document.path.params[0].name == 'id' && path.params[0].name == 'id' && path.params[0].value == 6;
         return this.Test([t0, t1, t2, t3, t4, t5, t6, t7, t8, t9]);
     }
 
